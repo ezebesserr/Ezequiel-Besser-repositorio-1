@@ -1,9 +1,11 @@
 ---
 name: crear-pagina
-description: Crea o rediseña la página web de un comercio o pyme (muestra gratis o sitio final) con el estilo del taller, y la revisa en compu y celular. Usar cuando pidan "armá la web de…", "hacé la muestra para…", "rediseñá la página de…", una landing o una web de muestra para un rubro.
+description: Crea o rediseña la página web de un comercio o pyme (muestra gratis o sitio final) a partir de la identidad real del local, para que no parezca hecha por IA, y la revisa en compu y celular. Usar cuando pidan "armá la web de…", "hacé la muestra para…", "rediseñá la página de…", una landing o una web de muestra para un rubro.
 ---
 
 # Crear una página
+
+La regla de oro está en `creador/diseno/preferencias.md`: cada web sale de lo que el local ya es y no puede parecer hecha por IA. El estilo y los colores se deciden con cada negocio.
 
 ## 1. Juntar el material
 
@@ -12,16 +14,32 @@ description: Crea o rediseña la página web de un comercio o pyme (muestra grat
 - Completá `clientes/<negocio>/brief.md` copiando `creador/plantilla-brief.md`. Si falta algo importante (horarios, WhatsApp), preguntalo antes de inventarlo.
 - Elegí el paquete según `creador/negocio/precios.md`: Esencial (una página), Completa (hasta 5) o Catálogo.
 
-## 2. Decidir el diseño
+## 2. Sacar la identidad del local
 
-- Leé `creador/diseno/preferencias.md` (manda) y la sección del rubro en `creador/diseno/rubros.md`.
-- Definí en el `:root` del CSS de 4 a 6 colores (sacados del logo o del local), 2 tipografías de Google Fonts y un comentario de una línea con la idea del layout.
-- Elegí **un detalle propio del rubro**: en la ferretería son el tablero perforado y las etiquetas de papel madera. Eso es lo que hace que no parezca una plantilla.
-- Referencia de calidad y estructura: `muestras/ferreteria/index.html`. Reutilizá su estructura, no su estética.
+```bash
+python3 .claude/skills/crear-pagina/scripts/identidad.py <url-de-su-web> <carpeta-temporal>
+python3 .claude/skills/crear-pagina/scripts/identidad.py foto-del-cartel.jpg logo.png
+```
 
-## 3. Construir
+Devuelve los colores de su logo e imágenes, una paleta sugerida con el contraste revisado y datos reales para los textos (nombre, años de trayectoria, secciones). Si la web no muestra nada o no tiene marca, pedí fotos del cartel, la fachada o el logo.
 
-Carpeta: `clientes/<negocio>/`, o `muestras/<rubro>/` si es una muestra con un negocio inventado. Un `index.html` y las imágenes en `img/` (JPG o WebP, menos de 300 KB cada una, todas con `alt`).
+Con eso, escribí en el brief:
+
+- **Tres palabras de personalidad** (por ejemplo: «de barrio, rápido, de confianza»).
+- **De dónde sale la paleta**: un objeto real del local (logo, cartel, toldo, bolsas).
+- **De dónde salen las letras**: su cartel, su logo o la época del local. Nunca las letras prohibidas de `preferencias.md`.
+- **El elemento firma del oficio** (ideas en `creador/diseno/rubros.md`).
+- **Tres datos que solo este local tiene** (desde cuándo está, un producto propio, la esquina).
+
+Revisá `creador/diseno/identidades-usadas.md`: no repitas paleta, letras ni elemento firma de otro cliente.
+
+## 3. Tres direcciones
+
+Armá tres portadas distintas (solo la primera pantalla, en compu y celular), cada una con su personalidad, paleta, letras y elemento firma, y una línea que explique de dónde sale. Mostralas como página privada (Artifact) o en `clientes/<negocio>/direcciones.html` con `noindex`. Que el usuario elija una (o la elija el cliente) antes de hacer la página completa.
+
+## 4. Construir
+
+Carpeta: `clientes/<negocio>/`, o `muestras/<rubro>/` si es una muestra con un negocio inventado. Un `index.html` y las imágenes en `img/` (JPG o WebP, menos de 300 KB cada una, todas con `alt`). La estructura de `muestras/ferreteria/index.html` sirve de referencia; la estética, no.
 
 Secciones base (adaptalas al rubro):
 
@@ -34,6 +52,8 @@ Secciones base (adaptalas al rubro):
 7. Pie con los datos de contacto en texto.
 8. En el celular, barra fija abajo con WhatsApp y Llamar.
 
+Variá la composición entre clientes: no todas las portadas centradas ni todas las grillas de tres tarjetas. Cada bloque se diseña según lo que es (un horario parece un horario, una carta parece una carta).
+
 Obligatorio en el `<head>`: `<html lang="es">`, `title` (negocio · rubro · barrio), `meta description`, viewport, Open Graph (`og:title`, `og:description` y `og:image` con URL absoluta) y, en negocios reales, JSON-LD `LocalBusiness` con los datos verdaderos.
 
 Contacto:
@@ -42,18 +62,20 @@ Contacto:
 - Teléfono: `tel:+5411XXXXXXXX`.
 - En las muestras inventadas, los botones no llaman a nadie: muestran un aviso de que en la web real abrirían el WhatsApp o el teléfono.
 
-Textos: español rioplatense, voseo, frases cortas. Sin "soluciones integrales" ni "líderes del mercado". Contenido real, nunca inventado (ver `CLAUDE.md`).
+Textos: español rioplatense, frases cortas, con los datos y las palabras del local. Nada de las frases prohibidas de `preferencias.md`. Contenido real, nunca inventado (ver `CLAUDE.md`).
 
-## 4. Revisar
+## 5. Revisar
 
 ```bash
 node .claude/skills/crear-pagina/scripts/revisar.js clientes/<negocio>/index.html <carpeta-temporal> --og clientes/<negocio>/og.jpg
 ```
 
 - Corregí todo lo que aparezca en PROBLEMAS y pensá cada AVISO.
-- Mirá las dos capturas (`escritorio.jpg` y `celular.jpg`) una vez y arreglá lo que se vea mal.
+- **DISEÑO GENÉRICO** tiene que decir «no se detectó nada». Si marca algo, cambialo.
+- Mirá las dos capturas (`escritorio.jpg` y `celular.jpg`) y hacé la prueba de `preferencias.md`: si tapo el nombre, ¿se entiende de qué local es?
 - Sitio final: sin `noindex`, sin links a "#", y con WhatsApp y teléfono reales.
 
-## 5. Entregar
+## 6. Entregar y anotar
 
-Commit en la rama de trabajo y push. Mostrá las capturas del antes y el después, y el link donde va a quedar (skill `publicar`).
+- Sumá una fila en `creador/diseno/identidades-usadas.md`.
+- Commit en la rama de trabajo y push. Mostrá las capturas del antes y el después, y el link donde va a quedar (skill `publicar`).

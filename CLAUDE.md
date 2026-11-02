@@ -11,7 +11,7 @@ Hablá en español rioplatense, directo y sin vueltas. La persona con la que tra
 | `index.html` | Página personal de clases particulares, publicada en GitHub Pages. No la toques salvo que te lo pidan. |
 | `muestras/<rubro>/` | Webs de muestra con negocios inventados, para mostrar como trabajo propio. Referencia de calidad: `muestras/ferreteria/`. |
 | `clientes/<negocio>/` | Muestras y sitios de negocios reales, uno por carpeta, con su `brief.md`. |
-| `creador/diseno/` | Cómo queremos los diseños (`preferencias.md`, manda sobre todo lo demás) y qué lleva cada rubro (`rubros.md`). |
+| `creador/diseno/` | Cómo queremos los diseños (`preferencias.md`, manda sobre todo lo demás), qué lleva cada rubro (`rubros.md`) y las identidades ya usadas (`identidades-usadas.md`). |
 | `creador/negocio/` | Perfil de quien firma, precios y condiciones. |
 | `creador/plantilla-brief.md` | Plantilla para juntar los datos de cada negocio. |
 | `.claude/skills/` | Las skills del taller. |
@@ -20,7 +20,7 @@ Hablá en español rioplatense, directo y sin vueltas. La persona con la que tra
 
 - **buscar-clientes**: encuentra negocios con webs viejas o rotas y arma la lista con capturas, zona y contacto.
 - **mensajes-y-precios**: escribe los mensajes (WhatsApp, mail, llamada, seguimiento) y los presupuestos.
-- **crear-pagina**: arma la muestra o el sitio final de un negocio con el estilo del taller, y lo revisa.
+- **crear-pagina**: saca la identidad real del local, propone tres direcciones, arma la muestra o el sitio final y lo revisa (incluido el detector de diseño genérico).
 - **publicar**: publica en GitHub Pages o Cloudflare Pages, genera la imagen para compartir, conecta el dominio y entrega.
 
 ## Flujo de trabajo
@@ -35,6 +35,7 @@ Hablá en español rioplatense, directo y sin vueltas. La persona con la que tra
 
 ## Reglas fijas
 
+- **Que no parezca hecho por IA.** El estilo y los colores se deciden con cada local y salen de su identidad real: logo, cartel, fachada, oficio y barrio. Seguí la regla de oro de `creador/diseno/preferencias.md` y no muestres nada que el detector de `revisar.js` marque como genérico.
 - **Stack**: HTML, CSS y JavaScript puros, sin frameworks ni build. Un `index.html` por sitio y sus imágenes al lado. El único recurso externo permitido es Google Fonts.
 - **Primero el celular.** Antes de mostrar cualquier página, pasala por `node .claude/skills/crear-pagina/scripts/revisar.js` y mirá las capturas.
 - **Contenido real.** Usá lo que hay en la web vieja del negocio, en sus redes o lo que nos pasen. Nunca inventes reseñas, premios, años de trayectoria, precios, teléfonos ni direcciones de un negocio real. Si falta un dato, dejá un marcador visible y avisá.
