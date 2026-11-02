@@ -1,0 +1,5 @@
+# GitHub Pages: los archivos del taller no se publican como páginas
+exclude:
+  - CLAUDE.md
+  - README.md
+  - creador

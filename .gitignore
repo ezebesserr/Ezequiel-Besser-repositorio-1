@@ -1,0 +1,6 @@
+# Datos de prospección y archivos temporales: nunca al repo público
+.prospectos/
+revision/
+__pycache__/
+*.pyc
+node_modules/
