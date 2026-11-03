@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Papel Nort · tres direcciones de portada · Martínez</title>
+<meta name="description" content="Tres propuestas de portada para la web de Papel Nort Martínez, para elegir una antes de armar la página completa.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Jost:wght@400;500;700&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Kalam:wght@400;700&family=Chivo:wght@400;700;900&family=Patrick+Hand&display=swap">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#2a2a2a;color:#111;font:16px/1.5 system-ui,sans-serif}
+.rotulo{color:#eee;font:600 14px/1.4 system-ui,sans-serif;padding:28px 20px 10px;max-width:1280px;margin:0 auto}
+.rotulo b{color:#fff;font-size:18px;display:block}
+.dir{min-height:760px;position:relative;overflow:hidden}
+a{color:inherit}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;text-decoration:none;font-weight:700}
+
+/* ===== A · Lápiz-búho ===== */
+#a{background:#fff;font-family:'Jost',sans-serif;color:#161616}
+#a header{display:flex;align-items:center;gap:14px;padding:18px 48px;border-bottom:3px solid #161616}
+#a .marca{display:flex;align-items:center;gap:10px;text-decoration:none}
+#a .marca b{font:800 30px/1 'Baloo 2',sans-serif;letter-spacing:-.5px}
+#a .marca small{display:block;font:500 12px/1 'Jost';letter-spacing:.08em;text-transform:uppercase;color:#c0542a;margin-top:2px}
+#a nav{margin-left:auto;display:flex;gap:26px;font-weight:500}
+#a nav a{text-decoration:none}
+#a .estado{font-weight:700;font-size:14px;border:2px solid #161616;padding:6px 12px;border-radius:999px;display:flex;align-items:center;gap:8px}
+#a .estado i{width:10px;height:10px;border-radius:50%;background:#2f9e44}
+#a .heroA{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;padding:56px 48px 0;position:relative}
+#a .sello{display:inline-block;background:#f2d533;font-weight:700;padding:4px 10px;font-size:15px;transform:rotate(-1.5deg)}
+#a h1{font:800 66px/1.02 'Baloo 2',sans-serif;letter-spacing:-1.5px;margin:18px 0 18px}
+#a h1 em{font-style:normal;color:#c0542a}
+#a p.bajada{font-size:20px;max-width:34em}
+#a .acc{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+#a .acc .btn{background:#161616;color:#f2d533;border-radius:6px}
+#a .acc .btn.sec{background:transparent;color:#161616;box-shadow:inset 0 0 0 2px #161616}
+#a .cable{position:absolute;left:0;right:0;bottom:118px;height:180px;pointer-events:none}
+#a .lapiz{position:absolute;left:-40px;bottom:30px;width:calc(100% + 40px);height:64px}
+#a .dato{position:absolute;right:48px;bottom:42px;font-weight:700;font-size:15px;background:#fff;padding:2px 8px}
+
+/* ===== B · Cuaderno y resaltador ===== */
+#b{--tinta:#1c2d6b;--linea:rgba(64,118,206,.30);--margen:#e0474c;font-family:'Bricolage Grotesque',sans-serif;color:var(--tinta);
+  background:linear-gradient(90deg,transparent 70px,var(--margen) 70px,var(--margen) 72px,transparent 72px,transparent 76px,var(--margen) 76px,var(--margen) 77px,transparent 77px),
+  repeating-linear-gradient(180deg,#fdfdfb 0 33px,var(--linea) 33px 34px);}
+#b header{display:flex;align-items:flex-end;gap:18px;padding:22px 48px 0 104px;height:102px}
+#b .marca{font:800 34px/1 'Bricolage Grotesque';font-stretch:80%;letter-spacing:-.5px;text-decoration:none}
+#b nav{margin-left:auto;display:flex;gap:4px;align-self:flex-start}
+#b nav a{text-decoration:none;font-weight:600;padding:30px 14px 10px;border-radius:0 0 6px 6px;font-size:15px}
+#b nav a:nth-child(1){background:#ffe45c}#b nav a:nth-child(2){background:#ff9fcf}#b nav a:nth-child(3){background:#a6f28f}#b nav a:nth-child(4){background:#ffbe73}
+#b .heroB{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;padding:34px 48px 40px 104px}
+#b h1{font:800 70px/1.0 'Bricolage Grotesque';font-stretch:78%;letter-spacing:-1px;margin-bottom:22px}
+#b mark{background:linear-gradient(100deg,transparent 2%,var(--m,#ffeb3b) 4%,var(--m,#ffeb3b) 96%,transparent 98%) 0 62%/100% 58% no-repeat;color:inherit;padding:0 .08em}
+#b .rosa{--m:#ff9fcf}#b .verde{--m:#a6f28f}
+#b p.bajada{font-size:20px;line-height:34px;max-width:32em}
+#b .nota{font:700 22px/1.2 'Kalam',cursive;color:var(--margen);position:absolute;left:12px;top:212px;width:56px;transform:rotate(-8deg);text-align:center}
+#b .acc{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+#b .acc .btn{background:var(--tinta);color:#fff;border-radius:3px}
+#b .acc .btn.sec{background:#ffe45c;color:var(--tinta)}
+#b .lista{background:#fff;border:1px solid #d6dbe6;box-shadow:4px 6px 0 rgba(28,45,107,.12);padding:22px 24px 18px;transform:rotate(1.2deg);align-self:start;margin-top:6px}
+#b .lista h2{font:700 26px/1 'Kalam';margin-bottom:10px}
+#b .lista li{list-style:none;display:flex;gap:10px;align-items:baseline;font-size:17px;padding:5px 0;border-bottom:1px dashed #cfd6e6}
+#b .lista li svg{flex:none;width:18px;height:18px;transform:translateY(3px)}
+
+/* ===== C · Etiqueta escolar y papel glasé ===== */
+#c{background:#1f4fbf;font-family:'Chivo',sans-serif;color:#fff}
+#c header{display:flex;align-items:center;gap:20px;padding:20px 48px}
+#c .marca{font:900 28px/1 'Chivo';letter-spacing:.02em;text-transform:uppercase;text-decoration:none}
+#c nav{margin-left:auto;display:flex;gap:24px;font-weight:700}
+#c nav a{text-decoration:none}
+#c .heroC{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:40px 48px 60px;align-items:center}
+#c h1{font:900 64px/1.0 'Chivo';letter-spacing:-1.5px;margin-bottom:22px}
+#c p.bajada{font-size:20px;max-width:30em;color:#e6ecff}
+#c .acc{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+#c .acc .btn{background:#ffd21f;color:#111;border-radius:4px}
+#c .acc .btn.sec{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px #fff}
+#c .etiq{background:#fff;color:#1b1b1b;border-radius:22px;border:6px solid #e2332c;padding:0 0 18px;position:relative;box-shadow:0 0 0 6px #fff;transform:rotate(-2deg);max-width:520px;justify-self:end;width:100%}
+#c .etiq .tope{background:#e2332c;color:#fff;font:900 30px/1 'Chivo';text-transform:uppercase;letter-spacing:.04em;padding:16px 24px 14px;border-radius:14px 14px 0 0}
+#c .etiq dl{padding:6px 24px 0}
+#c .etiq div{display:flex;gap:10px;align-items:baseline;border-bottom:2px solid #c9d2e8;padding:12px 0 4px}
+#c .etiq dt{font:700 14px/1 'Chivo';text-transform:uppercase;letter-spacing:.06em;color:#6a738a;flex:none;width:78px}
+#c .etiq dd{font:400 27px/1.1 'Patrick Hand',cursive;color:#1f4fbf}
+#c .glase{position:absolute;right:-30px;bottom:-40px;display:flex;gap:0}
+#c .glase span{width:120px;height:120px;display:block;margin-left:-40px;box-shadow:-3px 0 0 rgba(0,0,0,.08)}
+
+@media (max-width:760px){
+  .dir{min-height:0}
+  #a header,#b header,#c header{padding-left:16px;padding-right:16px}
+  #a nav,#b nav,#c nav{display:none}
+  #a .heroA{grid-template-columns:1fr;padding:30px 16px 210px}
+  #a h1{font-size:44px}
+  #a p.bajada,#b p.bajada,#c p.bajada{font-size:18px}
+  #a .cable{bottom:96px;height:130px}
+  #a .dato{right:16px;bottom:16px;font-size:13px}
+  #a .estado{margin-left:auto}
+  #a .lapiz{bottom:46px}
+  #b{background:linear-gradient(90deg,transparent 30px,var(--margen) 30px,var(--margen) 32px,transparent 32px),repeating-linear-gradient(180deg,#fdfdfb 0 33px,var(--linea) 33px 34px)}
+  #b header{padding:16px 16px 0 44px;height:70px}
+  #b .heroB{grid-template-columns:1fr;padding:20px 16px 40px 44px;gap:28px}
+  #b h1{font-size:46px}
+  #b .nota{display:none}
+  #c .heroC{grid-template-columns:1fr;padding:20px 16px 120px}
+  #c h1{font-size:44px}
+  #c .etiq{justify-self:stretch}
+  #c .etiq dd{font-size:23px}
+  #c .glase span{width:80px;height:80px;margin-left:-26px}
+}
+</style>
+</head>
+<body>
+
+<p class="rotulo"><b>A · Lápiz-búho</b>Sale de su logo: el búho de Koruya, que es pin de mapa y punta de lápiz a la vez. Óxido, amarillo lápiz y grafito. Letras redondas y pesadas como su logotipo (Baloo 2) y geométricas como su web (Jost, parecida a la Century Gothic). Firma: el cable con palomas de su banner y un lápiz que marca la dirección.</p>
+<section class="dir" id="a">
+  <header>
+    <a class="marca" href="#a">
+      <svg width="40" height="54" viewBox="0 0 80 108" aria-hidden="true"><path d="M40 4C18 4 4 20 4 40c0 18 12 30 18 44l18 22 18-22c6-14 18-26 18-44C76 20 62 4 40 4Z" fill="#c0542a" stroke="#161616" stroke-width="4"/><path d="M14 40c0-12 12-20 26-12 14-8 26 0 26 12 0 12-12 22-26 22S14 52 14 40Z" fill="#161616"/><circle cx="29" cy="40" r="9" fill="none" stroke="#f2d533" stroke-width="4"/><circle cx="51" cy="40" r="9" fill="none" stroke="#f2d533" stroke-width="4"/><circle cx="31" cy="38" r="3" fill="#f2d533"/><circle cx="53" cy="38" r="3" fill="#f2d533"/><path d="M36 52l4 8 4-8Z" fill="#f2d533"/><path d="M22 84c4-4 8 4 12 0s8 4 12 0 8 4 12 0l-18 22Z" fill="#f2d533"/><path d="M34 98l6 8 6-8Z" fill="#161616"/></svg>
+      <span><b>Papel Nort</b><small>Librerías Koruya</small></span>
+    </a>
+    <nav><a href="#a">Rubros</a><a href="#a">Horarios</a><a href="#a">Sucursales</a><a href="#a">Contacto</a></nav>
+    <span class="estado"><i></i>Abierto hasta las 20</span>
+  </header>
+  <div class="heroA">
+    <div>
+      <span class="sello">Librería escolar, comercial y artística</span>
+      <h1>Diez rubros en <em>300 m²</em>, en el centro de Martínez.</h1>
+      <p class="bajada">Útiles, escritura, artística, informática, embalaje, hogar, gastronomía, regalería y Navidad. Hipólito Yrigoyen 141, entre Tres Sargentos e Italia.</p>
+      <div class="acc"><a class="btn" href="tel:+541140069977">Llamar 4006-9977</a><a class="btn sec" href="#a">Cómo llegar</a></div>
+    </div>
+  </div>
+  <svg class="cable" viewBox="0 0 1280 180" preserveAspectRatio="none" aria-hidden="true"><path d="M0 120 Q640 175 1280 112" fill="none" stroke="#161616" stroke-width="3"/></svg>
+  <svg class="lapiz" viewBox="0 0 1320 64" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"><rect x="0" y="6" width="1150" height="52" fill="#f2d533"/><rect x="0" y="6" width="1150" height="10" fill="#ffe66b"/><rect x="0" y="48" width="1150" height="10" fill="#d9b81f"/><path d="M1150 6 L1262 32 L1150 58Z" fill="#e8c9a0"/><path d="M1150 6 Q1158 19 1150 32 Q1158 45 1150 58" fill="#f2d533"/><path d="M1232 25 L1262 32 L1232 39Z" fill="#161616"/><text x="1080" y="38" text-anchor="end" font-family="Jost" font-weight="700" font-size="15" letter-spacing="3" fill="#161616">PAPEL NORT · MARTÍNEZ · HB</text></svg>
+  <span class="dato">Hipólito Yrigoyen 141 ←</span>
+</section>
+
+<p class="rotulo"><b>B · Cuaderno y resaltador</b>Sale de lo que más muestran en su web: resaltadores Stabilo Boss en todos los colores y repuestos rayados Éxito. Hoja rayada con margen rojo, tinta de birome azul y los datos clave marcados con resaltador. Letras: Bricolage Grotesque angosta, con notas en el margen a mano (Kalam). Firma: la lista de útiles tachada.</p>
+<section class="dir" id="b">
+  <span class="nota">desde 9 hs</span>
+  <header>
+    <a class="marca" href="#b">Papel Nort</a>
+    <nav><a href="#b">Rubros</a><a href="#b">Horarios</a><a href="#b">Sucursales</a><a href="#b">Contacto</a></nav>
+  </header>
+  <div class="heroB">
+    <div>
+      <h1>Todo lo de la <mark>lista de útiles</mark>, y la oficina también.</h1>
+      <p class="bajada">Librería escolar, universitaria y comercial, con artística, embalaje e insumos de informática. En <mark class="verde">Hipólito Yrigoyen 141, Martínez</mark>, de lunes a viernes de 9 a 20 y los sábados de <mark class="rosa">9 a 19:30</mark>.</p>
+      <div class="acc"><a class="btn" href="tel:+541140069977">Llamar 4006-9977</a><a class="btn sec" href="#b">Ver cómo llegar</a></div>
+    </div>
+    <div class="lista">
+      <h2>Lista de útiles</h2>
+      <ul>
+        <li><svg viewBox="0 0 18 18"><path d="M2 10l4 4 10-12" fill="none" stroke="#e0474c" stroke-width="2.4" stroke-linecap="round"/></svg>Librería escolar y universitaria</li>
+        <li><svg viewBox="0 0 18 18"><path d="M2 10l4 4 10-12" fill="none" stroke="#e0474c" stroke-width="2.4" stroke-linecap="round"/></svg>Escritura y archivo</li>
+        <li><svg viewBox="0 0 18 18"><path d="M2 10l4 4 10-12" fill="none" stroke="#e0474c" stroke-width="2.4" stroke-linecap="round"/></svg>Artística</li>
+        <li><svg viewBox="0 0 18 18"><path d="M2 10l4 4 10-12" fill="none" stroke="#e0474c" stroke-width="2.4" stroke-linecap="round"/></svg>Accesorios de informática</li>
+        <li><svg viewBox="0 0 18 18"><path d="M2 10l4 4 10-12" fill="none" stroke="#e0474c" stroke-width="2.4" stroke-linecap="round"/></svg>Embalaje comercial e industrial</li>
+        <li><svg viewBox="0 0 18 18"><path d="M2 10l4 4 10-12" fill="none" stroke="#e0474c" stroke-width="2.4" stroke-linecap="round"/></svg>Hogar, gastronomía, regalería y Navidad</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<p class="rotulo"><b>C · Etiqueta escolar y papel glasé</b>Sale de la vuelta al cole: la etiqueta de nombre que va en cada cuaderno y los colores planos del papel glasé. Fondo azul, etiqueta roja y amarilla, datos escritos "a mano" (Patrick Hand) sobre títulos Chivo muy negros. Firma: la etiqueta llena con los datos del local.</p>
+<section class="dir" id="c">
+  <header>
+    <a class="marca" href="#c">Papel Nort</a>
+    <nav><a href="#c">Rubros</a><a href="#c">Horarios</a><a href="#c">Sucursales</a><a href="#c">Contacto</a></nav>
+  </header>
+  <div class="heroC">
+    <div>
+      <h1>La librería del centro de Martínez.</h1>
+      <p class="bajada">Escolar, universitaria y comercial. Artística, escritura, informática y embalaje. Diez rubros en 300 m², a una cuadra de Av. Santa Fe.</p>
+      <div class="acc"><a class="btn" href="tel:+541140069977">Llamar 4006-9977</a><a class="btn sec" href="#c">Cómo llegar</a></div>
+    </div>
+    <div class="etiq">
+      <div class="tope">Papel Nort</div>
+      <dl>
+        <div><dt>Nombre</dt><dd>Librería y papelera</dd></div>
+        <div><dt>Grado</dt><dd>10 rubros · 300 m²</dd></div>
+        <div><dt>Escuela</dt><dd>Hipólito Yrigoyen 141</dd></div>
+        <div><dt>Horario</dt><dd>L a V 9–20 · Sáb 9–19:30</dd></div>
+      </dl>
+    </div>
+  </div>
+  <div class="glase" aria-hidden="true"><span style="background:#ffd21f"></span><span style="background:#e2332c"></span><span style="background:#18a058"></span><span style="background:#fff"></span></div>
+</section>
+
+</body>
+</html>
