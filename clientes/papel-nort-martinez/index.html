@@ -127,7 +127,9 @@
   @media (max-width:419px){.estado .det{display:none}.marca b{font-size:24px}.marca small{font-size:10px}}
 
   /* ===== Portada ===== */
-  .portada{position:relative;overflow:hidden;padding:44px 0 214px}
+  .portada{position:relative;padding:44px 0 214px}
+  .portada>.w{position:relative;z-index:2}
+  .deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
   @media (min-width:900px){.portada{padding:54px 0 196px}}
   .sello{display:inline-block;background:var(--lapiz);font-weight:700;padding:4px 10px;font-size:15px;transform:rotate(-1.5deg)}
   .portada h1{font-size:clamp(44px,6.6vw,80px);line-height:.98;margin:18px 0 20px;max-width:11.5em}
@@ -135,6 +137,10 @@
   .bajada{font-size:clamp(18px,2vw,21px);max-width:34em}
   .bajada b{font-weight:700}
   .acciones{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .btn.link{background:none;color:var(--grafito);text-decoration:underline;text-underline-offset:4px;padding:0 6px}
+  .portada .tels-menu{top:calc(100% + 8px);bottom:auto;z-index:60}
+  .llamar summary .flecha{width:16px;height:16px;transition:transform .2s}
+  .llamar[open] summary .flecha{transform:rotate(180deg)}
   .contacto-corto{margin-top:18px;font-size:15.5px;color:var(--tinta)}
   .contacto-corto a{font-weight:700}
   .cable{position:absolute;left:0;bottom:84px;height:200px;width:100%;pointer-events:none}
@@ -156,9 +162,10 @@
   .caja ol{list-style:none}
   .caja li{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;padding:9px 24px 9px 0}
   @media (min-width:900px){.caja li{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px;align-items:center}}
-  .lp{display:flex;height:48px;width:max(var(--largo,100%),300px);max-width:100%;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35))}
+  .lp{text-decoration:none;display:flex;height:48px;width:max(var(--largo,100%),300px);max-width:100%;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35))}
   .lp .cu{flex:1;min-width:0;background:var(--c);color:var(--t,#fff);display:flex;align-items:center;gap:10px;padding:0 10px 0 18px;font:800 18px/1 'Baloo 2',sans-serif;padding-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     background-image:linear-gradient(180deg,rgba(255,255,255,.22) 0 18%,transparent 18% 82%,rgba(0,0,0,.16) 82%)}
+  a.lp:hover .cu{filter:brightness(1.07)}
   .lp .cu small{font:700 12px/1 'Jost',sans-serif;letter-spacing:.16em;opacity:.85}
   .lp .pu{width:54px;flex:none;background:linear-gradient(90deg,var(--madera) 0 64%,var(--c) 64%);clip-path:polygon(0 0,100% 50%,0 100%)}
   @media (min-width:900px){.lp .cu{padding-left:24px;font-size:19px}.lp .pu{width:62px}}
@@ -270,7 +277,7 @@
     <nav class="menu" aria-label="Secciones">
       <a href="#rubros">Rubros</a><a href="#sucursales">Sucursales</a><a href="#comprar">Cómo comprar</a><a href="#preguntas">Preguntas</a>
     </nav>
-    <a class="btn tienda-btn" href="http://www.papelnort.net/">Tienda online</a>
+    <a class="btn tienda-btn" href="catalogo/">Catálogo</a>
     <a class="estado" id="estado" href="#sucursales"><i></i><span class="txt">5 sucursales</span></a>
   </div>
 </header>
@@ -282,14 +289,27 @@
       <h1>Diez rubros y <em>cinco sucursales</em> en zona norte.</h1>
       <p class="bajada">Útiles, escritura, artística, informática, embalaje, hogar, gastronomía, regalería y Navidad. En el centro de Martínez, con 300&nbsp;m² en <b>Hipólito Yrigoyen 141</b>, y en San Isidro, Acassuso, Victoria y Lomas de San Isidro.</p>
       <div class="acciones">
-        <a class="btn" href="#sucursales"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/></svg>Sucursales y horarios</a>
-        <a class="btn sec" href="http://www.papelnort.net/">Tienda online</a>
+        <details class="llamar">
+          <summary class="btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg>Llamar<svg class="flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="tels-menu">
+          <span class="tit">¿A qué sucursal?</span>
+          <a href="tel:+541140069977">Martínez <b>4006-9977</b></a>
+          <a href="tel:+541147436577">San Isidro <b>4743-6577</b></a>
+          <a href="tel:+541147333218">Acassuso <b>4733-3218</b></a>
+          <a href="tel:+541152904417">Lomas de San Isidro <b>5290-4417</b></a>
+          <span class="fila">Victoria <span class="pendiente">dato a confirmar</span></span>
+        </div>
+        </details>
+        <a class="btn sec" href="catalogo/">Ver el catálogo</a>
+        <a class="btn link" href="#sucursales">Sucursales y horarios</a>
       </div>
       <p class="contacto-corto">Consultas a <a href="mailto:contacto@papelnort.com">contacto@papelnort.com</a>, de lunes a viernes de 8 a 18. WhatsApp: <span class="pendiente">dato a confirmar</span></p>
     </div>
 
-    <svg class="cable" viewBox="0 0 2400 200" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"><path d="M0 120 Q1200 200 2400 110" fill="none" stroke="#161616" stroke-width="3"/><g transform="translate(1975 136.5) scale(1.15 1.15)" fill="#2b2b2e"><path d="M14 -4C4 -4 -2 -10 -1 -18C0 -24 6 -28 12 -29C14 -36 19 -40 25 -39C30 -38 32 -34 30 -30L35 -28L30 -27C34 -20 33 -11 27 -6C23 -3 19 -4 14 -4ZM3 -11L-14 -3L-1 -6Z"/><path d="M12 -5v5M17 -5v5" stroke="#2b2b2e" stroke-width="2"/></g><g transform="translate(2095 130.1) scale(-1.1 1.1)" fill="#2b2b2e"><path d="M14 -4C4 -4 -2 -10 -1 -18C0 -24 6 -28 12 -29C14 -36 19 -40 25 -39C30 -38 32 -34 30 -30L35 -28L30 -27C34 -20 33 -11 27 -6C23 -3 19 -4 14 -4ZM3 -11L-14 -3L-1 -6Z"/><path d="M12 -5v5M17 -5v5" stroke="#2b2b2e" stroke-width="2"/></g><g transform="translate(2165 126.0) scale(1.2 1.2)" fill="#2b2b2e"><path d="M14 -4C4 -4 -2 -10 -1 -18C0 -24 6 -28 12 -29C14 -36 19 -40 25 -39C30 -38 32 -34 30 -30L35 -28L30 -27C34 -20 33 -11 27 -6C23 -3 19 -4 14 -4ZM3 -11L-14 -3L-1 -6Z"/><path d="M12 -5v5M17 -5v5" stroke="#2b2b2e" stroke-width="2"/></g><g transform="translate(2246.0 1.3) scale(1.1)"><path d="M40 4C18 4 4 20 4 40c0 18 12 30 18 44l18 22 18-22c6-14 18-26 18-44C76 20 62 4 40 4Z" fill="#c0542a" stroke="#161616" stroke-width="4"/><path d="M14 40c0-12 12-20 26-12 14-8 26 0 26 12 0 12-12 22-26 22S14 52 14 40Z" fill="#161616"/><circle cx="29" cy="40" r="9" fill="none" stroke="#f2d533" stroke-width="4"/><circle cx="51" cy="40" r="9" fill="none" stroke="#f2d533" stroke-width="4"/><circle cx="31" cy="38" r="3" fill="#f2d533"/><circle cx="53" cy="38" r="3" fill="#f2d533"/><path d="M36 52l4 8 4-8Z" fill="#f2d533"/><path d="M22 84c4-4 8 4 12 0s8 4 12 0 8 4 12 0l-18 22Z" fill="#f2d533"/><path d="M34 98l6 8 6-8Z" fill="#161616"/><path d="M52 8c6-6 16-6 22 0" fill="none" stroke="#161616" stroke-width="3"/></g></svg>
-    <div class="lapiz-grande" aria-hidden="true"><div class="cuerpo"><span class="solo-pc">PAPEL NORT · MARTÍNEZ · SAN ISIDRO · ACASSUSO · VICTORIA · LOMAS DE SAN ISIDRO</span><span class="solo-cel">5 SUCURSALES EN ZONA NORTE</span></div><div class="punta"></div></div>
+    <div class="deco" aria-hidden="true">
+    <svg class="cable" viewBox="0 0 2400 200" preserveAspectRatio="xMaxYMax slice"><path d="M0 120 Q1200 200 2400 110" fill="none" stroke="#161616" stroke-width="3"/><g transform="translate(1975 136.5) scale(1.15 1.15)" fill="#2b2b2e"><path d="M14 -4C4 -4 -2 -10 -1 -18C0 -24 6 -28 12 -29C14 -36 19 -40 25 -39C30 -38 32 -34 30 -30L35 -28L30 -27C34 -20 33 -11 27 -6C23 -3 19 -4 14 -4ZM3 -11L-14 -3L-1 -6Z"/><path d="M12 -5v5M17 -5v5" stroke="#2b2b2e" stroke-width="2"/></g><g transform="translate(2095 130.1) scale(-1.1 1.1)" fill="#2b2b2e"><path d="M14 -4C4 -4 -2 -10 -1 -18C0 -24 6 -28 12 -29C14 -36 19 -40 25 -39C30 -38 32 -34 30 -30L35 -28L30 -27C34 -20 33 -11 27 -6C23 -3 19 -4 14 -4ZM3 -11L-14 -3L-1 -6Z"/><path d="M12 -5v5M17 -5v5" stroke="#2b2b2e" stroke-width="2"/></g><g transform="translate(2165 126.0) scale(1.2 1.2)" fill="#2b2b2e"><path d="M14 -4C4 -4 -2 -10 -1 -18C0 -24 6 -28 12 -29C14 -36 19 -40 25 -39C30 -38 32 -34 30 -30L35 -28L30 -27C34 -20 33 -11 27 -6C23 -3 19 -4 14 -4ZM3 -11L-14 -3L-1 -6Z"/><path d="M12 -5v5M17 -5v5" stroke="#2b2b2e" stroke-width="2"/></g><g transform="translate(2246.0 1.3) scale(1.1)"><path d="M40 4C18 4 4 20 4 40c0 18 12 30 18 44l18 22 18-22c6-14 18-26 18-44C76 20 62 4 40 4Z" fill="#c0542a" stroke="#161616" stroke-width="4"/><path d="M14 40c0-12 12-20 26-12 14-8 26 0 26 12 0 12-12 22-26 22S14 52 14 40Z" fill="#161616"/><circle cx="29" cy="40" r="9" fill="none" stroke="#f2d533" stroke-width="4"/><circle cx="51" cy="40" r="9" fill="none" stroke="#f2d533" stroke-width="4"/><circle cx="31" cy="38" r="3" fill="#f2d533"/><circle cx="53" cy="38" r="3" fill="#f2d533"/><path d="M36 52l4 8 4-8Z" fill="#f2d533"/><path d="M22 84c4-4 8 4 12 0s8 4 12 0 8 4 12 0l-18 22Z" fill="#f2d533"/><path d="M34 98l6 8 6-8Z" fill="#161616"/><path d="M52 8c6-6 16-6 22 0" fill="none" stroke="#161616" stroke-width="3"/></g></svg>
+    <div class="lapiz-grande"><div class="cuerpo"><span class="solo-pc">PAPEL NORT · MARTÍNEZ · SAN ISIDRO · ACASSUSO · VICTORIA · LOMAS DE SAN ISIDRO</span><span class="solo-cel">5 SUCURSALES EN ZONA NORTE</span></div><div class="punta"></div></div>
+    </div>
   </div>
 
   <section class="rubros" id="rubros">
@@ -299,22 +319,22 @@
         <p>Muchas soluciones en un único lugar: desde el cuaderno del colegio hasta el film para despachar mercadería.</p>
       </div>
       <div class="caja">
-        <div class="caja-tapa"><span>Papel Nort · 10 rubros</span><span>Zona norte</span></div>
+        <div class="caja-tapa"><span>Papel Nort · 10 rubros</span><span>Tocá un lápiz para ver el rubro</span></div>
         <ol>
-          <li><div class="lp" style="--c:#f2d533;--t:#161616;--largo:100%"><div class="cu"><small>01</small>Escolar y universitaria</div><div class="pu"></div></div><p class="ej">Cuadernos Alamo, repuestos Éxito, Voligoma, témperas Model.</p></li>
-          <li><div class="lp" style="--c:#2a4a94;--largo:94%"><div class="cu"><small>02</small>Comercial y archivo</div><div class="pu"></div></div><p class="ej">Resmas A4, cajas de archivo Pagoda, biblioratos M&amp;D, etiquetas Avery.</p></li>
-          <li><div class="lp" style="--c:#c62f2f;--largo:88%"><div class="cu"><small>03</small>Escritura</div><div class="pu"></div></div><p class="ej">Resaltadores Stabilo Boss en todos los colores, biromes Bic.</p></li>
-          <li><div class="lp" style="--c:#e8829f;--t:#161616;--largo:97%"><div class="cu"><small>04</small>Artística</div><div class="pu"></div></div><p class="ej">Faber-Castell, Pelikan y más.</p></li>
-          <li><div class="lp" style="--c:#6a4c93;--largo:83%"><div class="cu"><small>05</small>Informática</div><div class="pu"></div></div><p class="ej">Cartuchos y tóners para impresoras.</p></li>
-          <li><div class="lp" style="--c:#7a4a2a;--largo:91%"><div class="cu"><small>06</small>Embalaje comercial</div><div class="pu"></div></div><p class="ej">Cintas, cajas y bolsas de polietileno.</p></li>
-          <li><div class="lp" style="--c:#2e6b45;--largo:86%"><div class="cu"><small>07</small>Embalaje industrial</div><div class="pu"></div></div><p class="ej">Film stretch, flejes y cajas de cartón corrugado.</p></li>
-          <li><div class="lp" style="--c:#f08a24;--t:#161616;--largo:79%"><div class="cu"><small>08</small>Hogar y gastronomía</div><div class="pu"></div></div><p class="ej"></p></li>
-          <li><div class="lp" style="--c:#9fc23a;--t:#161616;--largo:93%"><div class="cu"><small>09</small>Regalería</div><div class="pu"></div></div><p class="ej"></p></li>
-          <li><div class="lp" style="--c:#c0542a;--largo:76%"><div class="cu"><small>10</small>Navidad</div><div class="pu"></div></div><p class="ej"></p></li>
+          <li><a class="lp" href="catalogo/?rubro=libreria" style="--c:#f2d533;--t:#161616;--largo:100%"><span class="cu"><small>01</small>Librería y archivo</span><span class="pu"></span></a><p class="ej">Cuadernos Alamo, repuestos Éxito, resmas Punax, carpetas, biblioratos, cajas de archivo M&amp;D y Pagoda, Voligoma.</p></li>
+          <li><a class="lp" href="catalogo/?rubro=escritura" style="--c:#c62f2f;--largo:92%"><span class="cu"><small>02</small>Escritura</span><span class="pu"></span></a><p class="ej">Bolígrafos Bic, lápices, portaminas, marcadores, resaltadores Stabilo Boss, correctores y gomas.</p></li>
+          <li><a class="lp" href="catalogo/?rubro=artistica" style="--c:#e8829f;--t:#161616;--largo:97%"><span class="cu"><small>03</small>Artística</span><span class="pu"></span></a><p class="ej">Témperas Model, acrílicos, óleos, pinceles, bastidores y carbonilla.</p></li>
+          <li><a class="lp" href="catalogo/?rubro=informatica" style="--c:#6a4c93;--largo:83%"><span class="cu"><small>04</small>Informática</span><span class="pu"></span></a><p class="ej">Cartuchos, periféricos, back-up y protección.</p></li>
+          <li><a class="lp" href="catalogo/?rubro=hogar" style="--c:#f08a24;--t:#161616;--largo:79%"><span class="cu"><small>05</small>Hogar</span><span class="pu"></span></a><p class="ej">Descartables, embalaje hogareño, manteles y cotillón.</p></li>
+          <li><a class="lp" href="catalogo/?rubro=gastronomia" style="--c:#9fc23a;--t:#161616;--largo:88%"><span class="cu"><small>06</small>Gastronomía</span><span class="pu"></span></a><p class="ej">Bandejas, vajilla descartable, servilletas, potes, pirotines y línea aluminio.</p></li>
+          <li><a class="lp" href="catalogo/?rubro=embalaje-comercial" style="--c:#7a4a2a;--largo:94%"><span class="cu"><small>07</small>Embalaje comercial</span><span class="pu"></span></a><p class="ej">Papeles y sobres de regalo, bolsas, cajas, moños y cintas.</p></li>
+          <li><a class="lp" href="catalogo/?rubro=embalaje-industrial" style="--c:#2e6b45;--largo:86%"><span class="cu"><small>08</small>Embalaje industrial</span><span class="pu"></span></a><p class="ej">Cajas de cartón corrugado, film stretch, pluribol, cintas e hilos.</p></li>
+          <li><a class="lp" href="catalogo/?rubro=regaleria" style="--c:#2a4a94;--largo:91%"><span class="cu"><small>09</small>Regalería</span><span class="pu"></span></a><p class="ej">Agendas, libros, sets para regalo, juegos, calendarios y peluches.</p></li>
+          <li><a class="lp" href="catalogo/?rubro=navidad" style="--c:#c0542a;--largo:76%"><span class="cu"><small>10</small>Navidad</span><span class="pu"></span></a><p class="ej">Árboles, adornos, bolas, luces, velas y pesebres.</p></li>
         </ol>
       </div>
       <div class="marcas" aria-label="Marcas"><p class="cu">Faber-Castell · Ángel Estrada · Rivadavia · América · Pizzini · Avery · M&amp;D Company · Pelikan · Stabilo · Bic · Model · Éxito · Alamo</p><div class="pu" aria-hidden="true"></div></div>
-      <p class="nota-marcas">Algunas de las marcas que trabajamos. Para ver productos y precios, entrá a la <a href="http://www.papelnort.net/">tienda online</a>.</p>
+      <p class="nota-marcas">Algunas de las marcas que trabajamos. Para ver productos y precios, entrá al <a href="catalogo/">catálogo</a>.</p>
     </div>
   </section>
 
@@ -322,7 +342,7 @@
     <div class="w">
       <div class="titulo-sec"><h2>Cómo comprar</h2></div>
       <div class="pasos">
-        <div class="paso"><h3>Mirá la tienda online</h3><p>En la <a href="http://www.papelnort.net/">tienda online</a> hay productos con precio. Podés registrarte como consumidor final o como responsable inscripto, con CUIT.</p></div>
+        <div class="paso"><h3>Buscá en el catálogo</h3><p>Filtrá por rubro o marca, armá tu lista y mandala por mail para consultar stock y precio en tu sucursal. <a href="catalogo/">Ir al catálogo</a></p></div>
         <div class="paso"><h3>Consultá</h3><p>Llamá a tu sucursal (los teléfonos están en <a href="#sucursales">Sucursales</a>) o escribí a <a href="mailto:contacto@papelnort.com">contacto@papelnort.com</a>, de lunes a viernes de 8 a 18. WhatsApp: <span class="pendiente">dato a confirmar</span></p></div>
         <div class="paso"><h3>Pasá por la sucursal</h3><p>Hay cinco en zona norte, con la misma variedad de marcas. En Martínez hay estacionamiento en Hipólito Yrigoyen 51 y San Isidro tiene estacionamiento propio.</p></div>
       </div>
@@ -453,8 +473,8 @@
       <div class="faq">
         <details><summary>¿Las cinco sucursales tienen lo mismo?</summary><p>Sí, las cinco tienen la misma variedad de marcas y ofertas.</p></details>
         <details><summary>¿Dónde estaciono?</summary><p>En Martínez hay estacionamiento en Hipólito Yrigoyen 51, en la cuadra anterior al local. La sucursal de San Isidro tiene estacionamiento propio.</p></details>
-        <details><summary>¿Venden a empresas y oficinas?</summary><p>Sí: resmas, archivo, cartuchos, tóners y embalaje. En la tienda online te podés registrar como responsable inscripto, con CUIT. Para consultas, escribí a contacto@papelnort.com, de lunes a viernes de 8 a 18. Si se hace factura A en el mostrador: <span class="pendiente">dato a confirmar</span></p></details>
-        <details><summary>¿Cómo puedo pagar?</summary><p>En la tienda online se paga con Mercado Pago. Medios de pago en las sucursales: <span class="pendiente">dato a confirmar</span></p></details>
+        <details><summary>¿Venden a empresas y oficinas?</summary><p>Sí: resmas, archivo, cartuchos, tóners y embalaje. Armá la lista en el <a href="catalogo/">catálogo</a> y mandala a contacto@papelnort.com, de lunes a viernes de 8 a 18. Factura A: <span class="pendiente">dato a confirmar</span></p></details>
+        <details><summary>¿Cómo puedo pagar?</summary><p>Medios de pago en las sucursales: <span class="pendiente">dato a confirmar</span></p></details>
         <details><summary>¿Hacen envíos?</summary><p><span class="pendiente">Dato a confirmar</span>: zonas, costo y desde qué monto.</p></details>
         <details><summary>¿Abren los feriados?</summary><p><span class="pendiente">Dato a confirmar</span></p></details>
       </div>
@@ -484,7 +504,7 @@
         <ul>
           <li>Mail: <a href="mailto:contacto@papelnort.com">contacto@papelnort.com</a></li>
           <li>Lunes a viernes de 8 a 18. Los sábados, llamá a tu sucursal.</li>
-          <li><a href="http://www.papelnort.net/">Tienda online</a></li>
+          <li><a href="catalogo/">Catálogo</a></li>
         </ul>
       </div>
     </div>
@@ -504,7 +524,7 @@
       <span class="fila">Victoria <span class="pendiente">dato a confirmar</span></span>
     </div>
   </details>
-  <a class="btn sec" href="http://www.papelnort.net/">Tienda online</a>
+  <a class="btn sec" href="catalogo/">Catálogo</a>
 </nav>
 
 <script>
@@ -566,10 +586,10 @@
   document.querySelectorAll('.horario [data-col="' + col + '"]').forEach(function(c){ c.classList.add('hoy'); });
   document.getElementById('anio').textContent = new Date().getFullYear();
 
-  // El menú de teléfonos del celular se cierra al tocar afuera o con Escape
-  var ll = document.querySelector('.llamar');
-  document.addEventListener('click', function(ev){ if (ll.open && !ll.contains(ev.target)) ll.open = false; });
-  document.addEventListener('keydown', function(ev){ if (ev.key === 'Escape') ll.open = false; });
+  // Los menús de teléfonos se cierran al tocar afuera o con Escape
+  var menus = [].slice.call(document.querySelectorAll('.llamar'));
+  document.addEventListener('click', function(ev){ menus.forEach(function(m){ if (m.open && !m.contains(ev.target)) m.open = false; }); });
+  document.addEventListener('keydown', function(ev){ if (ev.key === 'Escape') menus.forEach(function(m){ m.open = false; }); });
 })();
 </script>
 </body>

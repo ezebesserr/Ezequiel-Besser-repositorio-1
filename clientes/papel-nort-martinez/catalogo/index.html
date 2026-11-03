@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo · Papel Nort · Librería escolar, comercial y artística</title>
+<meta name="description" content="Catálogo de Papel Nort: buscá por rubro, marca o código, armá tu lista y consultá stock y precio en las cinco sucursales de zona norte.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Catálogo de Papel Nort">
+<meta property="og:description" content="Buscá por rubro, marca o código y armá tu lista para consultar en las cinco sucursales de zona norte.">
+<meta property="og:image" content="https://ezebesserr.github.io/Ezequiel-Besser-repositorio-1/clientes/papel-nort-martinez/catalogo/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://ezebesserr.github.io/Ezequiel-Besser-repositorio-1/clientes/papel-nort-martinez/catalogo/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f2d533">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 108'%3E%3Cpath d='M40 4C18 4 4 20 4 40c0 18 12 30 18 44l18 22 18-22c6-14 18-26 18-44C76 20 62 4 40 4Z' fill='%23c0542a' stroke='%23161616' stroke-width='5'/%3E%3Cpath d='M14 40c0-12 12-20 26-12 14-8 26 0 26 12 0 12-12 22-26 22S14 52 14 40Z' fill='%23161616'/%3E%3Ccircle cx='29' cy='40' r='9' fill='none' stroke='%23f2d533' stroke-width='5'/%3E%3Ccircle cx='51' cy='40' r='9' fill='none' stroke='%23f2d533' stroke-width='5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Jost:wght@400;500;700&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Catálogo de Papel Nort",
+  "inLanguage": "es-AR",
+  "about": { "@type": "Organization", "name": "Papel Nort", "legalName": "Grupo Papel Nort S.R.L.", "alternateName": "Librerías Koruya", "email": "contacto@papelnort.com" }
+}
+</script>
+<style>
+  :root{
+    --grafito:#161616; --oxido:#c0542a; --oxido-texto:#a9461f; --lapiz:#f2d533; --madera:#e8c9a0;
+    --papel:#ffffff; --gris:#f3f3f1; --linea:#d9d9d4; --tinta:#2a2a2a; --verde:#2f9e44;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-padding-top:86px}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  body{background:var(--papel);color:var(--grafito);font:400 17px/1.55 'Jost',system-ui,sans-serif;padding-bottom:76px;-webkit-text-size-adjust:100%}
+  @media (min-width:900px){body{padding-bottom:0}}
+  img,svg{display:block;max-width:100%}
+  a{color:inherit}
+  button,input,select{font:inherit;color:inherit}
+  :focus-visible{outline:3px solid var(--oxido);outline-offset:3px}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .w{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+  @media (min-width:900px){.w{padding-left:40px;padding-right:40px}}
+  h1,h2{font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;line-height:1.05;letter-spacing:-.02em}
+  .pendiente{display:inline-block;font:500 .82em/1.3 'Jost',sans-serif;border:2px dashed var(--oxido);color:var(--oxido-texto);padding:0 6px;background:#fff7f2;white-space:nowrap}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 22px;font:700 17px/1 'Jost',sans-serif;text-decoration:none;border-radius:6px;background:var(--grafito);color:var(--lapiz);border:0;cursor:pointer}
+  .btn svg{width:20px;height:20px;flex:none}
+  .btn.sec{background:transparent;color:var(--grafito);box-shadow:inset 0 0 0 2px var(--grafito)}
+  .cuenta{display:inline-grid;place-items:center;min-width:26px;height:26px;padding:0 6px;border-radius:13px;background:var(--lapiz);color:var(--grafito);font-size:14px}
+  .btn.sec .cuenta{background:var(--grafito);color:var(--lapiz)}
+
+  /* Encabezado */
+  .tope{position:sticky;top:0;z-index:40;background:var(--papel);border-bottom:3px solid var(--grafito)}
+  .barra{display:flex;align-items:center;gap:18px;min-height:74px}
+  .marca{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none;margin-right:auto}
+  .marca svg{width:38px;height:52px}
+  .marca b{display:block;font:800 28px/1 'Baloo 2',sans-serif;letter-spacing:-.5px;padding-top:4px}
+  .marca small{display:block;font:500 11.5px/1 'Jost',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--oxido-texto);margin-top:1px}
+  .menu{display:none;gap:24px;font-weight:500}
+  .menu a{text-decoration:none;padding:8px 0;border-bottom:3px solid transparent}
+  .menu a:hover,.menu a[aria-current]{border-color:var(--lapiz)}
+  @media (min-width:1000px){.menu{display:flex}}
+  .btn-lista{min-height:44px;padding:0 16px;font-size:15.5px}
+  @media (max-width:899px){.tope .btn-lista{display:none}}
+  @media (max-width:419px){.marca b{font-size:24px}.marca small{font-size:10px}}
+
+  /* Aviso de muestra */
+  .aviso{background:#fff7f2;border-bottom:2px dashed var(--oxido);color:var(--oxido-texto);font-size:14.5px;line-height:1.45;padding:10px 0}
+  .aviso b{font-weight:700}
+
+  /* Título y buscador */
+  .cat-top{padding-top:36px;padding-bottom:8px}
+  .sello{display:inline-block;background:var(--lapiz);font-weight:700;padding:4px 10px;font-size:15px;transform:rotate(-1.5deg)}
+  .cat-top h1{font-size:clamp(44px,6vw,68px);margin:12px 0 8px}
+  .cat-top p{font-size:clamp(17px,1.8vw,19px);max-width:36em}
+  .buscador{display:grid;gap:12px;margin-top:24px}
+  @media (min-width:700px){.buscador{grid-template-columns:minmax(0,1fr) 210px 210px}}
+  .buscador label{display:block;font:700 12.5px/1 'Jost',sans-serif;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px;color:#444}
+  .buscador input,.buscador select{width:100%;min-height:50px;border:2px solid var(--grafito);border-radius:6px;padding:0 14px;font-size:17px;font-weight:500;background:#fff}
+  .buscador input{padding-left:44px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='10' cy='10' r='6.5' fill='none' stroke='%23161616' stroke-width='2.4'/%3E%3Cpath d='M15 15l5.5 5.5' stroke='%23161616' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") 13px 50%/20px no-repeat}
+
+  /* Rubros como lápices de colores */
+  .rubros-fila{display:flex;gap:8px;overflow-x:auto;padding:18px 16px 12px;margin:0 -16px;scrollbar-width:thin}
+  @media (min-width:900px){.rubros-fila{flex-wrap:wrap;overflow:visible;margin:0;padding:20px 0 8px}}
+  .chip-r{flex:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 30px 0 16px;border:0;cursor:pointer;font-weight:700;font-size:15px;white-space:nowrap;
+    background:#ebebe6;box-shadow:inset 8px 0 0 var(--c,#161616);clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%)}
+  .chip-r small{font-weight:500;font-size:13px;opacity:.75}
+  .chip-r[aria-pressed="true"]{background:var(--c,#161616);color:var(--t,#f2d533)}
+  .chip-r:hover{filter:brightness(.96)}
+  .resumen{font-size:15.5px;color:#444;margin:10px 0 16px}
+
+  /* Grilla de productos */
+  .grilla{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-bottom:28px}
+  @media (min-width:640px){.grilla{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}}
+  @media (min-width:1000px){.grilla{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}}
+  .prod{display:flex;flex-direction:column;background:#fff;border:2px solid var(--linea);border-radius:8px;overflow:hidden}
+  .prod .foto{position:relative;aspect-ratio:1/1;border-bottom:2px solid var(--linea);background:#fff}
+  .prod .foto img{width:100%;height:100%;object-fit:contain}
+  .prod .sin-foto{position:absolute;inset:14px;display:grid;place-items:center;text-align:center;border:2px dashed var(--oxido);color:var(--oxido-texto);font-size:14px;line-height:1.3;padding:8px;background:#fff7f2}
+  .prod .sub{position:absolute;left:0;top:10px;max-width:calc(100% - 10px);font:700 11.5px/1 'Jost',sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px 5px 8px;background:var(--c);color:var(--t);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .prod .info{display:flex;flex-direction:column;gap:5px;flex:1;padding:12px 12px 14px}
+  .prod .marca-p{font:700 12px/1.2 'Jost',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--oxido-texto);min-height:14px}
+  .prod h2{font:500 16px/1.3 'Jost',sans-serif;letter-spacing:0}
+  .prod .cod{font-size:13px;color:#666}
+  .prod .abajo{margin-top:auto;display:flex;flex-direction:column;gap:10px;padding-top:8px}
+  .precio{align-self:flex-start;position:relative;background:var(--oxido);color:#fff;font:800 19px/1 'Baloo 2',sans-serif;padding:9px 12px 6px 22px;clip-path:polygon(12px 0,100% 0,100% 100%,12px 100%,0 50%)}
+  .precio::before{content:'';position:absolute;left:10px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#fff}
+  .agregar{min-height:44px;width:100%;border:0;border-radius:6px;background:#fff;box-shadow:inset 0 0 0 2px var(--grafito);font-weight:700;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+  .agregar:hover{background:var(--gris)}
+  .stepper{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;align-items:center;min-height:44px;border-radius:6px;background:var(--lapiz);box-shadow:inset 0 0 0 2px var(--grafito);font-weight:700;font-size:14.5px;text-align:center}
+  .stepper button{height:44px;border:0;background:transparent;font:800 22px/1 'Baloo 2',sans-serif;cursor:pointer}
+  @media (max-width:419px){.prod h2{font-size:15px}.precio{font-size:17px}.txt-largo{display:none}}
+  .item .txt-largo{display:none}
+
+  .vacio{border:2px dashed var(--grafito);border-radius:8px;padding:24px;background:var(--gris);margin-bottom:28px}
+  .vacio h2{font-size:28px;margin-bottom:8px}
+  .vacio ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .vacio li{background:#fff;border:2px solid var(--linea);padding:4px 10px;font-size:15px}
+  .ayuda{border-top:3px solid var(--grafito);padding:28px 0 56px;font-size:17px}
+  .ayuda b{font-weight:700}
+
+  /* Tu lista */
+  dialog.lista{border:3px solid var(--grafito);border-radius:10px;padding:0;width:min(560px,calc(100vw - 24px));max-height:min(88vh,780px);margin:auto;color:var(--grafito);background:#fff}
+  dialog.lista::backdrop{background:rgba(22,22,22,.55)}
+  .lista-cab{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 12px 10px 18px;background:var(--lapiz);border-bottom:3px solid var(--grafito);position:sticky;top:0;z-index:1}
+  .lista-cab h2{font-size:30px}
+  .cerrar{width:44px;height:44px;border:0;background:transparent;cursor:pointer;display:grid;place-items:center}
+  .lista-cuerpo{padding:6px 18px 20px}
+  .lista-vacia{padding:18px 0;color:#444}
+  .item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 0;border-bottom:1.5px solid var(--linea);align-items:center}
+  .item .nom{font-size:15.5px;line-height:1.3}
+  .item .nom small{display:block;color:#666;font-size:13px}
+  .item .stepper{width:132px}
+  .item .sub-t{grid-column:1/-1;font-size:14px;color:#444}
+  .total{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:14px 0 4px;font-weight:700}
+  .total b{font:800 24px/1 'Baloo 2',sans-serif}
+  .nota-precios{font-size:13.5px;color:#555}
+  .lista-cuerpo label{display:block;font:700 12.5px/1 'Jost',sans-serif;letter-spacing:.12em;text-transform:uppercase;margin:18px 0 7px;color:#444}
+  .lista-cuerpo select{width:100%;min-height:48px;border:2px solid var(--grafito);border-radius:6px;padding:0 12px;background:#fff;font-size:16px}
+  .lista-acciones{display:grid;gap:10px;margin-top:16px}
+  .lista-acciones .wa{font-size:15px;color:#444;text-align:center}
+  .vaciar{background:none;border:0;text-decoration:underline;cursor:pointer;font-size:15px;justify-self:center;min-height:44px}
+
+  /* Pie */
+  .pie{background:var(--grafito);color:#ecece6;padding:48px 0 36px}
+  .pie-grid{display:grid;gap:24px}
+  @media (min-width:900px){.pie-grid{grid-template-columns:1fr 1.2fr 1fr}}
+  .pie h2{font-size:32px;color:#fff}
+  .pie h3{font:700 13px/1 'Jost',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--lapiz);margin-bottom:10px}
+  .pie p,.pie li{font-size:16px;list-style:none}
+  .pie li{margin-bottom:4px}
+  .pie a{color:#fff;font-weight:500}
+  .pie .chico{margin-top:30px;padding-top:16px;border-top:1px solid #3a3a3a;font-size:13.5px;color:#b9b9b2;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+  /* Barra fija en el celular */
+  .fija{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:1fr 1fr;gap:10px;background:var(--papel);border-top:3px solid var(--grafito);
+    padding:10px max(12px,env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}
+  .fija .btn{min-height:52px;width:100%}
+  @media (min-width:900px){.fija{display:none}}
+  .llamar{position:relative}
+  .llamar summary{list-style:none}
+  .llamar summary::-webkit-details-marker{display:none}
+  .tels-menu{position:absolute;left:0;bottom:calc(100% + 13px);width:min(360px,calc(100vw - 24px));background:var(--papel);border:3px solid var(--grafito);border-radius:10px;overflow:hidden}
+  .tels-menu .tit{display:block;font:700 12px/1 'Jost',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#555;padding:14px 16px 8px}
+  .tels-menu a,.tels-menu .fila{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:52px;padding:0 16px;text-decoration:none;font-size:16px;border-top:1.5px solid var(--linea)}
+  .tels-menu b{font-weight:700;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<header class="tope">
+  <div class="w barra">
+    <a class="marca" href="../" aria-label="Papel Nort, Librerías Koruya, ir al inicio">
+      <svg viewBox="0 0 80 108" aria-hidden="true"><path d="M40 4C18 4 4 20 4 40c0 18 12 30 18 44l18 22 18-22c6-14 18-26 18-44C76 20 62 4 40 4Z" fill="#c0542a" stroke="#161616" stroke-width="4"/><path d="M14 40c0-12 12-20 26-12 14-8 26 0 26 12 0 12-12 22-26 22S14 52 14 40Z" fill="#161616"/><circle cx="29" cy="40" r="9" fill="none" stroke="#f2d533" stroke-width="4"/><circle cx="51" cy="40" r="9" fill="none" stroke="#f2d533" stroke-width="4"/><circle cx="31" cy="38" r="3" fill="#f2d533"/><circle cx="53" cy="38" r="3" fill="#f2d533"/><path d="M36 52l4 8 4-8Z" fill="#f2d533"/><path d="M22 84c4-4 8 4 12 0s8 4 12 0 8 4 12 0l-18 22Z" fill="#f2d533"/><path d="M34 98l6 8 6-8Z" fill="#161616"/></svg>
+      <span><b>Papel Nort</b><small>Librerías Koruya</small></span>
+    </a>
+    <nav class="menu" aria-label="Secciones">
+      <a href="../">Inicio</a><a href="../#sucursales">Sucursales</a><a href="./" aria-current="page">Catálogo</a><a href="../#preguntas">Preguntas</a>
+    </nav>
+    <button class="btn btn-lista" type="button" data-abrir-lista>Tu lista <span class="cuenta" data-cuenta>0</span></button>
+  </div>
+</header>
+
+<p class="aviso"><span class="w" style="display:block"><b>Muestra del catálogo:</b> <span id="aviso-n">44</span> productos reales de papelnort.net, con los precios publicados el <span id="aviso-fecha">3/11/2026</span>. En el catálogo final están todos los productos y se actualizan desde una planilla de Google.</span></p>
+
+<main>
+  <div class="w cat-top">
+    <span class="sello">Diez rubros, cinco sucursales</span>
+    <h1>Catálogo</h1>
+    <p>Buscá por rubro, marca o código. Armá tu lista y mandala por mail para consultar stock y precio en tu sucursal.</p>
+
+    <form class="buscador" role="search" onsubmit="return false">
+      <div><label for="q">Buscar</label><input id="q" type="search" placeholder="Resaltador, caja, 419…" autocomplete="off"></div>
+      <div><label for="marca">Marca</label><select id="marca"><option value="">Todas las marcas</option></select></div>
+      <div><label for="orden">Ordenar</label><select id="orden"><option value="rubro">Por rubro</option><option value="barato">Menor precio</option><option value="caro">Mayor precio</option><option value="nombre">Por nombre</option></select></div>
+    </form>
+
+    <div class="rubros-fila" id="rubros" role="group" aria-label="Rubros"></div>
+    <p class="resumen" id="resumen" aria-live="polite"></p>
+  </div>
+
+  <div class="w">
+    <div id="vacio"></div>
+    <div class="grilla" id="grilla"></div>
+    <div class="ayuda">
+      <p><b>¿No encontrás lo que buscás?</b> Llamá a tu sucursal o escribí a <a href="mailto:contacto@papelnort.com">contacto@papelnort.com</a>, de lunes a viernes de 8 a 18. WhatsApp: <span class="pendiente">dato a confirmar</span></p>
+    </div>
+  </div>
+</main>
+
+<dialog class="lista" id="lista" aria-labelledby="lista-tit">
+  <div class="lista-cab">
+    <h2 id="lista-tit">Tu lista</h2>
+    <button class="cerrar" type="button" data-cerrar-lista aria-label="Cerrar la lista"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="#161616" stroke-width="2.8" stroke-linecap="round"/></svg></button>
+  </div>
+  <div class="lista-cuerpo">
+    <div id="items"></div>
+    <div id="cierre">
+      <p class="total"><span>Total estimado</span> <b id="total">$ 0</b></p>
+      <p class="nota-precios">Con los precios de la web. La sucursal te confirma stock y precio.</p>
+      <label for="suc">¿En qué sucursal lo querés consultar?</label>
+      <select id="suc">
+        <option>Martínez</option><option>San Isidro</option><option>Acassuso</option><option>Lomas de San Isidro</option><option>Victoria</option>
+      </select>
+      <div class="lista-acciones">
+        <a class="btn" id="enviar-mail" href="mailto:contacto@papelnort.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5h18v14H3V5Zm2 2v.5l7 4.5 7-4.5V7H5Zm14 2.9-7 4.5-7-4.5V17h14V9.9Z"/></svg>Mandar por mail</a>
+        <p class="wa">Por WhatsApp: <span class="pendiente">dato a confirmar</span></p>
+        <button class="vaciar" type="button" id="vaciar">Vaciar la lista</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<footer class="pie">
+  <div class="w">
+    <div class="pie-grid">
+      <div>
+        <h2>Papel Nort</h2>
+        <p>Librerías Koruya · Grupo Papel Nort S.R.L.</p>
+      </div>
+      <div>
+        <h3>Sucursales</h3>
+        <ul>
+          <li>Martínez · Hipólito Yrigoyen 141</li>
+          <li>San Isidro · Av. Centenario 401</li>
+          <li>Acassuso · Perú 199</li>
+          <li>Lomas de San Isidro · Sucre 2181, Beccar</li>
+          <li>Victoria · Santa Marina 1192</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Contacto</h3>
+        <ul>
+          <li>Mail: <a href="mailto:contacto@papelnort.com">contacto@papelnort.com</a></li>
+          <li>Lunes a viernes de 8 a 18. Los sábados, llamá a tu sucursal.</li>
+          <li><a href="../#sucursales">Horarios de cada sucursal</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="chico"><span>© <span id="anio">2026</span> Papel Nort</span><span>Vista previa preparada por Ezequiel Besser con los datos de papelnort.net</span></p>
+  </div>
+</footer>
+
+<nav class="fija" aria-label="Contacto rápido">
+  <details class="llamar">
+    <summary class="btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg>Llamar</summary>
+    <div class="tels-menu">
+      <span class="tit">¿A qué sucursal?</span>
+      <a href="tel:+541140069977">Martínez <b>4006-9977</b></a>
+      <a href="tel:+541147436577">San Isidro <b>4743-6577</b></a>
+      <a href="tel:+541147333218">Acassuso <b>4733-3218</b></a>
+      <a href="tel:+541152904417">Lomas de San Isidro <b>5290-4417</b></a>
+      <span class="fila">Victoria <span class="pendiente">dato a confirmar</span></span>
+    </div>
+  </details>
+  <button class="btn sec" type="button" data-abrir-lista>Tu lista <span class="cuenta" data-cuenta>0</span></button>
+</nav>
+
+<!-- Productos de la muestra. En el sitio final salen de una planilla de Google que carga Papel Nort. -->
+<script type="application/json" id="datos">{"actualizado":"3/11/2026","rubros":[{"id":"libreria","n":"Librería y archivo","c":"#f2d533","t":"#161616","subs":["Abrochadoras","Accesorios para carpetas","Adhesivos","Artículos escolares","Biblioratos","Blocks","Cajas de archivo","Carpetas","Cartones y cartulinas","Cintas adhesivas","Clips","Cuadernos","Etiquetas","Folios","Goma eva","Notas autoadhesivas","Papelería","Perforadoras","Reglas","Sellos","Separadores e índices","Tijeras"]},{"id":"escritura","n":"Escritura","c":"#c62f2f","t":"#ffffff","subs":["Bolígrafos","Rollerballs","Lapiceras","Lápices","Portaminas","Correctores","Minas","Gomas","Marcadores","Resaltadores","Tizas","Sacapuntas"]},{"id":"artistica","n":"Artística","c":"#e8829f","t":"#161616","subs":["Acrílicos","Accesorios y manualidades","Carbonilla y fijador","Óleos","Pinceles","Pinturas","Témperas profesionales","Bastidores","Tintas"]},{"id":"informatica","n":"Informática","c":"#6a4c93","t":"#ffffff","subs":["Periféricos","Back-up","Protección","Cartuchos"]},{"id":"hogar","n":"Hogar","c":"#f08a24","t":"#161616","subs":["Descartables","Embalaje hogareño","Manteles","Cotillón","Papeles"]},{"id":"gastronomia","n":"Gastronomía","c":"#9fc23a","t":"#161616","subs":["Papeles","Bandejas","Vajilla descartable","Blondas, pirotines y moldes","Servilletas","Pizzería","Potes","Línea aluminio"]},{"id":"embalaje-comercial","n":"Embalaje comercial","c":"#7a4a2a","t":"#ffffff","subs":["Papeles de regalo","Sobres de regalo","Bolsas","Cajas","Moños y cintas","Etiquetas y letreros","Insumos comerciales"]},{"id":"embalaje-industrial","n":"Embalaje industrial","c":"#2e6b45","t":"#ffffff","subs":["Hilos","Cintas","Pluribol","Cartón","Film stretch","Polietileno","Máquinas selladoras"]},{"id":"regaleria","n":"Regalería","c":"#2a4a94","t":"#ffffff","subs":["Agendas","Libros","Tarjetas y stickers","Sets para regalo","Juegos","Calendarios y almanaques","Masas","Peluches"]},{"id":"navidad","n":"Navidad","c":"#c0542a","t":"#ffffff","subs":["Velas","Árboles","Boas","Bolas","Adornos","Luces","Pesebre","Plantas"]}],"productos":[{"id":"10040492","r":"libreria","s":"Cuadernos","m":"Alamo","n":"Cuaderno forrado con espiral, 60 hojas rayadas, rojo","cod":"","p":3000,"img":""},{"id":"10013690","r":"libreria","s":"Cuadernos","m":"Éxito","n":"Repuesto A4 reforzado, 96 hojas rayadas","cod":"100885","p":20000,"img":"img/10013690.jpg"},{"id":"10021177","r":"libreria","s":"Papelería","m":"Punax","n":"Resma A4 75 g, 21 x 29,7, 500 hojas","cod":"","p":11000,"img":""},{"id":"9183","r":"libreria","s":"Adhesivos","m":"Voligoma","n":"Adhesivo sintético, 30 ml","cod":"","p":2600,"img":"img/9183.jpg"},{"id":"14521","r":"libreria","s":"Adhesivos","m":"Voligoma","n":"Adhesivo sintético, 50 ml","cod":"","p":4300,"img":"img/14521.jpg"},{"id":"4606","r":"libreria","s":"Cajas de archivo","m":"M&D","n":"Caja de archivo americana baja, 40 x 30 x 18","cod":"Art. 205","p":3700,"img":"img/4606.jpg"},{"id":"10004342","r":"libreria","s":"Cajas de archivo","m":"M&D","n":"Caja de archivo americana alta reforzada, 42 x 32 x 25","cod":"Art. 406","p":7300,"img":"img/10004342.jpg"},{"id":"4627","r":"libreria","s":"Cajas de archivo","m":"Pagoda","n":"Caja de archivo plástica corrugada, legajo 12 cm, azul","cod":"","p":5000,"img":"img/4627.jpg"},{"id":"10032223","r":"escritura","s":"Bolígrafos","m":"Bic","n":"Bolígrafo opaco 1 mm verde, por unidad","cod":"1104697","p":1100,"img":"img/10032223.jpg"},{"id":"10005514","r":"escritura","s":"Resaltadores","m":"Stabilo","n":"Resaltador Boss amarillo (70/24)","cod":"419","p":3600,"img":"img/10005514.jpg"},{"id":"10005517","r":"escritura","s":"Resaltadores","m":"Stabilo","n":"Resaltador Boss celeste (70/31)","cod":"420","p":3500,"img":"img/10005517.jpg"},{"id":"10006292","r":"escritura","s":"Resaltadores","m":"Stabilo","n":"Resaltador Boss lavanda (70/55)","cod":"424","p":3500,"img":"img/10006292.jpg"},{"id":"10005516","r":"escritura","s":"Resaltadores","m":"Stabilo","n":"Resaltador Boss naranja (70/54)","cod":"432","p":3500,"img":"img/10005516.jpg"},{"id":"10005515","r":"escritura","s":"Resaltadores","m":"Stabilo","n":"Resaltador Boss rojo (70/40)","cod":"433","p":3500,"img":"img/10005515.jpg"},{"id":"10005519","r":"escritura","s":"Resaltadores","m":"Stabilo","n":"Resaltador Boss rosa (70/56)","cod":"434","p":3500,"img":"img/10005519.jpg"},{"id":"10005518","r":"escritura","s":"Resaltadores","m":"Stabilo","n":"Resaltador Boss verde (70/33)","cod":"435","p":3500,"img":"img/10005518.jpg"},{"id":"10013768","r":"escritura","s":"Resaltadores","m":"Stabilo","n":"Resaltador Boss pastel amarillo (70/144)","cod":"3604","p":3500,"img":"img/10013768.jpg"},{"id":"10013765","r":"escritura","s":"Resaltadores","m":"Stabilo","n":"Resaltador Boss pastel durazno (70/126)","cod":"3605","p":3500,"img":"img/10013765.jpg"},{"id":"10013766","r":"escritura","s":"Resaltadores","m":"Stabilo","n":"Resaltador Boss pastel lila (70/155)","cod":"3606","p":3500,"img":"img/10013766.jpg"},{"id":"10013767","r":"escritura","s":"Resaltadores","m":"Stabilo","n":"Resaltador Boss pastel menta (70/116)","cod":"3607","p":3500,"img":"img/10013767.jpg"},{"id":"10013769","r":"escritura","s":"Resaltadores","m":"Stabilo","n":"Resaltador Boss pastel rosa (70/129)","cod":"3608","p":3500,"img":"img/10013769.jpg"},{"id":"10013739","r":"escritura","s":"Resaltadores","m":"Stabilo","n":"Resaltador Boss pastel turquesa","cod":"3609","p":3500,"img":"img/10013739.jpg"},{"id":"10020161","r":"artistica","s":"Pinturas","m":"Model/Playcolor","n":"Témperas en pomo, colores surtidos x 10","cod":"826030","p":3900,"img":"img/10020161.jpg"},{"id":"2925","r":"embalaje-comercial","s":"Bolsas","m":"","n":"Bolsa camiseta AD 30 x 40, blanca y roja, x 100 (funda amarilla)","cod":"11703040/30","p":3300,"img":"img/2925.jpg"},{"id":"2929","r":"embalaje-comercial","s":"Bolsas","m":"","n":"Bolsa camiseta AD 50 x 50, blanca, x 100 (funda amarilla)","cod":"11705050/20","p":10300,"img":"img/2929.jpg"},{"id":"2931","r":"embalaje-comercial","s":"Bolsas","m":"","n":"Bolsa camiseta AD reforzada 50 x 70, blanca, x 100 (funda amarilla)","cod":"11705070/20","p":13500,"img":"img/2931.jpg"},{"id":"3010","r":"embalaje-comercial","s":"Bolsas","m":"","n":"Bolsa de arranque AD mini 15 x 20","cod":"10101520/1","p":6000,"img":"img/3010.jpg"},{"id":"3012","r":"embalaje-comercial","s":"Bolsas","m":"","n":"Bolsa de arranque AD mini 15 x 25","cod":"10101525/1","p":6000,"img":"img/3012.jpg"},{"id":"3011","r":"embalaje-comercial","s":"Bolsas","m":"","n":"Bolsa de arranque AD estándar 20 x 30, 750 g","cod":"10302030","p":14500,"img":"img/3011.jpg"},{"id":"3013","r":"embalaje-comercial","s":"Bolsas","m":"","n":"Bolsa de arranque AD estándar 25 x 35, 750 g","cod":"10302030","p":14500,"img":"img/3013.jpg"},{"id":"3014","r":"embalaje-comercial","s":"Bolsas","m":"","n":"Bolsa de arranque AD estándar 30 x 40, 750 g","cod":"10302030","p":14500,"img":"img/3014.jpg"},{"id":"3015","r":"embalaje-comercial","s":"Bolsas","m":"","n":"Bolsa de arranque AD estándar 35 x 45, 750 g","cod":"10302030","p":14500,"img":"img/3015.jpg"},{"id":"3016","r":"embalaje-comercial","s":"Bolsas","m":"","n":"Bolsa de arranque AD estándar 40 x 50, 750 g","cod":"10302030","p":14500,"img":"img/3016.jpg"},{"id":"3018","r":"embalaje-comercial","s":"Bolsas","m":"","n":"Bolsa de arranque AD estándar 50 x 70, 1500 g","cod":"10402030","p":28900,"img":"img/3018.jpg"},{"id":"3368","r":"embalaje-industrial","s":"Cartón","m":"","n":"Caja de cartón corrugado 35 x 25 x 25, por unidad","cod":"950","p":1600,"img":"img/3368.jpg"},{"id":"3372","r":"embalaje-industrial","s":"Cartón","m":"","n":"Caja de cartón corrugado 40 x 30 x 30, por unidad","cod":"940","p":2600,"img":"img/3372.jpg"},{"id":"3373","r":"embalaje-industrial","s":"Cartón","m":"","n":"Caja de cartón corrugado 40 x 30 x 30 doble triple, por unidad","cod":"941","p":5900,"img":"img/3373.jpg"},{"id":"3376","r":"embalaje-industrial","s":"Cartón","m":"","n":"Caja de cartón corrugado 50 x 40 x 30, por unidad","cod":"930","p":4000,"img":"img/3376.jpg"},{"id":"3381","r":"embalaje-industrial","s":"Cartón","m":"","n":"Caja de cartón corrugado 60 x 40 x 30, por unidad","cod":"924","p":4500,"img":"img/3381.jpg"},{"id":"3382","r":"embalaje-industrial","s":"Cartón","m":"","n":"Caja de cartón corrugado 60 x 40 x 40, por unidad","cod":"920","p":4800,"img":"img/3382.jpg"},{"id":"3384","r":"embalaje-industrial","s":"Cartón","m":"","n":"Caja de cartón corrugado 60 x 40 x 40 doble triple, por unidad","cod":"921","p":10100,"img":"img/3384.jpg"},{"id":"3383","r":"embalaje-industrial","s":"Cartón","m":"","n":"Caja de cartón corrugado 70 x 50 x 50, por unidad","cod":"910","p":7800,"img":"img/3383.jpg"},{"id":"14777","r":"embalaje-industrial","s":"Pluribol","m":"","n":"Pluribol cristal, 1 m x 1 m","cod":"","p":1000,"img":"img/14777.jpg"},{"id":"13502","r":"embalaje-industrial","s":"Film stretch","m":"","n":"Film stretch 50 cm, diám. 38, con mango, virgen, 2,5 kg","cod":"1013","p":26500,"img":"img/13502.jpg"}]}</script>
+<script>
+(function(){
+  var D = JSON.parse(document.getElementById('datos').textContent);
+  var RUB = {}; D.rubros.forEach(function(r){ RUB[r.id] = r; });
+  var PROD = {}; D.productos.forEach(function(p){ PROD[p.id] = p; });
+  var CLAVE = 'papelnort-lista';
+  var lista = {};
+  try { lista = JSON.parse(localStorage.getItem(CLAVE) || '{}') || {}; } catch (e) { lista = {}; }
+  Object.keys(lista).forEach(function(id){ if (!PROD[id] || !(lista[id] > 0)) delete lista[id]; });
+
+  var st = {rubro:'', marca:'', q:'', orden:'rubro'};
+  try { var pr = new URLSearchParams(location.search).get('rubro'); if (pr && RUB[pr]) st.rubro = pr; } catch (e) {}
+
+  var $ = function(id){ return document.getElementById(id); };
+  function plata(n){ return '$ ' + Math.round(n).toLocaleString('es-AR'); }
+  function norm(s){ return (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+  function el(tag, attrs, txt){ var e = document.createElement(tag); for (var k in (attrs || {})) e.setAttribute(k, attrs[k]); if (txt != null) e.textContent = txt; return e; }
+  function guardar(){ try { localStorage.setItem(CLAVE, JSON.stringify(lista)); } catch (e) {} }
+
+  $('aviso-n').textContent = D.productos.length;
+  $('aviso-fecha').textContent = D.actualizado;
+
+  // Marcas
+  var marcas = {}; D.productos.forEach(function(p){ if (p.m) marcas[p.m] = 1; });
+  Object.keys(marcas).sort(function(a, b){ return a.localeCompare(b, 'es'); }).forEach(function(m){ $('marca').appendChild(el('option', {value:m}, m)); });
+
+  // Rubros como lápices
+  function contar(r){ return D.productos.filter(function(p){ return !r || p.r === r; }).length; }
+  function chip(id, nombre, c, t){
+    var b = el('button', {type:'button', 'class':'chip-r', 'data-r':id});
+    if (c) b.style.setProperty('--c', c);
+    if (t) b.style.setProperty('--t', t);
+    b.appendChild(document.createTextNode(nombre + ' '));
+    b.appendChild(el('small', null, String(contar(id))));
+    b.addEventListener('click', function(){ st.rubro = id; marcarRubro(); actualizarURL(); render(); });
+    $('rubros').appendChild(b);
+  }
+  chip('', 'Todos');
+  D.rubros.forEach(function(r){ chip(r.id, r.n, r.c, r.t); });
+  function marcarRubro(){ [].forEach.call(document.querySelectorAll('.chip-r'), function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-r') === st.rubro)); }); }
+  function actualizarURL(){ try { history.replaceState(null, '', st.rubro ? '?rubro=' + st.rubro : location.pathname); } catch (e) {} }
+
+  $('q').addEventListener('input', function(){ st.q = this.value; render(); });
+  $('marca').addEventListener('change', function(){ st.marca = this.value; render(); });
+  $('orden').addEventListener('change', function(){ st.orden = this.value; render(); });
+
+  var ORDEN_R = D.rubros.map(function(r){ return r.id; });
+  function filtrados(){
+    var q = norm(st.q).trim().split(/\s+/).filter(Boolean);
+    var xs = D.productos.filter(function(p){
+      if (st.rubro && p.r !== st.rubro) return false;
+      if (st.marca && p.m !== st.marca) return false;
+      var texto = norm([p.n, p.m, p.s, p.cod, RUB[p.r].n].join(' '));
+      return q.every(function(w){ return texto.indexOf(w) >= 0; });
+    });
+    var cmp = {
+      rubro: function(a, b){ return ORDEN_R.indexOf(a.r) - ORDEN_R.indexOf(b.r) || a.s.localeCompare(b.s, 'es') || a.n.localeCompare(b.n, 'es', {numeric:true}); },
+      barato: function(a, b){ return a.p - b.p; },
+      caro: function(a, b){ return b.p - a.p; },
+      nombre: function(a, b){ return a.n.localeCompare(b.n, 'es', {numeric:true}); }
+    }[st.orden];
+    return xs.sort(cmp);
+  }
+
+  function zonaCantidad(p){
+    var cont = el('div', {'class':'cant', 'data-id':p.id});
+    var n = lista[p.id] || 0;
+    if (!n) {
+      var b = el('button', {type:'button', 'class':'agregar'});
+      b.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg>';
+      b.appendChild(document.createTextNode('Agregar'));
+      b.appendChild(el('span', {'class':'txt-largo'}, ' a la lista'));
+      b.setAttribute('aria-label', 'Agregar a la lista: ' + (p.m ? p.m + ' ' : '') + p.n);
+      b.addEventListener('click', function(){ cambiar(p.id, 1); });
+      cont.appendChild(b);
+    } else {
+      cont.appendChild(stepper(p, n));
+    }
+    return cont;
+  }
+  function stepper(p, n){
+    var s = el('div', {'class':'stepper'});
+    var menos = el('button', {type:'button', 'aria-label':'Uno menos de ' + p.n}, '−');
+    var mas = el('button', {type:'button', 'aria-label':'Uno más de ' + p.n}, '+');
+    var t = el('span', {'aria-live':'polite'});
+    t.innerHTML = n + '<span class="txt-largo"> en tu lista</span>';
+    menos.addEventListener('click', function(){ cambiar(p.id, -1); });
+    mas.addEventListener('click', function(){ cambiar(p.id, 1); });
+    s.appendChild(menos); s.appendChild(t); s.appendChild(mas);
+    return s;
+  }
+  function cambiar(id, d){
+    lista[id] = Math.max(0, (lista[id] || 0) + d);
+    if (!lista[id]) delete lista[id];
+    guardar();
+    var zona = document.querySelector('#grilla .cant[data-id="' + id + '"]');
+    if (zona) zona.parentNode.replaceChild(zonaCantidad(PROD[id]), zona);
+    contador();
+    var dlg = $('lista');
+    if (dlg.open) {
+      dibujarLista();
+      var enLista = dlg.querySelector('.cant[data-id="' + id + '"] button:' + (d > 0 ? 'last-child' : 'first-child'));
+      (enLista || dlg.querySelector('.cerrar')).focus();
+    } else {
+      var nueva = document.querySelector('#grilla .cant[data-id="' + id + '"] button:last-child');
+      if (nueva) nueva.focus();
+    }
+  }
+
+  function tarjeta(p){
+    var r = RUB[p.r];
+    var art = el('article', {'class':'prod'});
+    art.style.setProperty('--c', r.c); art.style.setProperty('--t', r.t);
+    var foto = el('div', {'class':'foto'});
+    if (p.img) foto.appendChild(el('img', {src:p.img, alt:(p.m ? p.m + ' · ' : '') + p.n, loading:'lazy', width:'340', height:'340'}));
+    else foto.appendChild(el('span', {'class':'sin-foto'}, 'Falta la foto: en su tienda actual no carga'));
+    foto.appendChild(el('span', {'class':'sub'}, p.s));
+    art.appendChild(foto);
+    var info = el('div', {'class':'info'});
+    info.appendChild(el('span', {'class':'marca-p'}, p.m || ''));
+    info.appendChild(el('h2', null, p.n));
+    if (p.cod) info.appendChild(el('span', {'class':'cod'}, (/^art/i.test(p.cod) ? '' : 'Cód. ') + p.cod));
+    var abajo = el('div', {'class':'abajo'});
+    abajo.appendChild(el('span', {'class':'precio'}, plata(p.p)));
+    abajo.appendChild(zonaCantidad(p));
+    info.appendChild(abajo);
+    art.appendChild(info);
+    return art;
+  }
+
+  function render(){
+    var xs = filtrados(), g = $('grilla'), v = $('vacio');
+    g.textContent = ''; v.textContent = '';
+    var nombreR = st.rubro ? RUB[st.rubro].n : '';
+    if (!xs.length) {
+      var box = el('div', {'class':'vacio'});
+      if (st.rubro && !contar(st.rubro)) {
+        box.appendChild(el('h2', null, nombreR));
+        box.appendChild(el('p', null, 'En esta muestra no cargamos productos de ' + nombreR + '. En el catálogo final aparecen todos los que carguen en la planilla, ordenados por subrubro:'));
+        var ul = el('ul'); RUB[st.rubro].subs.forEach(function(s){ ul.appendChild(el('li', null, s)); }); box.appendChild(ul);
+      } else {
+        box.appendChild(el('h2', null, 'No encontramos nada'));
+        box.appendChild(el('p', null, 'Probá con otra palabra o con otro rubro. También podés consultar por teléfono o por mail.'));
+      }
+      v.appendChild(box);
+      $('resumen').textContent = '';
+      return;
+    }
+    var frag = document.createDocumentFragment();
+    xs.forEach(function(p){ frag.appendChild(tarjeta(p)); });
+    g.appendChild(frag);
+    $('resumen').textContent = xs.length + (xs.length === 1 ? ' producto' : ' productos') + (nombreR ? ' de ' + nombreR : '') + (st.marca ? ' · ' + st.marca : '') + (st.q.trim() ? ' · «' + st.q.trim() + '»' : '');
+  }
+
+  // Tu lista
+  function contador(){
+    var n = Object.keys(lista).reduce(function(a, id){ return a + lista[id]; }, 0);
+    [].forEach.call(document.querySelectorAll('[data-cuenta]'), function(c){ c.textContent = n; });
+  }
+  function dibujarLista(){
+    var cont = $('items'); cont.textContent = '';
+    var ids = Object.keys(lista), total = 0, lineas = [];
+    $('cierre').hidden = !ids.length;
+    if (!ids.length) { cont.appendChild(el('p', {'class':'lista-vacia'}, 'Todavía no agregaste productos. Tocá «Agregar a la lista» en los que quieras consultar.')); return; }
+    ids.forEach(function(id){
+      var p = PROD[id], n = lista[id], sub = p.p * n; total += sub;
+      var it = el('div', {'class':'item'});
+      var nom = el('div', {'class':'nom'}, (p.m ? p.m + ' · ' : '') + p.n);
+      if (p.cod) nom.appendChild(el('small', null, (/^art/i.test(p.cod) ? '' : 'Cód. ') + p.cod));
+      it.appendChild(nom);
+      var zona = el('div', {'class':'cant', 'data-id':id}); zona.appendChild(stepper(p, n)); it.appendChild(zona);
+      it.appendChild(el('span', {'class':'sub-t'}, n + ' × ' + plata(p.p) + ' = ' + plata(sub)));
+      cont.appendChild(it);
+      lineas.push('- ' + n + ' × ' + (p.m ? p.m + ' ' : '') + p.n + (p.cod ? ' (' + (/^art/i.test(p.cod) ? '' : 'cód. ') + p.cod + ')' : ''));
+    });
+    $('total').textContent = plata(total);
+    var cuerpo = 'Hola, Papel Nort. Quiero consultar stock y precio de estos productos:\n\n' + lineas.join('\n') +
+      '\n\nSucursal: ' + $('suc').value + '\n\nGracias.';
+    $('enviar-mail').href = 'mailto:contacto@papelnort.com?subject=' + encodeURIComponent('Consulta desde el catálogo web') + '&body=' + encodeURIComponent(cuerpo);
+  }
+  $('suc').addEventListener('change', dibujarLista);
+  $('vaciar').addEventListener('click', function(){ lista = {}; guardar(); contador(); dibujarLista(); render(); });
+  [].forEach.call(document.querySelectorAll('[data-abrir-lista]'), function(b){
+    b.addEventListener('click', function(){ dibujarLista(); var d = $('lista'); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); });
+  });
+  [].forEach.call(document.querySelectorAll('[data-cerrar-lista]'), function(b){ b.addEventListener('click', function(){ $('lista').close ? $('lista').close() : $('lista').removeAttribute('open'); render(); }); });
+  $('lista').addEventListener('close', render);
+  $('lista').addEventListener('click', function(ev){ if (ev.target === this) this.close(); });
+
+  // Menú de teléfonos del celular
+  var ll = document.querySelector('.llamar');
+  document.addEventListener('click', function(ev){ if (ll.open && !ll.contains(ev.target)) ll.open = false; });
+  document.addEventListener('keydown', function(ev){ if (ev.key === 'Escape') ll.open = false; });
+
+  $('anio').textContent = new Date().getFullYear();
+  marcarRubro(); contador(); render();
+})();
+</script>
+</body>
+</html>
