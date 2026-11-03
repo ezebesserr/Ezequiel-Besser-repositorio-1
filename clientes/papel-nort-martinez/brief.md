@@ -11,6 +11,17 @@ Falta decidir con ellos qué hacen con la **tienda online** que hoy es papelnort
 - **A · Completa**: la tienda actual (AsimoX) pasa a una dirección aparte, por ejemplo `tienda.papelnort.net`, y la web nueva la enlaza. Hay que confirmar con AsimoX que se pueda.
 - **B · Catálogo**: un catálogo con buscador dentro de la web nueva, que se actualiza desde una planilla de Google, reemplaza la tienda. No incluye carrito ni cobro online; Mercado Pago se cotiza aparte.
 
+La muestra ya enseña la opción B: los botones de "Catálogo" llevan a `catalogo/`. Si eligen la A, esos botones pasan a ser "Tienda online" y van a la tienda vieja en su dirección nueva.
+
+## Catálogo de muestra (opción B)
+
+- Está en `catalogo/`. Tiene 44 productos reales de su tienda, con nombre, marca, código, foto y el precio publicado el 3/11/2026. Los nombres se pasaron de mayúsculas a texto normal, sin cambiar los datos.
+- De dónde salen: muchos subrubros de su tienda dicen «no se encontraron productos» (por ejemplo, Biblioratos o Resaltadores) y otros sí muestran algunos. El buscador de la tienda (`index.php?op=86r34&d=<palabra>`) devolvió estos 44 con precio. Las fotos están en su servidor en buena calidad (760 px) y las achicamos a 340 px. El cuaderno Alamo y la resma Punax no tienen foto (su servidor da 404), así que en la muestra dicen "Falta la foto".
+- Los rubros sin productos en la muestra (Informática, Hogar, Gastronomía, Regalería y Navidad) muestran sus subrubros reales y avisan que en el final aparecen los que carguen.
+- Funciona con buscador (nombre, marca o código), filtros por rubro y marca, orden por precio y una "lista" que arma un mail a contacto@papelnort.com con los productos, las cantidades y la sucursal. La lista se guarda en el navegador de cada persona. No tiene carrito ni cobro online.
+- En la muestra los productos van dentro del HTML (JSON). En el sitio final salen de una planilla de Google publicada (CSV) que carga Papel Nort, con columnas id, rubro, subrubro, marca, nombre, código, precio y foto.
+- Los lápices de rubros de la página principal llevan al catálogo filtrado (`catalogo/?rubro=escritura`).
+
 ## Datos del negocio
 
 - **Rubro**: librería y papelera. Su web la define como "centro comercial" de librería y papelería con 10 rubros: Librería (escolar, universitaria y comercial), Escritura, Artística, Accesorios de Informática, Hogar, Gastronomía, Embalaje Comercial, Embalaje Industrial, Regalería y Navidad. Su lema: "Muchas soluciones en un único lugar".
@@ -52,7 +63,8 @@ Falta decidir con ellos qué hacen con la **tienda online** que hoy es papelnort
 
 - Sacar el `noindex`, la línea "Vista previa preparada por…" y todos los "dato a confirmar".
 - `og:url`, `og:image` y el `url` del JSON-LD a `https://www.papelnort.net/`.
-- Los links a la tienda online, a donde quede la tienda (opción A) o al catálogo nuevo (opción B).
+- Con la opción B, el catálogo con todos sus productos desde la planilla; con la A, los botones "Catálogo" a la tienda vieja.
+- El botón de WhatsApp en la lista del catálogo, cuando tengamos el número.
 - WhatsApp real en la portada, en la barra del celular y en el JSON-LD.
 
 ## Datos a confirmar con el negocio
@@ -76,4 +88,5 @@ Dirección elegida: A, "Lápiz-búho". Las otras dos (B "Cuaderno y resaltador" 
 - Paleta: la de su logo, óxido #c0542a, amarillo lápiz #f2d533 y grafito #161616, sobre blanco y gris claro #f3f3f1.
 - Letras: Baloo 2 para los títulos (redonda y pesada como el logotipo KORUYA) y Jost para el texto (geométrica, de la familia de la Century Gothic de su web).
 - Elementos firma: el búho en el cable con palomas (de su banner), un lápiz HB con las cinco sucursales grabadas, los rubros como una caja de 10 lápices de colores, las marcas grabadas en un lápiz negro, el horario de las cinco sucursales como el de los cuadernos escolares (con cuáles están abiertas en el momento) y un croquis de Martínez a mano sobre hoja cuadriculada con las calles reales de OpenStreetMap.
-- En el celular, la barra fija tiene "Llamar", que abre un menú con el teléfono de cada sucursal, y "Tienda online".
+- "Llamar" abre un menú con el teléfono de cada sucursal: está en la portada (también en la compu) y en la barra fija del celular, junto a "Catálogo".
+- En el catálogo, los rubros son lápices de colores y los precios van en etiquetas color óxido, como las etiquetas naranjas de su tienda vieja.
