@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Laboratorio de Integrales</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Gráficos interactivos para entender las integrales de Mate III: dobles, regiones, polares, Jacobiano, triples, línea, Green, Stokes y Gauss.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+/* Layout: hoja de cuaderno cuadriculado; pestañas por tema y, en cada una, lienzo grande + panel de controles y cuentas */
+:root{
+  --paper:#f5f8fa; --sheet:#ffffff; --gridline:#e2eaf1; --ink:#15263a; --mute:#576a7c; --line:#cbd8e3;
+  --a:#1f5fbf; --b:#c4372c; --c:#1d8655; --d:#d99a17; --hl:#fff3cc;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --f-math:"STIX Two Text","STIX Two Math","Cambria Math","Latin Modern Math",Georgia,serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#131b19; --sheet:#1a2421; --gridline:#1d2926; --ink:#e3ebe4; --mute:#9aaea5; --line:#31433e;
+  --a:#86b6ff; --b:#ff8b7d; --c:#6fd39a; --d:#f2c25a; --hl:#38331f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#131b19; --sheet:#1a2421; --gridline:#1d2926; --ink:#e3ebe4; --mute:#9aaea5; --line:#31433e;
+  --a:#86b6ff; --b:#ff8b7d; --c:#6fd39a; --d:#f2c25a; --hl:#38331f; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background-color:var(--paper);
+  background-image:linear-gradient(var(--gridline) 1px,transparent 1px),linear-gradient(90deg,var(--gridline) 1px,transparent 1px);
+  background-size:24px 24px;color:var(--ink);font:16px/1.55 var(--f-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+:focus-visible{outline:2px solid var(--a);outline-offset:2px}
+.wrap{max-width:1200px;margin:0 auto}
+.top{position:relative;padding-block:28px 14px}
+.top::after{content:"∫";position:absolute;right:8px;top:-6px;font:400 150px/1 var(--f-math);color:var(--b);opacity:.16;pointer-events:none}
+.eyebrow{font:500 12px/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--b);margin:0 0 10px}
+h1{font:600 clamp(32px,5.4vw,50px)/1.05 var(--f-math);margin:0;text-wrap:balance}
+.lede{max-width:66ch;color:var(--mute);margin:10px 0 0}
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;gap:6px;overflow-x:auto;padding:10px 0;background:var(--paper);border-bottom:1px solid var(--line);scrollbar-width:thin}
+.tabs a{flex:none;display:flex;align-items:baseline;gap:8px;padding:7px 12px;border:1px solid var(--line);border-radius:6px;background:var(--sheet);color:var(--ink);text-decoration:none;font-size:14px;white-space:nowrap}
+.tabs a:hover{border-color:var(--a)}
+.tabs .sym{font-family:var(--f-math);font-size:17px;color:var(--a);min-width:1.4em;text-align:center}
+.tabs a[aria-current="page"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.tabs a[aria-current="page"] .sym{color:var(--paper)}
+.mod{padding-block:22px 8px}
+.mod h2{font:600 clamp(25px,3.4vw,33px)/1.15 var(--f-math);margin:0 0 6px;text-wrap:balance}
+.idea{max-width:72ch;margin:0 0 18px;color:var(--mute)}
+.lab{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:880px){.lab{grid-template-columns:minmax(0,1fr)}}
+.stage{min-width:0;display:grid;gap:8px;padding:10px;background:var(--sheet);border:1px solid var(--line);border-radius:8px}
+canvas{display:block;width:100%;max-width:100%;aspect-ratio:4/3;touch-action:pan-y}
+canvas.c3,canvas.pick{touch-action:none;cursor:grab}
+canvas.pick{cursor:crosshair}
+canvas.mini{aspect-ratio:auto;height:140px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pair canvas{aspect-ratio:1/1}
+@media (max-width:620px){.pair{grid-template-columns:1fr}}
+.cap{margin:0;display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;font:12px/1.4 var(--f-mono);color:var(--mute)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 5px 0 8px;vertical-align:-1px}
+.sw.a{background:var(--a)}.sw.b{background:var(--b)}.sw.c{background:var(--c)}.sw.d{background:var(--d)}.sw.k{background:var(--ink)}
+.panel{min-width:0;display:grid;gap:16px}
+.fx{margin:0;padding:10px 0;border-block:1px dashed var(--line);font:19px/1.7 var(--f-math);overflow-x:auto}
+.fx i{font-style:italic}
+.fx .small{font:14px/1.5 var(--f-body);color:var(--mute)}
+.int{display:inline-flex;align-items:center;vertical-align:middle;margin-right:1px}
+.int .s{font-size:1.45em;line-height:1}
+.lim{display:inline-flex;flex-direction:column;justify-content:space-between;height:2.4em;font-size:.6em;line-height:1.1;margin-left:1px;white-space:nowrap}
+.ctls{display:grid;gap:12px}
+.ctl{display:grid;gap:5px;font-size:14px}
+.ctl>span{color:var(--mute)}
+.ctl output{font-family:var(--f-mono);color:var(--ink)}
+select{width:100%;font:inherit;font-size:14px;padding:8px 10px;color:var(--ink);background:var(--sheet);border:1px solid var(--line);border-radius:6px}
+input[type=range]{width:100%;accent-color:var(--a);margin:2px 0}
+.chk{display:flex;align-items:center;gap:8px;font-size:14px}
+.chk input{accent-color:var(--a);width:16px;height:16px}
+.seg{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.seg legend{padding:0;margin-bottom:5px;font-size:14px;color:var(--mute)}
+.seg label{position:relative;flex:1 1 auto;display:flex;cursor:pointer}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg span{flex:1;text-align:center;padding:7px 10px;font-size:13.5px;background:var(--sheet);border:1px solid var(--line);border-radius:6px}
+.seg input:checked+span{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.seg input:focus-visible+span{outline:2px solid var(--a);outline-offset:2px}
+button{font:600 14px/1 var(--f-body);padding:10px 14px;color:var(--paper);background:var(--a);border:0;border-radius:6px;cursor:pointer;justify-self:start}
+.read{margin:0;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+.read div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
+.read dt{color:var(--mute)}
+.read dd{margin:0;text-align:right;font-family:var(--f-mono)}
+.read .key dd{color:var(--b);font-weight:500}
+.note{margin:0;padding:10px 12px;font-size:14px;background:var(--hl);border-radius:6px}
+.think h3{margin:0 0 4px;font:600 15px/1.3 var(--f-body)}
+.think ul{margin:0;padding-left:18px;font-size:14.5px;color:var(--mute);display:grid;gap:4px}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--mute);max-width:80ch}
+@media (max-width:560px){.top::after{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <p class="eyebrow">Análisis Matemático III · Varias variables</p>
+  <h1>Laboratorio de Integrales</h1>
+  <p class="lede">Ocho gráficos para tocar y girar, desde la suma de Riemann hasta Gauss. Cada uno muestra de dónde sale algo que en el pizarrón aparece de golpe: la r de polares, el ρ² sen φ de esféricas, el Jacobiano, Green y Stokes.</p>
+</header>
+
+<nav class="tabs" aria-label="Temas">
+  <a href="#doble" data-k="doble"><span class="sym">∬</span>Dobles</a>
+  <a href="#regiones" data-k="regiones"><span class="sym">dy dx</span>Regiones</a>
+  <a href="#polares" data-k="polares"><span class="sym">r dr dθ</span>Polares</a>
+  <a href="#jacobiano" data-k="jacobiano"><span class="sym">|J|</span>Jacobiano</a>
+  <a href="#triples" data-k="triples"><span class="sym">∭</span>Triples</a>
+  <a href="#linea" data-k="linea"><span class="sym">∫<sub>C</sub></span>De línea</a>
+  <a href="#green" data-k="green"><span class="sym">∮</span>Green</a>
+  <a href="#superficies" data-k="superficies"><span class="sym">∯</span>Stokes y Gauss</a>
+</nav>
+
+<main>
+<!-- 1 · DOBLES -->
+<section class="mod" id="m-doble" data-k="doble" hidden>
+  <h2>La integral doble es un volumen</h2>
+  <p class="idea">Partí el rectángulo R en n × n pedacitos de área ΔA y levantá sobre cada uno un prisma de altura f(x*, y*). La suma de esos volúmenes es la suma de Riemann. Cuando n crece, se pega al valor de ∬<sub>R</sub> f dA.</p>
+  <div class="lab">
+    <div class="stage">
+      <canvas id="d-cv" class="c3" tabindex="0" aria-label="Prismas de la suma de Riemann debajo de la superficie z = f(x, y). Arrastrá para girar."></canvas>
+      <p class="cap"><span>Arrastrá para girar (o flechas del teclado)</span><span><b class="sw a"></b>prismas<b class="sw b"></b>superficie</span></p>
+      <canvas id="d-cv2" class="mini" aria-label="Suma de Riemann en función de n"></canvas>
+      <p class="cap"><span>Suma de Riemann para n = 1 … 24</span><span><b class="sw a"></b>S<sub>n</sub><b class="sw b"></b>valor exacto</span></p>
+    </div>
+    <div class="panel">
+      <p class="fx">∬<sub>R</sub> f(x, y) dA = lím<sub>n→∞</sub> Σ<sub>i</sub> Σ<sub>j</sub> f(x<sub>i</sub>*, y<sub>j</sub>*) ΔA</p>
+      <div class="ctls">
+        <label class="ctl"><span>Función y rectángulo R</span>
+          <select id="d-f">
+            <option value="par">f = 4 − x²/2 − y²/2 en [0, 2] × [0, 2]</option>
+            <option value="plano">f = 1 + x + y/2 en [0, 2] × [0, 2]</option>
+            <option value="ola">f = 2 + sen(2x)·cos(2y) en [0, 3] × [0, 3]</option>
+            <option value="gauss">f = 3·e^(−x² − y²) en [−2, 2] × [−2, 2]</option>
+          </select></label>
+        <label class="ctl"><span>Divisiones por lado: n = <output id="d-no">5</output></span><input type="range" id="d-n" min="1" max="24" value="5"></label>
+        <label class="ctl"><span>Dónde se mide la altura de cada prisma</span>
+          <select id="d-s"><option value="0">Esquina inferior izquierda</option><option value="0.5" selected>Punto medio</option><option value="1">Esquina superior derecha</option></select></label>
+        <label class="chk"><input type="checkbox" id="d-surf" checked> Mostrar la superficie z = f(x, y)</label>
+      </div>
+      <dl class="read" id="d-read"></dl>
+      <div class="think"><h3>Para pensar</h3><ul>
+        <li>¿Con qué n el error baja del 1 %? Compará esquina contra punto medio.</li>
+        <li>Con el plano f = 1 + x + y/2, el punto medio da exacto con cualquier n. ¿Por qué?</li>
+        <li>Si f fuera negativa en una parte de R, esos prismas restarían volumen.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · REGIONES -->
+<section class="mod" id="m-reg" data-k="regiones" hidden>
+  <h2>Regiones y orden de integración</h2>
+  <p class="idea">Si la región no es un rectángulo, la cortás en franjas. Con franjas verticales integrás primero en y (dy dx); con horizontales, primero en x (dx dy). Los límites de adentro son las curvas por donde la franja entra y sale; los de afuera son números: desde dónde hasta dónde se mueve la franja.</p>
+  <div class="lab">
+    <div class="stage">
+      <canvas id="r-cv" aria-label="Región del plano cortada en franjas"></canvas>
+      <p class="cap"><span><b class="sw b"></b>franja que estás mirando</span><span><b class="sw d"></b>recorrido de la variable de afuera</span></p>
+    </div>
+    <div class="panel">
+      <p class="fx" id="r-fx"></p>
+      <div class="ctls">
+        <label class="ctl"><span>Región</span>
+          <select id="r-reg">
+            <option value="parab">Entre y = x² e y = x</option>
+            <option value="raiz">Debajo de y = √x, hasta x = 4</option>
+            <option value="recta">Entre y = x² e y = 2x</option>
+            <option value="tri">Triángulo: y = x, x + y = 2, y = 0</option>
+          </select></label>
+        <fieldset class="seg"><legend>Orden</legend>
+          <label><input type="radio" name="r-ord" value="I" checked><span>dy dx · franjas verticales</span></label>
+          <label><input type="radio" name="r-ord" value="II"><span>dx dy · franjas horizontales</span></label>
+        </fieldset>
+        <label class="ctl"><span>Integrando</span>
+          <select id="r-f"><option value="1">1 (da el área)</option><option value="x">x</option><option value="xy">x·y</option><option value="s">x + y</option></select></label>
+        <label class="ctl"><span>Posición de la franja</span><input type="range" id="r-s" min="0" max="1000" value="450"></label>
+        <label class="ctl"><span>Cantidad de franjas: <output id="r-no">10</output></span><input type="range" id="r-n" min="2" max="40" value="10"></label>
+      </div>
+      <dl class="read" id="r-read"></dl>
+      <div class="think"><h3>Para pensar</h3><ul>
+        <li>En el triángulo, ¿qué orden te ahorra partir la integral en dos?</li>
+        <li>Mové la franja: los límites de adentro cambian con la variable de afuera.</li>
+        <li>Cambiá el integrando: el resultado no depende del orden. Eso es Fubini.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · POLARES -->
+<section class="mod" id="m-pol" data-k="polares" hidden>
+  <h2>Coordenadas polares: de dónde sale la r</h2>
+  <p class="idea">A la izquierda, la región en el plano (θ, r), donde casi siempre es un rectángulo o algo parecido. A la derecha, la misma región en (x, y). Cada celda de lados Δθ y Δr se convierte en un pedazo de corona que mide más o menos r·Δr·Δθ: por eso dA = r dr dθ.</p>
+  <div class="lab">
+    <div class="stage">
+      <div class="pair">
+        <canvas id="p-cv1" class="pick" aria-label="Región en el plano theta, r. Tocá una celda para elegirla."></canvas>
+        <canvas id="p-cv2" aria-label="La misma región en el plano x, y"></canvas>
+      </div>
+      <p class="cap"><span>Tocá una celda en el plano (θ, r)</span><span><b class="sw d"></b>celda elegida<b class="sw k"></b>∂T/∂θ·Δθ y ∂T/∂r·Δr</span></p>
+    </div>
+    <div class="panel">
+      <p class="fx" id="p-fx"></p>
+      <div class="ctls">
+        <label class="ctl"><span>Región</span>
+          <select id="p-pre">
+            <option value="pDisco">Disco r ≤ 3</option>
+            <option value="pAni">Corona 1 ≤ r ≤ 3</option>
+            <option value="pCar">Cardioide r ≤ 1 + cos θ</option>
+            <option value="pCir">Círculo r ≤ 2 sen θ</option>
+            <option value="pRos">Rosa de 4 pétalos r ≤ |cos 2θ|</option>
+          </select></label>
+        <label class="ctl"><span>Divisiones por lado: <output id="p-no">12</output></span><input type="range" id="p-n" min="4" max="24" value="12"></label>
+        <label class="ctl"><span>Celda: columna de θ</span><input type="range" id="p-iu" min="0" max="11" value="1"></label>
+        <label class="ctl"><span>Celda: fila de r</span><input type="range" id="p-iv" min="0" max="11" value="9"></label>
+      </div>
+      <dl class="read" id="p-read"></dl>
+      <div class="think"><h3>Para pensar</h3><ul>
+        <li>Elegí una celda cerca del origen y otra lejos: tienen el mismo Δθ·Δr, pero no la misma área.</li>
+        <li>Compará el área real con lo que darías si te olvidás la r.</li>
+        <li>En r ≤ 2 sen θ, ¿por qué θ va solamente de 0 a π?</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · JACOBIANO -->
+<section class="mod" id="m-jac" data-k="jacobiano" hidden>
+  <h2>Cambio de variables y Jacobiano</h2>
+  <p class="idea">Un cambio de variables T(u, v) = (x, y) deforma cada celdita del plano (u, v). El |J| dice por cuánto se multiplica su área. Las flechas negras son ∂T/∂u·Δu y ∂T/∂v·Δv: el paralelogramo que arman es la aproximación lineal de la celda, y su área es |J|·Δu·Δv.</p>
+  <div class="lab">
+    <div class="stage">
+      <div class="pair">
+        <canvas id="j-cv1" class="pick" aria-label="Región en el plano u, v. Tocá una celda para elegirla."></canvas>
+        <canvas id="j-cv2" aria-label="Imagen de la región en el plano x, y"></canvas>
+      </div>
+      <p class="cap"><span>Tocá una celda en el plano (u, v)</span><span><b class="sw d"></b>celda y su imagen<b class="sw k"></b>derivadas parciales</span></p>
+    </div>
+    <div class="panel">
+      <p class="fx" id="j-fx"></p>
+      <div class="ctls">
+        <label class="ctl"><span>Cambio de variables</span>
+          <select id="j-pre">
+            <option value="jHip">Hipérbolas: u = xy, v = y/x</option>
+            <option value="jLin">Lineal: u = x + y, v = x − y</option>
+            <option value="jEli">Elípticas: x = 2ρ cos θ, y = ρ sen θ</option>
+            <option value="jCua">Cuadrática: x = u² − v², y = 2uv</option>
+          </select></label>
+        <label class="ctl"><span>Divisiones por lado: <output id="j-no">10</output></span><input type="range" id="j-n" min="4" max="24" value="10"></label>
+        <label class="ctl"><span>Celda: columna de u</span><input type="range" id="j-iu" min="0" max="9" value="6"></label>
+        <label class="ctl"><span>Celda: fila de v</span><input type="range" id="j-iv" min="0" max="9" value="7"></label>
+      </div>
+      <dl class="read" id="j-read"></dl>
+      <div class="think"><h3>Para pensar</h3><ul>
+        <li>En el cambio lineal |J| es constante: todas las celdas se deforman igual.</li>
+        <li>Con hipérbolas, una región incómoda en (x, y) es un rectángulo en (u, v). Para eso sirve el cambio.</li>
+        <li>Achicá la celda (más grilla): el área de la imagen y |J|·Δu·Δv se acercan.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · TRIPLES -->
+<section class="mod" id="m-tri" data-k="triples" hidden>
+  <h2>Triples: el elemento de volumen</h2>
+  <p class="idea">En cilíndricas y esféricas el cubito dV es una cuña curva. Sus aristas miden lo que dicen las etiquetas, y al multiplicarlas aparece el factor que va dentro de la integral. Con el sólido de ejemplo ves cómo se arman los límites.</p>
+  <div class="lab">
+    <div class="stage">
+      <canvas id="t-cv" class="c3" tabindex="0" aria-label="Elemento de volumen en coordenadas cilíndricas o esféricas. Arrastrá para girar."></canvas>
+      <p class="cap"><span>Arrastrá para girar</span><span><b class="sw d"></b>elemento dV<b class="sw c"></b>sólido de ejemplo</span></p>
+    </div>
+    <div class="panel">
+      <p class="fx" id="t-fx"></p>
+      <div class="ctls">
+        <fieldset class="seg"><legend>Coordenadas</legend>
+          <label><input type="radio" name="t-sys" value="cil" checked><span>Cilíndricas (r, θ, z)</span></label>
+          <label><input type="radio" name="t-sys" value="esf"><span>Esféricas (ρ, φ, θ)</span></label>
+        </fieldset>
+        <label class="ctl"><span><span id="t-al">r</span> = <output id="t-ao"></output></span><input type="range" id="t-a" min="0.2" max="2.4" step="0.05" value="1.4"></label>
+        <label class="ctl"><span><span id="t-bl">θ</span> = <output id="t-bo"></output></span><input type="range" id="t-b" min="0" max="360" step="1" value="35"></label>
+        <label class="ctl"><span><span id="t-cl">z</span> = <output id="t-co"></output></span><input type="range" id="t-c" min="0" max="2.2" step="0.05" value="0.8"></label>
+        <label class="ctl"><span>Tamaño Δ (largos y ángulos en radianes) = <output id="t-do"></output></span><input type="range" id="t-d" min="0.08" max="0.6" step="0.02" value="0.36"></label>
+        <label class="chk"><input type="checkbox" id="t-sol"> Mostrar el sólido de ejemplo</label>
+      </div>
+      <dl class="read" id="t-read"></dl>
+      <div class="think"><h3>Para pensar</h3><ul>
+        <li>Achicá Δ: la diferencia entre el producto de aristas y el volumen exacto tiende a cero. Eso justifica el dV.</li>
+        <li>En esféricas llevá φ cerca de 0: la arista ρ sen φ·Δθ casi desaparece.</li>
+        <li>¿Por qué en cilíndricas la r aparece una vez y en esféricas la ρ aparece dos?</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · LÍNEA -->
+<section class="mod" id="m-lin" data-k="linea" hidden>
+  <h2>Integral de línea: el trabajo de un campo</h2>
+  <p class="idea">Una partícula recorre la curva C con velocidad r′(t). En cada instante el campo la empuja a favor o en contra, según el signo de F·r′. El trabajo ∫<sub>C</sub> F·dr es el área bajo esa función de t, que ves en el gráfico de abajo.</p>
+  <div class="lab">
+    <div class="stage">
+      <canvas id="l-cv" aria-label="Campo vectorial, curva y partícula"></canvas>
+      <p class="cap"><span><b class="sw c"></b>a favor (F·r′ &gt; 0)<b class="sw b"></b>en contra</span><span><b class="sw a"></b>F<b class="sw k"></b>tangente T</span></p>
+      <canvas id="l-cv2" class="mini" aria-label="F por r prima en función de t"></canvas>
+      <p class="cap"><span>F(r(t))·r′(t) entre t = 0 y t = 1</span><span>área pintada = trabajo hasta t</span></p>
+    </div>
+    <div class="panel">
+      <p class="fx">∫<sub>C</sub> F·dr = <span class="int"><span class="s">∫</span><span class="lim"><span>1</span><span>0</span></span></span> F(r(t))·r′(t) dt</p>
+      <div class="ctls">
+        <label class="ctl"><span>Campo</span><select id="l-f" data-fields data-def="ola"></select></label>
+        <label class="ctl"><span>Curva</span>
+          <select id="l-c">
+            <option value="seg">Segmento de (−2, −1.5) a (2, 1)</option>
+            <option value="par" selected>Parábola y = x² − 1, de x = −1.5 a 1.5</option>
+            <option value="circ">Circunferencia de radio 1.5 (antihoraria)</option>
+            <option value="cuad">Cuadrado de lado 2.4 (antihorario)</option>
+            <option value="circ2">Circunferencia que no rodea al origen</option>
+          </select></label>
+        <label class="ctl"><span>Tiempo t</span><input type="range" id="l-t" min="0" max="1000" value="560"></label>
+        <button type="button" id="l-play">▶ Recorrer la curva</button>
+      </div>
+      <dl class="read" id="l-read"></dl>
+      <p class="note" id="l-note"></p>
+      <div class="think"><h3>Para pensar</h3><ul>
+        <li>Con F = (y, x) probá segmento y parábola, y después las curvas cerradas.</li>
+        <li>Con F = (−y, x) en la circunferencia, F·r′ nunca es negativo. ¿Puede dar 0 el trabajo?</li>
+        <li>Con el vórtice, compará la circunferencia que rodea al origen con la que no.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · GREEN -->
+<section class="mod" id="m-gre" data-k="green" hidden>
+  <h2>Teorema de Green</h2>
+  <p class="idea">La circulación de F por el borde de D es igual a la suma de todos los remolinitos de adentro. El color muestra el rotor ∂Q/∂x − ∂P/∂y punto por punto y las ruedas, cuánto gira cada celda. Entre celdas vecinas los bordes compartidos se recorren en sentidos opuestos y se cancelan: queda solamente el borde de afuera.</p>
+  <div class="lab">
+    <div class="stage">
+      <canvas id="g-cv" aria-label="Región, campo y rotor para el teorema de Green"></canvas>
+      <p class="cap"><span id="g-cap"></span><span><b class="sw k"></b>borde orientado</span></p>
+    </div>
+    <div class="panel">
+      <p class="fx" id="g-fx"></p>
+      <div class="ctls">
+        <label class="ctl"><span>Campo F = (P, Q)</span><select id="g-f" data-fields data-def="ola"></select></label>
+        <label class="ctl"><span>Curva cerrada C</span>
+          <select id="g-c">
+            <option value="circ">Circunferencia de radio 1.5</option>
+            <option value="eli">Elipse de semiejes 2 y 1.2</option>
+            <option value="cuad">Cuadrado de lado 2.4</option>
+            <option value="papa">Curva irregular</option>
+            <option value="lejos">Circunferencia que no rodea al origen</option>
+          </select></label>
+        <fieldset class="seg"><legend>Forma del teorema</legend>
+          <label><input type="radio" name="g-m" value="circ" checked><span>Circulación · rotor</span></label>
+          <label><input type="radio" name="g-m" value="flux"><span>Flujo · divergencia</span></label>
+        </fieldset>
+        <label class="ctl"><span>Celdas: <output id="g-no">5 × 5</output></span><input type="range" id="g-n" min="0" max="12" value="5"></label>
+      </div>
+      <dl class="read" id="g-read"></dl>
+      <p class="note" id="g-note"></p>
+      <div class="think"><h3>Para pensar</h3><ul>
+        <li>Con F = (y, 0) las flechas no giran, pero el rotor es −1. Imaginate una ruedita con paletas metida en ese río.</li>
+        <li>Con el vórtice y una curva que rodea el origen, las dos cuentas no coinciden. ¿Qué hipótesis falla?</li>
+        <li>En forma de flujo, el teorema mide cuánto sale por el borde.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · SUPERFICIES -->
+<section class="mod" id="m-sup" data-k="superficies" hidden>
+  <h2>Superficies: flujo, Stokes y Gauss</h2>
+  <p class="idea">El flujo mide cuánto campo atraviesa una superficie: ∬<sub>S</sub> F·n dS. Stokes lo relaciona con la circulación por el borde, y Gauss, para superficies cerradas, con la divergencia de adentro. La normal n apunta hacia afuera o hacia arriba.</p>
+  <div class="lab">
+    <div class="stage">
+      <canvas id="s-cv" class="c3" tabindex="0" aria-label="Superficie con normales y campo. Arrastrá para girar."></canvas>
+      <p class="cap"><span id="s-cap"></span><span><b class="sw d"></b>borde orientado</span></p>
+    </div>
+    <div class="panel">
+      <p class="fx" id="s-fx"></p>
+      <div class="ctls">
+        <label class="ctl"><span>Superficie</span>
+          <select id="s-s">
+            <option value="hemi">Hemisferio z = √(4 − x² − y²)</option>
+            <option value="parab">Paraboloide z = 4 − x² − y², z ≥ 0</option>
+            <option value="disco">Disco x² + y² ≤ 4 en z = 0</option>
+            <option value="esf">Esfera x² + y² + z² = 4 (cerrada)</option>
+          </select></label>
+        <label class="ctl"><span>Campo</span>
+          <select id="s-f">
+            <option value="giro">F = (−y, x, 0) · giro</option>
+            <option value="rad">F = (x, y, z) · radial</option>
+            <option value="vert">F = (0, 0, 1) · constante</option>
+            <option value="mez">F = (z, x, y)</option>
+            <option value="cho">F = (0, 0, 4 − x² − y²) · chorro</option>
+          </select></label>
+        <fieldset class="seg"><legend>Qué calcular</legend>
+          <label><input type="radio" name="s-m" value="flujo"><span>Flujo</span></label>
+          <label><input type="radio" name="s-m" value="stokes" checked><span>Stokes</span></label>
+          <label><input type="radio" name="s-m" value="gauss"><span>Gauss</span></label>
+        </fieldset>
+      </div>
+      <dl class="read" id="s-read"></dl>
+      <p class="note" id="s-note"></p>
+      <div class="think"><h3>Para pensar</h3><ul>
+        <li>En Stokes, hemisferio, paraboloide y disco dan lo mismo. ¿Qué tienen en común?</li>
+        <li>Flujo de F = (x, y, z) por el disco: da 0. Mirá hacia dónde apunta F sobre el disco.</li>
+        <li>Gauss con la esfera y F = (x, y, z): ∇·F = 3, así que da 3 veces el volumen de la bola.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>Las cuentas se hacen en el momento con métodos numéricos (Simpson y punto medio), así que pueden diferir del valor exacto en el cuarto decimal. Todo corre en tu navegador.</footer>
+</div>
+
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const PI=Math.PI,TAU=2*PI;
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const fmt=(v,d=3)=>!isFinite(v)?'—':(Math.abs(v)<.5*10**-d?0:v).toFixed(d).replace('-','−');
+const num=x=>String(+x.toFixed(2)).replace('-','−');
+const piL=i=>i%2===0?((i/2===1?'':i/2===-1?'−':i/2)+'π'):((i===1?'':i===-1?'−':i)+'π/2');
+const dot3=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const len=a=>Math.hypot(...a);
+const radio=n=>document.querySelector(`input[name="${n}"]:checked`).value;
+function simpson(f,a,b,n=100){n+=n%2;const h=(b-a)/n;let s=f(a)+f(b);for(let i=1;i<n;i++)s+=(i%2?4:2)*f(a+i*h);return s*h/3;}
+const intH=(lo,hi)=>`<span class="int"><span class="s">∫</span><span class="lim"><span>${hi}</span><span>${lo}</span></span></span>`;
+function read(id,rows){$(id).innerHTML=rows.map(r=>`<div${r[2]?' class="key"':''}><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join('');}
+
+/* ---------- colores del tema ---------- */
+let K={};
+function readColors(){const s=getComputedStyle(document.documentElement);for(const n of['sheet','ink','mute','line','a','b','c','d'])K[n]=s.getPropertyValue('--'+n).trim()||'#888888';}
+function rgb(h){const n=parseInt(h.replace('#','').slice(0,6),16);return[n>>16&255,n>>8&255,n&255];}
+const rgba=(h,a)=>{const[r,g,b]=rgb(h);return`rgba(${r},${g},${b},${a})`;};
+function shade(h,f,a=1){let[r,g,b]=rgb(h);if(f<1){r*=f;g*=f;b*=f;}else{const t=Math.min(f-1,1);r+=(255-r)*t;g+=(255-g)*t;b+=(255-b)*t;}return`rgba(${r|0},${g|0},${b|0},${a})`;}
+
+/* ---------- lienzos ---------- */
+const views=[];
+function makeCanvas(cv,draw){
+  const ctx=cv.getContext('2d'),o={cv,ctx,w:0,h:0};
+  o.redraw=()=>{if(!o.w)return;ctx.clearRect(0,0,o.w,o.h);draw(o);};
+  o.req=()=>{if(o.p)return;o.p=1;requestAnimationFrame(()=>{o.p=0;o.redraw();});};
+  new ResizeObserver(()=>{const r=cv.getBoundingClientRect();if(r.width<2)return;const d=Math.min(devicePixelRatio||1,2);cv.width=Math.round(r.width*d);cv.height=Math.round(r.height*d);ctx.setTransform(d,0,0,d,0,0);o.w=r.width;o.h=r.height;o.redraw();}).observe(cv);
+  views.push(o);return o;
+}
+function bind(id,vs,pre){$(id).addEventListener('input',e=>{pre&&pre(e);vs.forEach(v=>v.req());});}
+function V2(o,xr,yr,equal=true,pad=18){
+  let sx=(o.w-2*pad)/(xr[1]-xr[0]),sy=(o.h-2*pad)/(yr[1]-yr[0]);if(equal)sx=sy=Math.min(sx,sy);
+  const cx=(xr[0]+xr[1])/2,cy=(yr[0]+yr[1])/2;
+  const v={sx,sy,X:x=>o.w/2+(x-cx)*sx,Y:y=>o.h/2-(y-cy)*sy,ix:p=>cx+(p-o.w/2)/sx,iy:p=>cy-(p-o.h/2)/sy};
+  v.x0=v.ix(0);v.x1=v.ix(o.w);v.y0=v.iy(o.h);v.y1=v.iy(0);return v;
+}
+function niceStep(range,px){const raw=range/Math.max(1,px/70),p=10**Math.floor(Math.log10(raw)),m=raw/p;return(m<1.5?1:m<3.5?2:m<7.5?5:10)*p;}
+function axes2(ctx,v,o,opt={}){
+  const stx=opt.pi?PI/2:niceStep(v.x1-v.x0,o.w),sty=niceStep(v.y1-v.y0,o.h);
+  ctx.save();ctx.lineWidth=1;ctx.strokeStyle=rgba(K.line,.85);ctx.beginPath();
+  for(let i=Math.ceil(v.x0/stx);i*stx<=v.x1;i++){const X=Math.round(v.X(i*stx))+.5;ctx.moveTo(X,0);ctx.lineTo(X,o.h);}
+  for(let i=Math.ceil(v.y0/sty);i*sty<=v.y1;i++){const Y=Math.round(v.Y(i*sty))+.5;ctx.moveTo(0,Y);ctx.lineTo(o.w,Y);}
+  ctx.stroke();
+  const X0=v.X(0),Y0=v.Y(0);ctx.strokeStyle=K.mute;ctx.lineWidth=1.2;ctx.beginPath();
+  if(X0>=0&&X0<=o.w){ctx.moveTo(X0,0);ctx.lineTo(X0,o.h);}if(Y0>=0&&Y0<=o.h){ctx.moveTo(0,Y0);ctx.lineTo(o.w,Y0);}ctx.stroke();
+  ctx.fillStyle=K.mute;ctx.font='11px "IBM Plex Mono",ui-monospace,monospace';
+  const ly=clamp(Y0+4,2,o.h-14),lx=clamp(X0-5,26,o.w-4);
+  ctx.textAlign='center';ctx.textBaseline='top';
+  for(let i=Math.ceil(v.x0/stx);i*stx<=v.x1;i++){if(!i)continue;const X=v.X(i*stx);if(X<14||X>o.w-14)continue;ctx.fillText(opt.pi?piL(i):num(i*stx),X,ly);}
+  ctx.textAlign='right';ctx.textBaseline='middle';
+  for(let i=Math.ceil(v.y0/sty);i*sty<=v.y1;i++){if(!i)continue;const Y=v.Y(i*sty);if(Y<10||Y>o.h-10)continue;ctx.fillText(num(i*sty),lx,Y);}
+  ctx.font='italic 16px "STIX Two Text",Georgia,serif';ctx.fillStyle=K.ink;
+  if(opt.nx){ctx.textAlign='right';ctx.textBaseline='bottom';ctx.fillText(opt.nx,o.w-6,ly-2);}
+  if(opt.ny){ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText(opt.ny,lx+8,4);}
+  ctx.restore();
+}
+function arrow(ctx,x1,y1,x2,y2,col,w=1.5,hs=7){
+  const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy);if(L<.5||!isFinite(L))return;
+  const ux=dx/L,uy=dy/L,h=Math.min(hs,L*.5);ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=w;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2-ux*h*.8,y2-uy*h*.8);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-ux*h-uy*h*.45,y2-uy*h+ux*h*.45);ctx.lineTo(x2-ux*h+uy*h*.45,y2-uy*h-ux*h*.45);ctx.closePath();ctx.fill();
+}
+function label(ctx,t,x,y,col,al='left',bl='middle',font='13px "IBM Plex Sans",system-ui,sans-serif'){
+  ctx.save();ctx.font=font;const W=ctx.measureText(t).width,cw=ctx.canvas.clientWidth,ch=ctx.canvas.clientHeight;
+  let x0=al==='left'?x:al==='right'?x-W:x-W/2;x0=clamp(x0,4,cw-4-W);y=clamp(y,10,ch-10);
+  ctx.textAlign='left';ctx.textBaseline=bl;ctx.lineJoin='round';ctx.lineWidth=4;ctx.strokeStyle=K.sheet;ctx.strokeText(t,x0,y);ctx.fillStyle=col;ctx.fillText(t,x0,y);ctx.restore();
+}
+function poly(ctx,pts,fill,stroke,lw=1){ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i][0],pts[i][1]);ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.stroke();}}
+function circArrow(ctx,x,y,r,ccw,col){
+  const e=ccw?-1.5*PI:1.5*PI;ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=1.4;ctx.beginPath();ctx.arc(x,y,r,0,e,ccw);ctx.stroke();
+  const ex=x+r*Math.cos(e),ey=y+r*Math.sin(e),tx=ccw?Math.sin(e):-Math.sin(e),ty=ccw?-Math.cos(e):Math.cos(e),h=Math.max(3.5,r*.55);
+  ctx.beginPath();ctx.moveTo(ex+tx*h*.6,ey+ty*h*.6);ctx.lineTo(ex-tx*h*.4-ty*h*.45,ey-ty*h*.4+tx*h*.45);ctx.lineTo(ex-tx*h*.4+ty*h*.45,ey-ty*h*.4-tx*h*.45);ctx.closePath();ctx.fill();
+}
+function spokes(ctx,x,y,r,out,col){for(let k=0;k<4;k++){const a=k*PI/2+PI/4,c=Math.cos(a),s=Math.sin(a);if(out)arrow(ctx,x+c*r*.25,y+s*r*.25,x+c*r*1.2,y+s*r*1.2,col,1.3,4);else arrow(ctx,x+c*r*1.2,y+s*r*1.2,x+c*r*.25,y+s*r*.25,col,1.3,4);}}
+
+/* ---------- cámara 3D (proyección ortográfica, se gira arrastrando) ---------- */
+function Cam(o,s){
+  const cy=Math.cos(s.yaw),sy=Math.sin(s.yaw),cp=Math.cos(s.pitch),sp=Math.sin(s.pitch),k=Math.min(o.w,o.h)*s.zoom,ox=o.w/2,oy=o.h/2;
+  const f=(x,y,z)=>{x-=s.c[0];y-=s.c[1];z-=s.c[2];const x1=x*cy-y*sy,y1=x*sy+y*cy;return[ox+x1*k,oy-(z*cp+y1*sp)*k,y1*cp-z*sp];};
+  f.d=[sy*cp,cy*cp,-sp];return f;
+}
+function orbit(o,s,minP=-.2){
+  const cv=o.cv;let on=0,px=0,py=0;
+  cv.addEventListener('pointerdown',e=>{on=1;px=e.clientX;py=e.clientY;cv.setPointerCapture(e.pointerId);cv.style.cursor='grabbing';});
+  cv.addEventListener('pointermove',e=>{if(!on)return;s.yaw+=(e.clientX-px)*.01;s.pitch=clamp(s.pitch+(e.clientY-py)*.008,minP,1.45);px=e.clientX;py=e.clientY;o.req();});
+  const up=()=>{on=0;cv.style.cursor='';};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+  cv.addEventListener('keydown',e=>{const m={ArrowLeft:[-.1,0],ArrowRight:[.1,0],ArrowUp:[0,-.08],ArrowDown:[0,.08]}[e.key];if(!m)return;e.preventDefault();s.yaw+=m[0];s.pitch=clamp(s.pitch+m[1],minP,1.45);o.req();});
+}
+function axes3(ctx,pr,L,n=['x','y','z']){
+  const O=pr(0,0,0);[[L[0],0,0],[0,L[1],0],[0,0,L[2]]].forEach((e,i)=>{const E=pr(...e);arrow(ctx,O[0],O[1],E[0],E[1],K.mute,1.2,7);const dx=E[0]-O[0],dy=E[1]-O[1],l=Math.hypot(dx,dy)||1;label(ctx,n[i],E[0]+dx/l*11,E[1]+dy/l*11,K.ink,'center','middle','italic 17px "STIX Two Text",Georgia,serif');});
+}
+const arr3=(ctx,pr,p,q,col,w,hs)=>{const a=pr(...p),b=pr(...q);arrow(ctx,a[0],a[1],b[0],b[1],col,w,hs);};
+
+/* ---------- campos 2D (línea y Green) ---------- */
+const FLD={
+  rot:{n:'F = (−y, x) · giro',P:(x,y)=>-y,Q:(x,y)=>x,curl:()=>2,div:()=>0},
+  corte:{n:'F = (y, 0) · corte',P:(x,y)=>y,Q:()=>0,curl:()=>-1,div:()=>0},
+  rad:{n:'F = (x, y) · radial, conservativo',P:(x,y)=>x,Q:(x,y)=>y,curl:()=>0,div:()=>2,phi:(x,y)=>(x*x+y*y)/2,pt:'φ = (x² + y²)/2'},
+  sil:{n:'F = (y, x) · silla, conservativo',P:(x,y)=>y,Q:(x,y)=>x,curl:()=>0,div:()=>0,phi:(x,y)=>x*y,pt:'φ = xy'},
+  ola:{n:'F = (cos y, sen x) · ondas',P:(x,y)=>Math.cos(y),Q:(x,y)=>Math.sin(x),curl:(x,y)=>Math.cos(x)+Math.sin(y),div:()=>0},
+  fue:{n:'F = (x³/3, y) · fuente, conservativo',P:(x,y)=>x*x*x/3,Q:(x,y)=>y,curl:()=>0,div:(x,y)=>x*x+1,phi:(x,y)=>x**4/12+y*y/2,pt:'φ = x⁴/12 + y²/2'},
+  vor:{n:'F = (−y, x)/(x² + y²) · vórtice',P:(x,y)=>-y/(x*x+y*y),Q:(x,y)=>x/(x*x+y*y),curl:()=>0,div:()=>0,sing:1}};
+document.querySelectorAll('select[data-fields]').forEach(s=>{s.innerHTML=Object.entries(FLD).map(([k,f])=>`<option value="${k}">${f.n}</option>`).join('');s.value=s.dataset.def;});
+function field2(ctx,v,o,F,nx=15){
+  const st=(v.x1-v.x0)/nx,cell=st*v.sx,col=rgba(K.mute,.6);
+  for(let x=v.x0+st/2;x<v.x1;x+=st)for(let y=v.y0+st/2;y<v.y1;y+=st){
+    const p=F.P(x,y),q=F.Q(x,y),m=Math.hypot(p,q);if(!isFinite(m)||m<1e-9)continue;
+    const L=cell*.85*Math.tanh(m/1.6),X=v.X(x),Y=v.Y(y),ux=p/m,uy=-q/m;arrow(ctx,X-ux*L/2,Y-uy*L/2,X+ux*L/2,Y+uy*L/2,col,1.1,Math.max(3,L*.35));}
+}
+
+/* ===== 1 · Dobles ===== */
+const F2={
+  par:{f:(x,y)=>4-x*x/2-y*y/2,R:[0,2,0,2]},
+  plano:{f:(x,y)=>1+x+y/2,R:[0,2,0,2]},
+  ola:{f:(x,y)=>2+Math.sin(2*x)*Math.cos(2*y),R:[0,3,0,3]},
+  gauss:{f:(x,y)=>3*Math.exp(-x*x-y*y),R:[-2,2,-2,2]}};
+function prepF2(F){if(F.I!==undefined)return F;const[a,b,c,d]=F.R;F.I=simpson(x=>simpson(y=>F.f(x,y),c,d,80),a,b,80);let m=0;for(let i=0;i<=24;i++)for(let j=0;j<=24;j++)m=Math.max(m,F.f(a+(b-a)*i/24,c+(d-c)*j/24));F.zmax=m;return F;}
+const riem=(F,n,s)=>{const[a,b,c,d]=F.R,dx=(b-a)/n,dy=(d-c)/n;let S=0;for(let i=0;i<n;i++)for(let j=0;j<n;j++)S+=F.f(a+(i+s)*dx,c+(j+s)*dy);return S*dx*dy;};
+const sD={yaw:-2.2,pitch:.55,zoom:.2,c:[0,0,0]};
+const vD=makeCanvas($('d-cv'),o=>{
+  const ctx=o.ctx,F=prepF2(F2[$('d-f').value]),n=+$('d-n').value,s=+$('d-s').value,[a,b,c,d]=F.R;
+  $('d-no').value=n;
+  const span=Math.max(b-a,d-c,F.zmax);sD.c=[(a+b)/2,(c+d)/2,F.zmax*.45];sD.zoom=.5/span;
+  const pr=Cam(o,sD),D=pr.d;
+  poly(ctx,[pr(a,c,0),pr(b,c,0),pr(b,d,0),pr(a,d,0)],rgba(K.a,.06),rgba(K.a,.5),1);
+  axes3(ctx,pr,[b+span*.3,d+span*.3,F.zmax*1.3]);
+  const dx=(b-a)/n,dy=(d-c)/n,bx=[];
+  for(let i=0;i<n;i++)for(let j=0;j<n;j++){const x0=a+i*dx,y0=c+j*dy;bx.push([x0,y0,F.f(x0+s*dx,y0+s*dy),pr(x0+dx/2,y0+dy/2,0)[2]]);}
+  bx.sort((p,q)=>q[3]-p[3]);
+  const lw=n>12?.5:.9;
+  for(const[x0,y0,h]of bx){
+    const x1=x0+dx,y1=y0+dy,z0=Math.min(0,h),z1=Math.max(0,h),col=h>=0?K.a:K.b;
+    const fc=[[[0,0,1],[[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]],1.35],
+      [[-1,0,0],[[x0,y0,z0],[x0,y1,z0],[x0,y1,z1],[x0,y0,z1]],.9],[[1,0,0],[[x1,y0,z0],[x1,y1,z0],[x1,y1,z1],[x1,y0,z1]],.9],
+      [[0,-1,0],[[x0,y0,z0],[x1,y0,z0],[x1,y0,z1],[x0,y0,z1]],.72],[[0,1,0],[[x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]],.72]];
+    for(const[nn,vs,f]of fc){if(nn[0]*D[0]+nn[1]*D[1]+nn[2]*D[2]>=0)continue;poly(ctx,vs.map(p=>pr(...p)),shade(col,f,.88),shade(col,.5,.8),lw);}
+  }
+  if($('d-surf').checked){
+    ctx.strokeStyle=rgba(K.b,.55);ctx.lineWidth=1;ctx.beginPath();const m=16;
+    for(let i=0;i<=m;i++)for(let j=0;j<=m;j++){const x=a+(b-a)*i/m,y=c+(d-c)*j/m,p=pr(x,y,F.f(x,y));j?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]);}
+    for(let j=0;j<=m;j++)for(let i=0;i<=m;i++){const x=a+(b-a)*i/m,y=c+(d-c)*j/m,p=pr(x,y,F.f(x,y));i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]);}
+    ctx.stroke();
+  }
+  const S=riem(F,n,s);
+  read('d-read',[['ΔA = Δx·Δy',fmt(dx*dy,4)],['Cantidad de prismas',n*n],['Suma de Riemann',fmt(S,4),1],['Integral exacta',fmt(F.I,4)],['Error',fmt(S-F.I,4)+' ('+fmt(Math.abs(S-F.I)/Math.abs(F.I)*100,2)+' %)']]);
+});
+orbit(vD,sD,.08);
+const vD2=makeCanvas($('d-cv2'),o=>{
+  const ctx=o.ctx,F=prepF2(F2[$('d-f').value]),n=+$('d-n').value,s=+$('d-s').value,N=24,S=[];
+  for(let k=1;k<=N;k++)S.push(riem(F,k,s));
+  const mn=Math.min(F.I,...S),mx=Math.max(F.I,...S),pd=(mx-mn)*.12||.5,lo=mn-pd,hi=mx+pd;
+  const L=50,R=12,T=10,B=20,X=k=>L+(k-1)/(N-1)*(o.w-L-R),Y=v=>T+(hi-v)/(hi-lo)*(o.h-T-B);
+  ctx.strokeStyle=K.line;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(L,T);ctx.lineTo(L,o.h-B);ctx.lineTo(o.w-R,o.h-B);ctx.stroke();
+  ctx.font='11px "IBM Plex Mono",monospace';ctx.fillStyle=K.mute;ctx.textAlign='center';ctx.textBaseline='top';
+  [1,6,12,18,24].forEach(k=>ctx.fillText(k,X(k),o.h-B+4));
+  ctx.textAlign='right';ctx.textBaseline='middle';[mx,mn].forEach(v=>ctx.fillText(fmt(v,2),L-6,Y(v)));
+  ctx.setLineDash([5,4]);ctx.strokeStyle=K.b;ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(L,Y(F.I));ctx.lineTo(o.w-R,Y(F.I));ctx.stroke();ctx.setLineDash([]);
+  ctx.strokeStyle=K.a;ctx.lineWidth=1.6;ctx.beginPath();S.forEach((v,i)=>i?ctx.lineTo(X(i+1),Y(v)):ctx.moveTo(X(1),Y(v)));ctx.stroke();
+  ctx.fillStyle=K.a;S.forEach((v,i)=>{ctx.beginPath();ctx.arc(X(i+1),Y(v),i+1===n?5:2.2,0,TAU);ctx.fill();});
+});
+bind('m-doble',[vD,vD2]);
+
+/* ===== 2 · Regiones ===== */
+const REG={
+  parab:{xr:[-.25,1.25],yr:[-.2,1.2],I:[[0,1,x=>x*x,x=>x,'0','1','x²','x']],II:[[0,1,y=>y,y=>Math.sqrt(y),'0','1','y','√y']]},
+  raiz:{xr:[-.3,4.4],yr:[-.3,2.4],I:[[0,4,()=>0,x=>Math.sqrt(x),'0','4','0','√x']],II:[[0,2,y=>y*y,()=>4,'0','2','y²','4']]},
+  recta:{xr:[-.3,2.4],yr:[-.3,4.3],I:[[0,2,x=>x*x,x=>2*x,'0','2','x²','2x']],II:[[0,4,y=>y/2,y=>Math.sqrt(y),'0','4','y/2','√y']]},
+  tri:{xr:[-.25,2.25],yr:[-.25,1.3],I:[[0,1,()=>0,x=>x,'0','1','0','x'],[1,2,()=>0,x=>2-x,'1','2','0','2 − x']],II:[[0,1,y=>y,y=>2-y,'0','1','y','2 − y']]}};
+const RF={'1':[()=>1,'1'],x:[x=>x,'x'],xy:[(x,y)=>x*y,'x·y'],s:[(x,y)=>x+y,'(x + y)']};
+const regVal=(pcs,vert,f)=>pcs.reduce((S,[a,b,lo,hi])=>S+simpson(t=>simpson(w=>vert?f(t,w):f(w,t),lo(t),hi(t),40),a,b,400),0);
+const vR=makeCanvas($('r-cv'),o=>{
+  const ctx=o.ctx,R=REG[$('r-reg').value],vert=radio('r-ord')==='I',n=+$('r-n').value,s=+$('r-s').value/1000,[f,fT]=RF[$('r-f').value];
+  $('r-no').value=n;
+  const v=V2(o,R.xr,R.yr,true,20);axes2(ctx,v,o,{nx:'x',ny:'y'});
+  const reg=new Path2D();
+  for(const[a,b,lo,hi]of R.I){for(let k=0;k<=60;k++){const x=a+(b-a)*k/60;k?reg.lineTo(v.X(x),v.Y(lo(x))):reg.moveTo(v.X(x),v.Y(lo(x)));}for(let k=60;k>=0;k--){const x=a+(b-a)*k/60;reg.lineTo(v.X(x),v.Y(hi(x)));}reg.closePath();}
+  ctx.fillStyle=rgba(K.a,.1);ctx.fill(reg);
+  const pcs=R[vert?'I':'II'],A=pcs[0][0],B=pcs[pcs.length-1][1],w=(B-A)/n,find=t=>pcs.find(p=>t>=p[0]-1e-9&&t<=p[1]+1e-9)||pcs[pcs.length-1];
+  const S=(t,u)=>vert?[v.X(t),v.Y(u)]:[v.X(u),v.Y(t)];
+  ctx.lineWidth=1;
+  for(let k=0;k<n;k++){const t0=A+k*w,tm=t0+w/2,p=find(tm),q0=S(t0,p[2](tm)),q1=S(t0+w,p[3](tm)),x=Math.min(q0[0],q1[0]),y=Math.min(q0[1],q1[1]),W=Math.abs(q1[0]-q0[0]),H=Math.abs(q1[1]-q0[1]);ctx.fillStyle=rgba(K.a,.13);ctx.fillRect(x,y,W,H);ctx.strokeStyle=rgba(K.a,.45);ctx.strokeRect(x,y,W,H);}
+  ctx.strokeStyle=K.ink;ctx.lineWidth=1.8;ctx.stroke(reg);
+  const a0=S(A,0),b0=S(B,0);ctx.strokeStyle=K.d;ctx.lineWidth=5;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(a0[0],a0[1]);ctx.lineTo(b0[0],b0[1]);ctx.stroke();ctx.lineCap='butt';
+  const t=A+s*(B-A),p=find(t),l=p[2](t),h=p[3](t),e0=S(t,l),e1=S(t,h),hw=Math.max(3,w*v.sx/2),iv=vert?'y':'x';
+  ctx.fillStyle=rgba(K.b,.22);if(vert)ctx.fillRect(e0[0]-hw,e1[1],2*hw,e0[1]-e1[1]);else ctx.fillRect(e0[0],e0[1]-hw,e1[0]-e0[0],2*hw);
+  arrow(ctx,e0[0],e0[1],e1[0],e1[1],K.b,2.4,10);
+  for(const q of[e0,e1]){ctx.fillStyle=K.b;ctx.beginPath();ctx.arc(q[0],q[1],4,0,TAU);ctx.fill();}
+  if(vert){label(ctx,`entra por y = ${p[6]}`,e0[0]+8,e0[1]+14,K.b);label(ctx,`sale por y = ${p[7]}`,e1[0]+8,e1[1]-14,K.b);}
+  else{label(ctx,`entra por x = ${p[6]}`,e0[0]-8,e0[1]-16,K.b,'right');label(ctx,`sale por x = ${p[7]}`,e1[0]+8,e1[1]-16,K.b);}
+  const v1=regVal(pcs,vert,f),v2=regVal(R[vert?'II':'I'],!vert,f);
+  $('r-fx').innerHTML=pcs.map(q=>intH(q[4],q[5])+intH(q[6],q[7])+` ${fT} <i>${vert?'dy dx':'dx dy'}</i>`).join(' + ');
+  read('r-read',[['Franja en',`${vert?'x':'y'} = ${fmt(t,2)}`],['Va de',`${iv} = ${fmt(l,3)} a ${iv} = ${fmt(h,3)}`],[`∬ ${fT} dA en este orden`,fmt(v1,4),1],['En el otro orden',fmt(v2,4)],['Integrales necesarias',pcs.length>1?pcs.length+' (hay que partir)':'1']]);
+});
+bind('m-reg',[vR]);
+
+/* ===== 3 y 4 · Polares y Jacobiano (mismo motor) ===== */
+const k0=()=>0;
+const PRE={
+  pDisco:{vb:[0,3],lo:k0,hi:()=>3,lim:['0','2π','0','3'],pol:1},
+  pAni:{vb:[0,3],lo:()=>1,hi:()=>3,lim:['0','2π','1','3'],pol:1},
+  pCar:{vb:[0,2],lo:k0,hi:u=>1+Math.cos(u),lim:['0','2π','0','1 + cos θ'],pol:1},
+  pCir:{u:[0,PI],vb:[0,2],lo:k0,hi:u=>2*Math.sin(u),lim:['0','π','0','2 sen θ'],pol:1},
+  pRos:{vb:[0,1],lo:k0,hi:u=>Math.abs(Math.cos(2*u)),lim:['0','2π','0','|cos 2θ|'],pol:1},
+  jLin:{T:(u,v)=>[(u+v)/2,(u-v)/2],u:[1,3],vb:[-1,1],lo:()=>-1,hi:()=>1,map:'x = (u + v)/2,  y = (u − v)/2',jt:'1/2',lim:['1','3','−1','1'],nu:'u',nv:'v'},
+  jEli:{T:(u,v)=>[2*v*Math.cos(u),v*Math.sin(u)],u:[0,TAU],vb:[0,1],lo:k0,hi:()=>1,map:'x = 2ρ cos θ,  y = ρ sen θ',jt:'2ρ',lim:['0','2π','0','1'],nu:'θ',nv:'ρ'},
+  jHip:{T:(u,v)=>[Math.sqrt(u/v),Math.sqrt(u*v)],u:[1,4],vb:[1,3],lo:()=>1,hi:()=>3,map:'x = √(u/v),  y = √(u·v)',jt:'1/(2v)',lim:['1','4','1','3'],nu:'u',nv:'v'},
+  jCua:{T:(u,v)=>[u*u-v*v,2*u*v],u:[.3,1.2],vb:[.2,1],lo:()=>.2,hi:()=>1,map:'x = u² − v²,  y = 2uv',jt:'4(u² + v²)',lim:['0.3','1.2','0.2','1'],nu:'u',nv:'v'}};
+for(const k in PRE){const M=PRE[k];if(M.pol){M.T=(u,v)=>[v*Math.cos(u),v*Math.sin(u)];M.u=M.u||[0,TAU];M.nu='θ';M.nv='r';M.map='x = r cos θ,  y = r sen θ';M.jt='r';}}
+const jac=(T,u,v)=>{const h=1e-4,a=T(u+h,v),b=T(u-h,v),c=T(u,v+h),d=T(u,v-h),xu=(a[0]-b[0])/(2*h),yu=(a[1]-b[1])/(2*h),xv=(c[0]-d[0])/(2*h),yv=(c[1]-d[1])/(2*h);return[xu*yv-xv*yu,[xu,yu],[xv,yv]];};
+const shoelace=pts=>{let s=0;for(let i=0;i<pts.length;i++){const p=pts[i],q=pts[(i+1)%pts.length];s+=p[0]*q[1]-q[0]*p[1];}return Math.abs(s)/2;};
+function setupMap(px,sec){
+  const g=id=>$(px+'-'+id),st={tot:{}};
+  function get(){const key=g('pre').value,M=PRE[key],N=+g('n').value;g('iu').max=N-1;g('iv').max=N-1;g('no').value=N;
+    const iu=Math.min(+g('iu').value,N-1),iv=Math.min(+g('iv').value,N-1),[u0,u1]=M.u,[v0,v1]=M.vb,du=(u1-u0)/N,dv=(v1-v0)/N;
+    return{key,M,N,u0,u1,v0,v1,du,dv,cu:u0+iu*du,cv:v0+iv*dv};}
+  const vS=makeCanvas(g('cv1'),o=>{
+    const ctx=o.ctx,G=get(),M=G.M,pu=(G.u1-G.u0)*.06,pv=(G.v1-G.v0)*.1;
+    const v=V2(o,[G.u0-pu,G.u1+pu],[G.v0-pv,G.v1+pv],false,24);st.v=v;
+    axes2(ctx,v,o,{nx:M.nu,ny:M.nv,pi:M.nu==='θ'});
+    const reg=new Path2D(),m=100;
+    for(let k=0;k<=m;k++){const u=G.u0+(G.u1-G.u0)*k/m;k?reg.lineTo(v.X(u),v.Y(M.lo(u))):reg.moveTo(v.X(u),v.Y(M.lo(u)));}
+    for(let k=m;k>=0;k--){const u=G.u0+(G.u1-G.u0)*k/m;reg.lineTo(v.X(u),v.Y(M.hi(u)));}reg.closePath();
+    ctx.fillStyle=rgba(K.a,.12);ctx.fill(reg);
+    ctx.save();ctx.clip(reg);ctx.strokeStyle=rgba(K.a,.55);ctx.lineWidth=1;ctx.beginPath();
+    for(let i=0;i<=G.N;i++){const X=v.X(G.u0+i*G.du),Y=v.Y(G.v0+i*G.dv);ctx.moveTo(X,v.Y(G.v0));ctx.lineTo(X,v.Y(G.v1));ctx.moveTo(v.X(G.u0),Y);ctx.lineTo(v.X(G.u1),Y);}
+    ctx.stroke();ctx.restore();ctx.strokeStyle=K.a;ctx.lineWidth=1.6;ctx.stroke(reg);
+    const x0=v.X(G.cu),x1=v.X(G.cu+G.du),y0=v.Y(G.cv),y1=v.Y(G.cv+G.dv);
+    ctx.fillStyle=rgba(K.d,.6);ctx.fillRect(x0,y1,x1-x0,y0-y1);ctx.strokeStyle=K.b;ctx.lineWidth=2;ctx.strokeRect(x0,y1,x1-x0,y0-y1);
+  });
+  const vT=makeCanvas(g('cv2'),o=>{
+    const ctx=o.ctx,G=get(),M=G.M,T=M.T,m=120,bd=[];
+    for(let k=0;k<=m;k++){const u=G.u0+(G.u1-G.u0)*k/m;bd.push(T(u,M.lo(u)));}
+    for(let k=0;k<=40;k++)bd.push(T(G.u1,M.lo(G.u1)+(M.hi(G.u1)-M.lo(G.u1))*k/40));
+    for(let k=m;k>=0;k--){const u=G.u0+(G.u1-G.u0)*k/m;bd.push(T(u,M.hi(u)));}
+    for(let k=40;k>=0;k--)bd.push(T(G.u0,M.lo(G.u0)+(M.hi(G.u0)-M.lo(G.u0))*k/40));
+    let xa=0,xb=0,ya=0,yb=0;bd.forEach(p=>{xa=Math.min(xa,p[0]);xb=Math.max(xb,p[0]);ya=Math.min(ya,p[1]);yb=Math.max(yb,p[1]);});
+    const ppx=(xb-xa)*.08,ppy=(yb-ya)*.08,v=V2(o,[xa-ppx,xb+ppx],[ya-ppy,yb+ppy],true,20),S=p=>[v.X(p[0]),v.Y(p[1])];
+    axes2(ctx,v,o,{nx:'x',ny:'y'});
+    const reg=new Path2D();bd.forEach((p,i)=>i?reg.lineTo(...S(p)):reg.moveTo(...S(p)));reg.closePath();
+    ctx.fillStyle=rgba(K.a,.12);ctx.fill(reg);
+    ctx.save();ctx.clip(reg);ctx.strokeStyle=rgba(K.a,.55);ctx.lineWidth=1;ctx.beginPath();
+    for(let i=0;i<=G.N;i++){const u=G.u0+i*G.du,w=G.v0+i*G.dv;
+      for(let k=0;k<=40;k++){const q=S(T(u,G.v0+(G.v1-G.v0)*k/40));k?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]);}
+      for(let k=0;k<=90;k++){const q=S(T(G.u0+(G.u1-G.u0)*k/90,w));k?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]);}}
+    ctx.stroke();ctx.restore();ctx.strokeStyle=K.a;ctx.lineWidth=1.6;ctx.stroke(reg);
+    const{cu,cv,du,dv}=G,cp=[],q=14;
+    for(let k=0;k<q;k++)cp.push(T(cu+du*k/q,cv));for(let k=0;k<q;k++)cp.push(T(cu+du,cv+dv*k/q));
+    for(let k=0;k<q;k++)cp.push(T(cu+du*(1-k/q),cv+dv));for(let k=0;k<q;k++)cp.push(T(cu,cv+dv*(1-k/q)));
+    poly(ctx,cp.map(S),rgba(K.d,.65),K.b,2);
+    const[,Tu,Tv]=jac(T,cu,cv),p0=T(cu,cv),A=[p0[0]+Tu[0]*du,p0[1]+Tu[1]*du],B=[p0[0]+Tv[0]*dv,p0[1]+Tv[1]*dv];
+    ctx.setLineDash([4,3]);poly(ctx,[S(p0),S(A),S([A[0]+B[0]-p0[0],A[1]+B[1]-p0[1]]),S(B)],null,K.ink,1);ctx.setLineDash([]);
+    arrow(ctx,...S(p0),...S(A),K.ink,1.7,7);arrow(ctx,...S(p0),...S(B),K.ink,1.7,7);
+    const Jc=Math.abs(jac(T,cu+du/2,cv+dv/2)[0]),ar=shoelace(cp);
+    if(st.tot[G.key]===undefined)st.tot[G.key]=[simpson(u=>simpson(w=>Math.abs(jac(T,u,w)[0]),M.lo(u),M.hi(u),40),G.u0,G.u1,120),simpson(u=>M.hi(u)-M.lo(u),G.u0,G.u1,200)];
+    const[tot,flat]=st.tot[G.key],nu=M.nu,nv=M.nv;
+    read(px+'-read',[[`Celda: Δ${nu}·Δ${nv}`,fmt(du*dv,4)],['Área de su imagen',fmt(ar,4),1],['|J| en el centro de la celda',fmt(Jc,3)],[`|J|·Δ${nu}·Δ${nv}`,fmt(Jc*du*dv,4)],['Área de la región en (x, y)',fmt(tot,4),1],[`Si te olvidás el |J|: ∬ d${nu} d${nv}`,fmt(flat,4)]]);
+    g('fx').innerHTML=`<span class="small">${M.map}  ⇒  |J| = ${M.jt}</span><br>Área = ${intH(M.lim[0],M.lim[1])}${intH(M.lim[2],M.lim[3])} ${M.jt} <i>d${nv} d${nu}</i>`;
+  });
+  const pick=e=>{if(!st.v)return;const r=vS.cv.getBoundingClientRect(),G=get(),u=st.v.ix(e.clientX-r.left),w=st.v.iy(e.clientY-r.top);g('iu').value=clamp(Math.floor((u-G.u0)/G.du),0,G.N-1);g('iv').value=clamp(Math.floor((w-G.v0)/G.dv),0,G.N-1);vS.req();vT.req();};
+  let dn=0;vS.cv.addEventListener('pointerdown',e=>{dn=1;vS.cv.setPointerCapture(e.pointerId);pick(e);});
+  vS.cv.addEventListener('pointermove',e=>{if(dn)pick(e);});vS.cv.addEventListener('pointerup',()=>dn=0);vS.cv.addEventListener('pointercancel',()=>dn=0);
+  bind(sec,[vS,vT]);
+}
+setupMap('p','m-pol');setupMap('j','m-jac');
+
+/* ===== 5 · Triples ===== */
+const S3={
+  cil:{P:(r,t,z)=>[r*Math.cos(t),r*Math.sin(t),z],sl:[[.2,2.4,1.4,'r'],[0,360,35,'θ'],[0,2.2,.8,'z']],ang:[0,1,0],E:['Δr','r·Δθ','Δz'],el:'dV = r dr dθ dz',
+    len:(a,b,c,d)=>[d,a*d,d],ex:(a,b,c,d)=>((a+d)**2-a*a)/2*d*d,
+    sol:{t:'Paraboloide z = 4 − r² sobre el plano z = 0',fx:intH('0','2π')+intH('0','2')+intH('0','4 − r²')+' r <i>dz dr dθ</i>',V:8*PI,Vt:'8π'}},
+  esf:{P:(p,f,t)=>[p*Math.sin(f)*Math.cos(t),p*Math.sin(f)*Math.sin(t),p*Math.cos(f)],sl:[[.3,2.4,1.6,'ρ'],[5,170,50,'φ'],[0,360,35,'θ']],ang:[0,1,1],E:['Δρ','ρ·Δφ','ρ sen φ·Δθ'],el:'dV = ρ² sen φ dρ dφ dθ',
+    len:(a,b,c,d)=>[d,a*d,a*Math.sin(b)*d],ex:(a,b,c,d)=>((a+d)**3-a**3)/3*(Math.cos(b)-Math.cos(b+d))*d,
+    sol:{t:'Cucurucho: cono φ ≤ π/4 tapado por la esfera ρ = 2',fx:intH('0','2π')+intH('0','π/4')+intH('0','2')+' ρ² sen φ <i>dρ dφ dθ</i>',V:16*PI/3*(1-Math.SQRT1_2),Vt:'(16π/3)(1 − √2/2)'}}};
+function tSet(){const S=S3[radio('t-sys')];['a','b','c'].forEach((k,i)=>{const[mn,mx,val,l]=S.sl[i],el=$('t-'+k);el.min=mn;el.max=mx;el.step=S.ang[i]?1:.05;el.value=val;$('t-'+k+'l').textContent=l;});}
+tSet();
+const sT={yaw:-2.2,pitch:.42,zoom:.16,c:[0,0,1]};
+const vT3=makeCanvas($('t-cv'),o=>{
+  const ctx=o.ctx,sys=radio('t-sys'),S=S3[sys],sol=$('t-sol').checked,d=+$('t-d').value;
+  const[a,b,c]=['a','b','c'].map((k,i)=>+$('t-'+k).value*(S.ang[i]?PI/180:1));
+  ['a','b','c'].forEach((k,i)=>{$('t-'+k+'o').value=S.ang[i]?Math.round(+$('t-'+k).value)+'°':(+$('t-'+k).value).toFixed(2);});$('t-do').value=d.toFixed(2);
+  const big=sol&&sys==='cil';sT.c=[0,0,big?1.7:sys==='esf'?.6:1.1];sT.zoom=big?.13:.155;
+  const pr=Cam(o,sT);axes3(ctx,pr,[2.8,2.8,big?4.4:2.8]);
+  const line=(f,n,col,w=1)=>{ctx.strokeStyle=col;ctx.lineWidth=w;ctx.beginPath();for(let k=0;k<=n;k++){const p=pr(...f(k/n));k?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]);}ctx.stroke();};
+  const fa=rgba(K.mute,.4),cc=K.c;
+  if(sys==='cil'){
+    for(const z of[0,c,2.2])line(t=>[a*Math.cos(TAU*t),a*Math.sin(TAU*t),z],64,fa);
+    for(let i=0;i<12;i++){const t=i*TAU/12;line(s=>[a*Math.cos(t),a*Math.sin(t),2.2*s],1,fa);}
+    ctx.setLineDash([4,4]);line(s=>[2.6*s*Math.cos(b),2.6*s*Math.sin(b),0],1,fa);line(s=>[2.6*Math.cos(b),2.6*Math.sin(b),2.2*s],1,fa);ctx.setLineDash([]);
+    if(sol){for(const r of[.5,1,1.5])line(t=>[r*Math.cos(TAU*t),r*Math.sin(TAU*t),4-r*r],64,cc,1.2);for(let i=0;i<16;i++){const t=i*TAU/16;line(s=>[2*s*Math.cos(t),2*s*Math.sin(t),4-4*s*s],24,cc,1.2);}line(t=>[2*Math.cos(TAU*t),2*Math.sin(TAU*t),0],64,cc,1.8);}
+  }else{
+    for(let i=1;i<6;i++){const f=i*PI/6;line(t=>S.P(a,f,TAU*t),64,fa);}
+    for(let i=0;i<8;i++){const t=i*TAU/8;line(s=>S.P(a,PI*s,t),40,fa);}
+    ctx.setLineDash([4,4]);for(let i=0;i<12;i++){const t=i*TAU/12;line(s=>S.P(2.6*s,b,t),1,fa);}line(t=>S.P(2.6,b,TAU*t),64,fa);ctx.setLineDash([]);
+    if(sol){const f0=PI/4;for(let i=0;i<16;i++){const t=i*TAU/16;line(s=>S.P(2*s,f0,t),1,cc,1.2);line(s=>S.P(2,f0*s,t),16,cc,1.2);}line(t=>S.P(2,f0,TAU*t),64,cc,1.8);line(t=>S.P(2,f0/2,TAU*t),64,cc,1.2);}
+  }
+  const lo=[a,b,c],hi=[a+d,b+d,c+d],k=5,Q=[];
+  for(let i=0;i<3;i++)for(let sd=0;sd<2;sd++){const j=(i+1)%3,l=(i+2)%3;
+    for(let p=0;p<k;p++)for(let q=0;q<k;q++){const pts=[[p,q],[p+1,q],[p+1,q+1],[p,q+1]].map(([pp,qq])=>{const x=[0,0,0];x[i]=sd?hi[i]:lo[i];x[j]=lo[j]+(hi[j]-lo[j])*pp/k;x[l]=lo[l]+(hi[l]-lo[l])*qq/k;return pr(...S.P(...x));});Q.push([pts,(pts[0][2]+pts[1][2]+pts[2][2]+pts[3][2])/4,i]);}}
+  Q.sort((m,n)=>n[1]-m[1]);const sh=[1.25,.95,.75];
+  for(const[pts,,i]of Q)poly(ctx,pts,shade(K.d,sh[i],.93),shade(K.d,.7,.3),.5);
+  ctx.strokeStyle=K.ink;ctx.lineWidth=1.3;
+  for(let i=0;i<3;i++){const j=(i+1)%3,l=(i+2)%3;for(const sj of[0,1])for(const sl of[0,1]){ctx.beginPath();for(let s=0;s<=12;s++){const x=[0,0,0];x[i]=lo[i]+(hi[i]-lo[i])*s/12;x[j]=sj?hi[j]:lo[j];x[l]=sl?hi[l]:lo[l];const p=pr(...S.P(...x));s?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]);}ctx.stroke();}}
+  const cen=pr(...S.P(a+d/2,b+d/2,c+d/2));
+  for(let i=0;i<3;i++){const x=[...lo];x[i]+=d/2;const p=pr(...S.P(...x)),dx=p[0]-cen[0],dy=p[1]-cen[1],L=Math.hypot(dx,dy)||1;label(ctx,S.E[i],p[0]+dx/L*18,p[1]+dy/L*18,K.ink,'center','middle','italic 600 15px "STIX Two Text",Georgia,serif');}
+  const L3=S.len(a,b,c,d),ap=L3[0]*L3[1]*L3[2],ex=S.ex(a,b,c,d);
+  read('t-read',[['Aristas desde la esquina',L3.map((x,i)=>S.E[i]+' = '+fmt(x,3)).join('<br>')],['Producto de las aristas',fmt(ap,5),1],['Volumen exacto de la cuña',fmt(ex,5)],['Diferencia',fmt(Math.abs(ap-ex)/ex*100,2)+' %']].concat(sol?[['Volumen del sólido',`${S.sol.Vt} ≈ ${fmt(S.sol.V,4)}`,1]]:[]));
+  $('t-fx').innerHTML=S.el+(sol?`<br><span class="small">${S.sol.t}</span><br>V = ${S.sol.fx}`:'');
+});
+orbit(vT3,sT);
+bind('m-tri',[vT3],e=>{if(e.target.name==='t-sys')tSet();});
+
+/* ===== 6 · Línea ===== */
+const CRV={
+  seg:{r:t=>[-2+4*t,-1.5+2.5*t]},
+  par:{r:t=>{const x=-1.5+3*t;return[x,x*x-1];}},
+  circ:{r:t=>[1.5*Math.cos(TAU*t),1.5*Math.sin(TAU*t)],cl:1,org:1},
+  circ2:{r:t=>[1.3+.8*Math.cos(TAU*t),.9+.8*Math.sin(TAU*t)],cl:1},
+  cuad:{r:t=>{const C=[[1.2,-1.2],[1.2,1.2],[-1.2,1.2],[-1.2,-1.2]],s=Math.min(t*4,3.999999),k=Math.floor(s),f=s-k,A=C[k],B=C[(k+1)%4];return[A[0]+(B[0]-A[0])*f,A[1]+(B[1]-A[1])*f];},cl:1,org:1}};
+const LC={};
+function lineData(fk,ck){const key=fk+ck;if(LC[key])return LC[key];const F=FLD[fk],C=CRV[ck],N=800,pts=[],dr=[],g=[],W=[0];
+  for(let i=0;i<=N;i++){const t=i/N,p=C.r(t),t0=Math.max(0,t-1e-5),t1=Math.min(1,t+1e-5),a=C.r(t0),b=C.r(t1),d=[(b[0]-a[0])/(t1-t0),(b[1]-a[1])/(t1-t0)];pts.push(p);dr.push(d);g.push(F.P(p[0],p[1])*d[0]+F.Q(p[0],p[1])*d[1]);if(i)W.push(W[i-1]+(g[i]+g[i-1])/(2*N));}
+  return LC[key]={pts,dr,g,W,N};}
+function lineNote(fk,ck){const F=FLD[fk],C=CRV[ck];
+  if(F.phi)return`F es conservativo: F = ∇φ con ${F.pt}. El trabajo solo depende de dónde empieza y dónde termina la curva, y en una curva cerrada da 0.`;
+  if(F.sing)return C.cl?(C.org?'El vórtice tiene rotor 0, pero esta curva rodea el origen, donde F no está definido: la circulación da 2π. Rotor nulo no alcanza para ser conservativo si el dominio tiene un agujero.':'Esta curva no rodea el origen: en una región sin agujeros el vórtice se comporta como conservativo y la circulación da 0.'):'El vórtice tiene rotor 0 fuera del origen. Probá las curvas cerradas para ver qué pasa cuando rodean el origen.';
+  return'F no es conservativo (su rotor no es 0): el trabajo depende del camino, y en una curva cerrada en general no da 0.';}
+const vL=makeCanvas($('l-cv'),o=>{
+  const ctx=o.ctx,fk=$('l-f').value,ck=$('l-c').value,F=FLD[fk],D=lineData(fk,ck),t=+$('l-t').value/1000,i=Math.round(t*D.N);
+  const v=V2(o,[-2.5,2.5],[-2.5,2.5],true,10),S=p=>[v.X(p[0]),v.Y(p[1])];axes2(ctx,v,o,{nx:'x',ny:'y'});field2(ctx,v,o,F);
+  ctx.strokeStyle=rgba(K.ink,.35);ctx.lineWidth=2;ctx.beginPath();D.pts.forEach((p,k)=>{const q=S(p);k?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]);});ctx.stroke();
+  ctx.lineWidth=4;ctx.lineCap='round';
+  for(let k=0;k<i;k++){const a=S(D.pts[k]),b=S(D.pts[k+1]);ctx.strokeStyle=D.g[k]+D.g[k+1]>=0?K.c:K.b;ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();}
+  ctx.lineCap='butt';
+  for(const tt of[.15,.4,.65,.9]){const k=Math.round(tt*D.N),p=S(D.pts[k]),d=D.dr[k],m=Math.hypot(d[0],d[1]);if(!m)continue;const ux=d[0]/m,uy=-d[1]/m;arrow(ctx,p[0]-ux*6,p[1]-uy*6,p[0]+ux*7,p[1]+uy*7,rgba(K.ink,.6),1.5,8);}
+  const p=D.pts[i],d=D.dr[i],m=Math.hypot(d[0],d[1])||1,T=[d[0]/m,d[1]/m],Fv=[F.P(p[0],p[1]),F.Q(p[0],p[1])],fm=Math.hypot(...Fv),sc=fm*.55>1.6?1.6/fm:.55;
+  const P0=S(p),Ft=S([p[0]+Fv[0]*sc,p[1]+Fv[1]*sc]),cT=(Fv[0]*T[0]+Fv[1]*T[1])*sc,pj=S([p[0]+T[0]*cT,p[1]+T[1]*cT]),Tt=S([p[0]+T[0]*.7,p[1]+T[1]*.7]);
+  ctx.setLineDash([3,3]);ctx.strokeStyle=rgba(K.ink,.5);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(Ft[0],Ft[1]);ctx.lineTo(pj[0],pj[1]);ctx.stroke();ctx.setLineDash([]);
+  ctx.globalAlpha=.5;ctx.strokeStyle=cT>=0?K.c:K.b;ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(P0[0],P0[1]);ctx.lineTo(pj[0],pj[1]);ctx.stroke();ctx.globalAlpha=1;
+  arrow(ctx,...P0,...Tt,K.ink,1.8,8);arrow(ctx,...P0,...Ft,K.a,2.6,11);
+  ctx.fillStyle=K.ink;ctx.beginPath();ctx.arc(P0[0],P0[1],5,0,TAU);ctx.fill();
+  label(ctx,'F',Ft[0]+8,Ft[1]-8,K.a,'left','middle','italic 600 16px "STIX Two Text",Georgia,serif');label(ctx,'T',Tt[0]+6,Tt[1]+10,K.ink,'left','middle','italic 600 16px "STIX Two Text",Georgia,serif');
+  const rows=[['t',fmt(t,3)],['r(t)',`(${fmt(p[0],2)}, ${fmt(p[1],2)})`],['F(r(t))',`(${fmt(Fv[0],2)}, ${fmt(Fv[1],2)})`],['F·r′(t)',fmt(D.g[i],3)],['Trabajo hasta t',fmt(D.W[i],4)],['Trabajo total ∫<sub>C</sub> F·dr',fmt(D.W[D.N],4),1]];
+  if(F.phi){const A=D.pts[0],B=D.pts[D.N];rows.push(['φ(final) − φ(inicio)',fmt(F.phi(B[0],B[1])-F.phi(A[0],A[1]),4)]);}
+  read('l-read',rows);$('l-note').textContent=lineNote(fk,ck);
+});
+const vL2=makeCanvas($('l-cv2'),o=>{
+  const ctx=o.ctx,D=lineData($('l-f').value,$('l-c').value),i=Math.round(+$('l-t').value/1000*D.N);
+  const mn=Math.min(0,...D.g),mx=Math.max(0,...D.g),pd=(mx-mn)*.1||1,lo=mn-pd,hi=mx+pd;
+  const L=50,R=10,T=8,B=18,X=k=>L+k/D.N*(o.w-L-R),Y=v=>T+(hi-v)/(hi-lo)*(o.h-T-B),Y0=Y(0);
+  const ar=new Path2D();ar.moveTo(X(0),Y0);for(let k=0;k<=i;k++)ar.lineTo(X(k),Y(D.g[k]));ar.lineTo(X(i),Y0);ar.closePath();
+  ctx.save();ctx.beginPath();ctx.rect(0,0,o.w,Y0);ctx.clip();ctx.fillStyle=rgba(K.c,.4);ctx.fill(ar);ctx.restore();
+  ctx.save();ctx.beginPath();ctx.rect(0,Y0,o.w,o.h-Y0);ctx.clip();ctx.fillStyle=rgba(K.b,.4);ctx.fill(ar);ctx.restore();
+  ctx.strokeStyle=K.mute;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(L,T);ctx.lineTo(L,o.h-B);ctx.moveTo(L,Y0);ctx.lineTo(o.w-R,Y0);ctx.stroke();
+  ctx.strokeStyle=K.ink;ctx.lineWidth=1.5;ctx.beginPath();D.g.forEach((g,k)=>k?ctx.lineTo(X(k),Y(g)):ctx.moveTo(X(0),Y(g)));ctx.stroke();
+  ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(X(i),T);ctx.lineTo(X(i),o.h-B);ctx.stroke();ctx.setLineDash([]);
+  ctx.font='11px "IBM Plex Mono",monospace';ctx.fillStyle=K.mute;ctx.textAlign='right';ctx.textBaseline='middle';
+  const ticks=[mx,mn].filter(v=>Math.abs(v)>1e-9);if(!ticks.length)ticks.push(0);ticks.forEach(v=>ctx.fillText(fmt(v,2),L-6,Y(v)));if(ticks.length&&Math.abs(Y(0)-Y(ticks[0]))>12&&(ticks.length<2||Math.abs(Y(0)-Y(ticks[1]))>12))ctx.fillText('0',L-6,Y0);
+  ctx.textAlign='center';ctx.textBaseline='top';ctx.fillText('t = 0',X(0)+16,o.h-B+4);ctx.fillText('1',X(D.N),o.h-B+4);
+});
+bind('m-lin',[vL,vL2]);
+let anim=0;const play=$('l-play');
+play.addEventListener('click',()=>{
+  if(anim){cancelAnimationFrame(anim);anim=0;play.textContent='▶ Recorrer la curva';return;}
+  let t0=null,start=+$('l-t').value;if(start>=1000)start=0;play.textContent='❚❚ Pausa';
+  const step=ts=>{if(t0===null)t0=ts;const val=Math.min(1000,start+(ts-t0)/4);$('l-t').value=val;vL.req();vL2.req();if(val<1000)anim=requestAnimationFrame(step);else{anim=0;play.textContent='▶ Recorrer la curva';}};
+  anim=requestAnimationFrame(step);
+});
+
+/* ===== 7 · Green ===== */
+const GC={
+  circ:{c:[0,0],R:()=>1.5},
+  eli:{c:[0,0],R:th=>1/Math.sqrt((Math.cos(th)/2)**2+(Math.sin(th)/1.2)**2)},
+  cuad:{c:[0,0],R:th=>1.2/Math.max(Math.abs(Math.cos(th)),Math.abs(Math.sin(th)))},
+  papa:{c:[.2,.1],R:th=>1.35+.35*Math.cos(3*th)+.18*Math.sin(2*th)},
+  lejos:{c:[1.2,.9],R:()=>.8}};
+const gp=(C,th)=>{const R=C.R(th);return[C.c[0]+R*Math.cos(th),C.c[1]+R*Math.sin(th)];};
+const insideC=(C,x,y)=>{const dx=x-C.c[0],dy=y-C.c[1];return Math.hypot(dx,dy)<C.R(Math.atan2(dy,dx));};
+const GDc={};
+function greenData(fk,ck){const key=fk+ck;if(GDc[key])return GDc[key];const F=FLD[fk],C=GC[ck],N=4000,h=TAU/N;let circ=0,flux=0;
+  for(let i=0;i<N;i++){const th=(i+.5)*h,p=gp(C,th),a=gp(C,th-1e-6),b=gp(C,th+1e-6),d=[(b[0]-a[0])/2e-6,(b[1]-a[1])/2e-6],P=F.P(p[0],p[1]),Q=F.Q(p[0],p[1]);circ+=(P*d[0]+Q*d[1])*h;flux+=(P*d[1]-Q*d[0])*h;}
+  const dbl=fn=>{let s=0;const M=720,hh=TAU/M;for(let i=0;i<M;i++){const th=(i+.5)*hh,R=C.R(th),co=Math.cos(th),si=Math.sin(th);s+=simpson(r=>fn(C.c[0]+r*co,C.c[1]+r*si)*r,0,R,24)*hh;}return s;};
+  return GDc[key]={circ,flux,curl:dbl(F.curl),div:dbl(F.div),org:insideC(C,0,0)};}
+const vG=makeCanvas($('g-cv'),o=>{
+  const ctx=o.ctx,fk=$('g-f').value,ck=$('g-c').value,F=FLD[fk],C=GC[ck],flux=radio('g-m')==='flux',N=+$('g-n').value,sf=flux?F.div:F.curl,D=greenData(fk,ck);
+  $('g-no').value=N?N+' × '+N:'ninguna';
+  const v=V2(o,[-2.5,2.5],[-2.5,2.5],true,10);axes2(ctx,v,o,{nx:'x',ny:'y'});
+  const reg=new Path2D();let xa=1e9,xb=-1e9,ya=1e9,yb=-1e9;
+  for(let i=0;i<=240;i++){const p=gp(C,i*TAU/240);xa=Math.min(xa,p[0]);xb=Math.max(xb,p[0]);ya=Math.min(ya,p[1]);yb=Math.max(yb,p[1]);i?reg.lineTo(v.X(p[0]),v.Y(p[1])):reg.moveTo(v.X(p[0]),v.Y(p[1]));}reg.closePath();
+  let m=0;for(let i=0;i<60;i++)for(let j=0;j<12;j++){const p=gp(C,i*TAU/60),q=[C.c[0]+(p[0]-C.c[0])*j/11,C.c[1]+(p[1]-C.c[1])*j/11];m=Math.max(m,Math.abs(sf(q[0],q[1])));}
+  ctx.save();ctx.clip(reg);const st=6;
+  for(let X=Math.floor(v.X(xa));X<v.X(xb);X+=st)for(let Y=Math.floor(v.Y(yb));Y<v.Y(ya);Y+=st){const val=sf(v.ix(X+st/2),v.iy(Y+st/2));ctx.fillStyle=m<1e-9?rgba(K.ink,.04):rgba(val>=0?K.c:K.b,.08+.5*Math.min(1,Math.abs(val)/m));ctx.fillRect(X,Y,st,st);}
+  ctx.restore();
+  field2(ctx,v,o,F,14);
+  if(N>0){
+    const cw=(xb-xa)/N,ch=(yb-ya)/N;ctx.save();ctx.clip(reg);ctx.strokeStyle=rgba(K.ink,.35);ctx.lineWidth=1;ctx.beginPath();
+    for(let i=0;i<=N;i++){ctx.moveTo(v.X(xa+i*cw),v.Y(ya));ctx.lineTo(v.X(xa+i*cw),v.Y(yb));ctx.moveTo(v.X(xa),v.Y(ya+i*ch));ctx.lineTo(v.X(xb),v.Y(ya+i*ch));}ctx.stroke();ctx.restore();
+    const cpx=Math.min(cw,ch)*v.sx;
+    for(let i=0;i<N;i++)for(let j=0;j<N;j++){const x=xa+(i+.5)*cw,y=ya+(j+.5)*ch;if(!insideC(C,x,y))continue;const val=sf(x,y);if(m<1e-9||Math.abs(val)<1e-9)continue;
+      const r=Math.max(4,cpx*.3*Math.sqrt(Math.min(1,Math.abs(val)/m)));if(flux)spokes(ctx,v.X(x),v.Y(y),r,val>0,K.ink);else circArrow(ctx,v.X(x),v.Y(y),r,val>0,K.ink);}
+  }
+  ctx.strokeStyle=K.ink;ctx.lineWidth=2.4;ctx.stroke(reg);
+  for(let k=0;k<6;k++){const th=(k+.3)*TAU/6,p=gp(C,th),q=gp(C,th+.02),X=v.X(p[0]),Y=v.Y(p[1]),dx=v.X(q[0])-X,dy=v.Y(q[1])-Y,L=Math.hypot(dx,dy)||1;arrow(ctx,X-dx/L*7,Y-dy/L*7,X+dx/L*8,Y+dy/L*8,K.ink,2,11);}
+  if(flux)for(let k=0;k<10;k++){const th=(k+.5)*TAU/10,p=gp(C,th),q=gp(C,th+1e-4),dx=q[0]-p[0],dy=q[1]-p[1],L=Math.hypot(dx,dy)||1,n=[dy/L,-dx/L];arrow(ctx,v.X(p[0]),v.Y(p[1]),v.X(p[0]+n[0]*.45),v.Y(p[1]+n[1]*.45),K.a,1.8,8);}
+  const L1=flux?D.flux:D.circ,L2=flux?D.div:D.curl,ok=Math.abs(L1-L2)<2e-3*Math.max(1,Math.abs(L1));
+  read('g-read',flux?[['Flujo por el borde ∮ F·n ds',fmt(L1,4),1],['∬ div F dA',fmt(L2,4),1],['¿Coinciden?',ok?'Sí':'No']]:[['Circulación ∮ F·dr',fmt(L1,4),1],['∬ (∂Q/∂x − ∂P/∂y) dA',fmt(L2,4),1],['¿Coinciden?',ok?'Sí':'No']]);
+  $('g-fx').innerHTML=flux?'∮<sub>C</sub> F·n ds = ∬<sub>D</sub> (∂P/∂x + ∂Q/∂y) dA':'∮<sub>C</sub> P dx + Q dy = ∬<sub>D</sub> (∂Q/∂x − ∂P/∂y) dA';
+  $('g-cap').textContent=flux?'Color: divergencia (verde sale, rojo entra) · azul: normal n':'Color: rotor (verde antihorario, rojo horario)';
+  $('g-note').textContent=F.sing&&!flux?(D.org?'Acá Green no vale: el campo no está definido en el origen y la curva lo rodea. El teorema pide F con derivadas continuas en toda la región D. Por eso la circulación da 2π y el rotor integrado da 0.':'La curva no rodea el origen, así que F es suave en toda la región y Green vale: las dos cuentas dan 0.'):flux?'Lo que sale por el borde (flujo) es igual a lo que se genera adentro (divergencia).':'Las dos cuentas dan lo mismo: eso dice el teorema. Subí las celdas para ver los remolinitos que se suman.';
+});
+bind('m-gre',[vG]);
+
+/* ===== 8 · Superficies ===== */
+const SU={
+  hemi:{r:(u,v)=>[2*Math.sin(u)*Math.cos(v),2*Math.sin(u)*Math.sin(v),2*Math.cos(u)],u:[0,PI/2],c:1,bd:1},
+  parab:{r:(u,v)=>[u*Math.cos(v),u*Math.sin(v),4-u*u],u:[0,2],c:1.7,bd:1},
+  disco:{r:(u,v)=>[u*Math.cos(v),u*Math.sin(v),0],u:[0,2],c:.4,bd:1},
+  esf:{r:(u,v)=>[2*Math.sin(u)*Math.cos(v),2*Math.sin(u)*Math.sin(v),2*Math.cos(u)],u:[0,PI],c:0,cl:1}};
+const F3={
+  rad:{F:(x,y,z)=>[x,y,z],rot:()=>[0,0,0],div:()=>3},
+  giro:{F:(x,y)=>[-y,x,0],rot:()=>[0,0,2],div:()=>0},
+  vert:{F:()=>[0,0,1],rot:()=>[0,0,0],div:()=>0},
+  mez:{F:(x,y,z)=>[z,x,y],rot:()=>[1,1,1],div:()=>0},
+  cho:{F:(x,y)=>[0,0,4-x*x-y*y],rot:(x,y)=>[-2*y,2*x,0],div:()=>0}};
+const nrm=(S,u,v)=>{const h=1e-5,a=S.r(u+h,v),b=S.r(u-h,v),c=S.r(u,v+h),d=S.r(u,v-h);return cross([(a[0]-b[0])/(2*h),(a[1]-b[1])/(2*h),(a[2]-b[2])/(2*h)],[(c[0]-d[0])/(2*h),(c[1]-d[1])/(2*h),(c[2]-d[2])/(2*h)]);};
+const SDc={};
+function surfData(sk,fk){const key=sk+fk;if(SDc[key])return SDc[key];const S=SU[sk],F=F3[fk];
+  const I2=g=>simpson(u=>simpson(v=>g(u,v),0,TAU,80),S.u[0],S.u[1],60);
+  const flux=I2((u,v)=>dot3(F.F(...S.r(u,v)),nrm(S,u,v))),rflux=I2((u,v)=>dot3(F.rot(...S.r(u,v)),nrm(S,u,v)));
+  const circ=S.bd?simpson(t=>dot3(F.F(2*Math.cos(t),2*Math.sin(t),0),[-2*Math.sin(t),2*Math.cos(t),0]),0,TAU,400):0;
+  const vol=S.cl?simpson(p=>simpson(f=>simpson(t=>F.div(p*Math.sin(f)*Math.cos(t),p*Math.sin(f)*Math.sin(t),p*Math.cos(f)),0,TAU,16)*p*p*Math.sin(f),0,PI,24),0,2,24):null;
+  return SDc[key]={flux,rflux,circ,vol};}
+const sS={yaw:-2.2,pitch:.42,zoom:.14,c:[0,0,1]};
+const vS3=makeCanvas($('s-cv'),o=>{
+  const ctx=o.ctx,sk=$('s-s').value,fk=$('s-f').value,S=SU[sk],F=F3[fk],mode=radio('s-m'),D=surfData(sk,fk);
+  sS.c=[0,0,S.c];const pr=Cam(o,sS),Dv=pr.d;axes3(ctx,pr,[3,3,sk==='parab'?4.6:3]);
+  const vec=mode==='stokes'?F.rot:F.F,Nu=12,Nv=28,u0=S.u[0],du=(S.u[1]-S.u[0])/Nu,dv=TAU/Nv,Q=[];let m=0;
+  for(let i=0;i<Nu;i++)for(let j=0;j<Nv;j++){const uc=u0+(i+.5)*du,vc=(j+.5)*dv,n=nrm(S,uc,vc),nl=len(n)||1,nh=n.map(x=>x/nl),val=dot3(vec(...S.r(uc,vc)),nh);m=Math.max(m,Math.abs(val));
+    const pts=[[i,j],[i+1,j],[i+1,j+1],[i,j+1]].map(([a,b])=>pr(...S.r(u0+a*du,b*dv)));Q.push([pts,(pts[0][2]+pts[1][2]+pts[2][2]+pts[3][2])/4,val,dot3(nh,Dv)>0]);}
+  Q.sort((a,b)=>b[1]-a[1]);
+  for(const[pts,,val,back]of Q){const t=m<1e-9?0:Math.min(1,Math.abs(val)/m),base=m<1e-9?K.mute:val>=0?K.c:K.b;poly(ctx,pts,shade(base,back?.7:1,.2+.5*t),rgba(K.ink,.16),.6);}
+  for(let i=1;i<Nu;i+=3)for(let j=0;j<Nv;j+=4){const uc=u0+(i+.5)*du,vc=(j+.5)*dv,pc=S.r(uc,vc),n=nrm(S,uc,vc),nl=len(n);if(nl<1e-9)continue;
+    const nh=n.map(x=>x/nl),w=vec(...pc),wl=len(w);arr3(ctx,pr,pc,pc.map((x,q)=>x+nh[q]*.45),rgba(K.ink,.6),1.1,5);
+    if(wl>1e-9){const k=Math.min(.35,1.1/wl);arr3(ctx,pr,pc,pc.map((x,q)=>x+w[q]*k),K.a,1.8,7);}}
+  if(S.bd&&mode!=='gauss'){
+    ctx.strokeStyle=K.d;ctx.lineWidth=3;ctx.beginPath();for(let k=0;k<=80;k++){const p=pr(2*Math.cos(k*TAU/80),2*Math.sin(k*TAU/80),0);k?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]);}ctx.stroke();
+    for(let k=0;k<4;k++){const t=k*PI/2+.4,a=pr(2*Math.cos(t),2*Math.sin(t),0),b=pr(2*Math.cos(t+.05),2*Math.sin(t+.05),0),dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy)||1;arrow(ctx,a[0]-dx/L*8,a[1]-dy/L*8,a[0]+dx/L*9,a[1]+dy/L*9,K.d,2.6,12);}
+  }
+  let rows,fx,note;
+  if(mode==='flujo'){rows=[['Flujo ∬ F·n dS',fmt(D.flux,4),1]];fx='Φ = ∬<sub>S</sub> F·n dS = ∬<sub>D</sub> F(r(u, v))·(r<sub>u</sub> × r<sub>v</sub>) du dv';
+    note=sk==='disco'&&fk==='rad'?'Sobre el disco F = (x, y, 0) es tangente a la superficie: no la atraviesa, así que el flujo da 0.':'Verde: el campo cruza en el sentido de n. Rojo: en contra. El flujo suma todo eso.';}
+  else if(mode==='stokes'){rows=[['∮ F·dr por el borde',S.cl?'0 (no tiene borde)':fmt(D.circ,4),1],['∬ (∇×F)·n dS',fmt(D.rflux,4),1]];fx='∮<sub>∂S</sub> F·dr = ∬<sub>S</sub> (∇×F)·n dS';
+    note=S.cl?'La esfera no tiene borde, así que el flujo del rotor da 0.':'Hemisferio, paraboloide y disco comparten el borde (la circunferencia de radio 2 recorrida antihoraria vista desde arriba), así que el flujo del rotor da lo mismo en los tres.';}
+  else{rows=S.cl?[['∯ F·n dS',fmt(D.flux,4),1],['∭ ∇·F dV',fmt(D.vol,4),1]]:[['∬ F·n dS (superficie abierta)',fmt(D.flux,4)],['∭ ∇·F dV','no aplica']];fx='∯<sub>∂E</sub> F·n dS = ∭<sub>E</sub> ∇·F dV';
+    note=S.cl?'La esfera encierra la bola de radio 2: lo que sale por la cáscara es lo que se genera adentro.':'Gauss necesita una superficie cerrada que encierre un sólido. Elegí la esfera.';}
+  read('s-read',rows);$('s-fx').innerHTML=fx;$('s-note').textContent=note;
+  $('s-cap').textContent=mode==='stokes'?'Color: (∇×F)·n · azul: ∇×F · gris: n':'Color: F·n (verde a favor de n, rojo en contra) · azul: F · gris: n';
+});
+orbit(vS3,sS);
+bind('m-sup',[vS3]);
+
+/* ---------- pestañas y tema ---------- */
+const mods=[...document.querySelectorAll('.mod')],tabs=[...document.querySelectorAll('.tabs a')],nav=document.querySelector('.tabs');
+function show(){let k=location.hash.slice(1);if(!mods.some(m=>m.dataset.k===k))k='doble';
+  mods.forEach(m=>m.hidden=m.dataset.k!==k);
+  tabs.forEach(t=>{const on=t.dataset.k===k;t.setAttribute('aria-current',on?'page':'false');if(on)t.scrollIntoView({block:'nearest',inline:'nearest'});});}
+addEventListener('hashchange',()=>{show();if(scrollY>nav.offsetTop)scrollTo(0,nav.offsetTop);});
+function retheme(){readColors();views.forEach(v=>v.req());}
+readColors();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',retheme);
+new MutationObserver(retheme).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+if(document.fonts)document.fonts.ready.then(()=>views.forEach(v=>v.req()));
+show();
+})();
+</script>
+</body>
+</html>
