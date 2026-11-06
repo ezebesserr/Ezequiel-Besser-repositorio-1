@@ -9,7 +9,8 @@ Hablá en español rioplatense, directo y sin vueltas. La persona con la que tra
 | Ruta | Qué es |
 |---|---|
 | `index.html` | Página personal de clases particulares, publicada en GitHub Pages. No la toques salvo que te lo pidan. |
-| `muestras/<rubro>/` | Webs de muestra con negocios inventados, para mostrar como trabajo propio. Referencia de calidad: `muestras/ferreteria/`. |
+| `muestras/<rubro>/` | Webs de muestra con negocios inventados, para mostrar como trabajo propio. Referencia de calidad: `muestras/ferreteria/`. También las muestras de los servicios: `muestras/presencia/` (informe mensual) y `muestras/catalogo-vivo/` (catálogo con precios al día y su informe de cambios). |
+| `talleres/` | Página del taller «IA para tu comercio» (borrador con datos a completar) y la guía para los participantes. |
 | `clientes/<negocio>/` | Muestras y sitios de negocios reales, uno por carpeta, con su `brief.md`. |
 | `creador/diseno/` | Cómo queremos los diseños (`preferencias.md`, manda sobre todo lo demás), qué lleva cada rubro (`rubros.md`) y las identidades ya usadas (`identidades-usadas.md`). |
 | `creador/negocio/` | Perfil de quien firma, precios y condiciones. |
@@ -22,6 +23,13 @@ Hablá en español rioplatense, directo y sin vueltas. La persona con la que tra
 - **mensajes-y-precios**: escribe los mensajes (WhatsApp, mail, llamada, seguimiento) y los presupuestos.
 - **crear-pagina**: saca la identidad real del local, propone tres direcciones, arma la muestra o el sitio final y lo revisa (incluido el detector de diseño genérico).
 - **publicar**: publica en GitHub Pages o Cloudflare Pages, genera la imagen para compartir, conecta el dominio y entrega.
+- **presencia-mensual**: pone a punto la ficha de Google, arma el circuito de reseñas, prueba si lo recomiendan los asistentes con IA y arma el informe mensual.
+- **catalogo-vivo**: catálogo cargado desde una planilla de Google y precios al día con la lista de cada proveedor (la IA transcribe, el script calcula, el cliente aprueba).
+- **talleres-ia**: prepara, da y hace el seguimiento de los talleres «IA para tu comercio».
+
+## Líneas de negocio
+
+Las webs son la base. Encima van tres líneas, elegidas en noviembre de 2026 entre 36 ideas: **Presencia mensual** (cada web deja un ingreso por mes), **Catálogo vivo** (el ticket más alto, con abono para los precios) y **Talleres de IA** (cobran solos y traen clientes para las otras dos). Precios en `creador/negocio/precios.md`.
 
 ## Flujo de trabajo
 
