@@ -25,6 +25,8 @@ Es una página privada de Claude llamada **Mostrador de ventas**. Buscala con la
 | `proximo`, `fecha_proximo` | El próximo paso y su fecha (AAAA-MM-DD). Lo que tiene fecha de hoy o vencida aparece en «Hoy». |
 | `notas`, `historial` | Notas libres; el historial es una lista de `{f: fecha, t: texto}` (sumá, no borres). |
 
+- `config/metas`: los supuestos de la pestaña Metas (`mensajes` por semana, `responden`, `muestra`, `capacidad` de muestras por mes, `compran`, `ticket`, `abono_pct`, `abono_usd`, `bajas`, `talleres`, `asistentes`, `precio_taller`, `taller_compra`). Si quien vende pregunta «¿cómo voy?», compará la proyección con los números reales del embudo y proponé qué supuesto ajustar.
+
 Reglas para escribir: un `set` por documento con **todos** los campos (leelo primero y pasá su `version` como `if_version`); para varios contactos, `batch`. Sumá una línea al `historial` en cada cambio de etapa. Los datos de clientes viven **solo** ahí o en archivos privados, nunca en este repo.
 
 ## «¿Qué tengo para hoy?»

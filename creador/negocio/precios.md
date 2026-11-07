@@ -56,6 +56,6 @@ Los precios se piensan en dólares y al cliente se le pasan en pesos, al dólar 
 
 - Hay webs de plantilla desde unos USD 100: Neolo ofrece una de una página por USD 99 y hay avisos en Servidos desde $150.000.
 - Un freelancer junior cobra de USD 300 a 800 por una web institucional (guía de precios 2026 de Neolo).
-- Dólar oficial de referencia: $1.560 (venta en el Banco Nación, 30/10/2026). Actualizalo con `curl -s https://dolarapi.com/v1/dolares/oficial`.
+- Dólar oficial de referencia: $1.560 (venta en el Banco Nación, 30/10/2026). Actualizalo con `node .claude/skills/mensajes-y-precios/scripts/dolar.js` (o `--valor <cotización>` si no hay red).
 - Chatbots de WhatsApp con IA: las plataformas cobran desde unos USD 30 por mes los planes básicos y de USD 130 a 200 los que tienen IA, más los mensajes de Meta (guías de precios de Aurora Inbox y Duotach, 2026). Por eso Presencia y Precios al día van por debajo de un chatbot.
 - Poner a punto una ficha de Google cuesta de USD 100 a 200 en Fiverr, por única vez (búsqueda de noviembre de 2026). No encontramos tarifas de abonos ni de talleres en Argentina: los de arriba salen de nuestra escala y se ajustan con los primeros clientes.
