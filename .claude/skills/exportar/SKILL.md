@@ -10,7 +10,7 @@ El mismo proceso de siempre (auditoría, muestra gratis, sitio, abono), para com
 ## 1. Webs para comercios de afuera (EXT-01)
 
 1. **Prospectos**: el mismo circuito de `buscar-clientes`, con el extracto de la ciudad. BBBike tiene extractos de Montevideo, Madrid, Barcelona, Ciudad de México y otras: `https://download.bbbike.org/osm/bbbike/<Ciudad>/<Ciudad>.osm.pbf`. `geo.py` ya devuelve barrio y ciudad fuera de Argentina.
-2. **Teléfonos**: siempre con código de país (`+598 99 123 456`). El Mostrador los acepta así y arma el link de WhatsApp.
+2. **Al Mostrador, con la línea «Afuera»**: el primer mensaje no dice «de la zona» y el presupuesto y las respuestas van solo en dólares, sin el alias de Mercado Pago. Teléfonos siempre con código de país (`+598 99 123 456`). La auditoría ya detecta el error típico de Uruguay: el 0 de más después del 598 en el botón de WhatsApp.
 3. **Mensajes en su castellano**:
    - Uruguay: voseo, como acá; «celular» y «web» se entienden igual.
    - España: tú o vosotros; «móvil», «página web», «presupuesto».

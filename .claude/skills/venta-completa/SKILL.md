@@ -18,7 +18,7 @@ Es una página privada de Claude llamada **Mostrador de ventas**. Buscala con la
 |---|---|
 | `negocio`, `rubro`, `zona` | Texto. |
 | `etapa` | `prospecto`, `contactado`, `muestra`, `presupuesto`, `sena`, `produccion`, `publicado`, `abono` o `perdido`. |
-| `linea` | `web`, `presencia`, `catalogo`, `taller` u `otro`: elige el mensaje del primer contacto. |
+| `linea` | `web`, `presencia`, `catalogo`, `taller`, `afuera` u `otro`: elige el mensaje del primer contacto. `afuera` es para comercios de otros países (skill `exportar`): mensaje propio y presupuesto y respuestas solo en dólares, sin el alias. |
 | `telefono`, `email`, `web` | Como figuran en su web. El Mostrador arma el link `wa.me/549…`. |
 | `observacion` | La observación concreta y verificable que va en el primer mensaje. |
 | `muestra_url`, `detalle`, `presupuesto_usd`, `abono_usd` | Link de su muestra, qué se presupuestó, monto en USD y abono mensual en USD. |
