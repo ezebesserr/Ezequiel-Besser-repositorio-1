@@ -28,6 +28,7 @@ Hablá en español rioplatense, directo y sin vueltas. La persona con la que tra
 - **talleres-ia**: prepara, da y hace el seguimiento de los talleres «IA para tu comercio».
 - **redes-y-campanas**: el mes de redes de un comercio en un día (piezas, textos y calendario) y campañas por WhatsApp a sus clientes, con permiso y resultados.
 - **contadores**: para estudios contables chicos: juntar los comprobantes de sus clientes, leer las facturas a una planilla y recordar vencimientos.
+- **inmobiliarias**: fichas de propiedades con textos para portales, WhatsApp e Instagram, y ambientación virtual siempre avisada.
 - **venta-completa**: lleva cada negocio de punta a punta con el Mostrador de ventas: quien vende solo toca «mandar», habla con el cliente y cobra.
 
 ## Líneas de negocio
@@ -51,6 +52,7 @@ Las webs son la base. Encima van tres líneas, elegidas en noviembre de 2026 ent
 | Lista de precios para el mostrador y WhatsApp / tienda en Tiendanube desde la planilla | `node .claude/skills/catalogo-vivo/scripts/lista.js` / `python3 .claude/skills/catalogo-vivo/scripts/tiendanube.py` |
 | Un mes de redes (piezas, textos y calendario) / campaña por WhatsApp a los clientes de un comercio | `node .claude/skills/redes-y-campanas/scripts/redes.js` / `campana.js` |
 | Facturas electrónicas de un cliente del estudio contable a la planilla (QR de ARCA o texto), con lo que hay que revisar marcado | `python3 .claude/skills/contadores/scripts/facturas.py` |
+| Fichas de propiedades de una inmobiliaria (PDF y textos), con la ambientación virtual marcada | `node .claude/skills/inmobiliarias/scripts/fichas.js` |
 | Afiche, posteos, propuesta y constancias de un taller | `node .claude/skills/talleres-ia/scripts/kit.js` |
 | Catálogo, perfil y respuestas rápidas del WhatsApp Business propio | `node .claude/skills/mensajes-y-precios/scripts/catalogo-propio.js` |
 | Actualizar el dólar de referencia de `precios.md` | `node .claude/skills/mensajes-y-precios/scripts/dolar.js` |

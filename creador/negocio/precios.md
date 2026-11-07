@@ -65,6 +65,17 @@ Los precios se piensan en dólares y al cliente se le pasan en pesos, al dólar 
 
 - Cada 100 comprobantes más por mes, USD 15.
 
+## Inmobiliarias (skill `inmobiliarias`)
+
+| Servicio | Qué incluye | USD |
+|---|---|---|
+| Ficha de propiedad | Ficha en PDF y textos para el portal, WhatsApp e Instagram, con sus fotos. Por propiedad. | 10 |
+| Ambientación virtual | Un ambiente vacío amueblado con IA, con la leyenda «Ambientación virtual» y la foto original. Por foto. | 8 |
+| Fichas al día | Hasta 15 propiedades nuevas o cambiadas por mes, con sus fichas y textos, y 10 fotos ambientadas. Por mes. | 90 |
+
+- El catálogo de propiedades en su web es el paquete Catálogo (USD 650), con Precios al día como abono.
+- Las apps de ambientación virtual cobran de USD 0,4 a 1 por foto en planes por volumen; las agencias, de 30 a 80 € (guías de GenRoom e Imagen AI, 2026).
+
 ## Condiciones
 
 - Muestra gratis antes de cobrar nada.
