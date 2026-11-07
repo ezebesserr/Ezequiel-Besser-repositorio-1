@@ -13,7 +13,7 @@ Hablá en español rioplatense, directo y sin vueltas. La persona con la que tra
 | `talleres/` | Página del taller «IA para tu comercio» (borrador con datos a completar) y la guía para los participantes. |
 | `clientes/<negocio>/` | Muestras y sitios de negocios reales, uno por carpeta, con su `brief.md`. |
 | `creador/diseno/` | Cómo queremos los diseños (`preferencias.md`, manda sobre todo lo demás), qué lleva cada rubro (`rubros.md`) y las identidades ya usadas (`identidades-usadas.md`). |
-| `creador/negocio/` | Perfil de quien firma, precios y condiciones. |
+| `creador/negocio/` | Perfil de quien firma, precios y condiciones, y la guía para darse de alta en el monotributo. |
 | `creador/plantilla-brief.md` | Plantilla para juntar los datos de cada negocio. |
 | `.claude/skills/` | Las skills del taller. |
 

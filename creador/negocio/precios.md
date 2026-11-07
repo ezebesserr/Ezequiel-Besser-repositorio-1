@@ -50,7 +50,7 @@ Los precios se piensan en dólares y al cliente se le pasan en pesos, al dólar 
 - El dominio queda siempre a nombre del cliente.
 - Fotos y textos los pasa el cliente, o se usan los de su web vieja y sus redes.
 - Precio de lanzamiento: 30% menos para los tres primeros clientes, a cambio de mostrar el trabajo en el portfolio y una reseña en Google.
-- Para hacer factura, hace falta estar en el Monotributo.
+- Para hacer factura, hace falta estar en el Monotributo (pasos, categoría y costos en `monotributo.md`).
 
 ## De dónde salen estos números (noviembre de 2026)
 

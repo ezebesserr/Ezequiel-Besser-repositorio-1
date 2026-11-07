@@ -66,6 +66,7 @@ Resultado: tres cosas concretas para arreglar, con captura. Se las mandamos con 
 - Cinco preguntas fijas por cliente, como las haría un vecino y **sin el nombre del local**: rubro + barrio, el servicio que lo distingue, una zona de envío, «¿qué <rubro> me recomendás en <barrio>?».
 - Hacerlas el último día del mes en ChatGPT, Gemini y el buscador de Google con IA, en una sesión sin historial. Anotar «aparece» o «no aparece» y guardar capturas en la carpeta privada.
 - Lo que sube las chances, sin trucos: datos iguales en todos lados, ficha completa, reseñas reales y respondidas, una web que diga claro qué venden, dónde y en qué horario, y preguntas frecuentes con datos concretos.
+- La ficha ya no tiene la sección pública de preguntas y respuestas: Google la reemplazó por «Ask Maps», que responde con IA a partir de la ficha, las reseñas y la web (en 2026 seguía sin llegar a Argentina). Por eso las preguntas frecuentes van en la web, con datos concretos. Cuando llegue, sumalo como cuarto asistente a la prueba.
 - **Nunca prometer que va a aparecer.** Se vende como mejorar las chances, con la medición de cada mes.
 
 ## 5. Mensajes
