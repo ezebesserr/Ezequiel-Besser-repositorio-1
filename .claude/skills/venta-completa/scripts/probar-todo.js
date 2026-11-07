@@ -46,6 +46,12 @@ prueba('tarjeta.js (presencia)', () => correr(NODE, [S('presencia-mensual/script
 prueba('kit.js (talleres)', () => correr(NODE, [S('talleres-ia/scripts/kit.js'), S('talleres-ia/ejemplo/taller.json'), tmp + '/kit', '--dolar', '1500']), [tmp + '/kit/afiche.pdf', tmp + '/kit/propuesta.pdf']);
 prueba('auditoria.js (buscar clientes)', () => correr(NODE, [S('buscar-clientes/scripts/auditoria.js'), path.join(REPO, 'muestras/ferreteria/index.html'), '--negocio', 'Prueba', '--salida', tmp + '/auditoria']), [tmp + '/auditoria/auditoria.png']);
 
+fs.writeFileSync(tmp + '/lote.json', JSON.stringify([
+  { name: 'Ferretería de prueba', cat: 'ferretería', web: path.join(REPO, 'muestras/ferreteria/index.html'), phone: '11 2345-6789' },
+  { name: 'Catálogo de prueba', cat: 'bulonera', web: path.join(REPO, 'muestras/catalogo-vivo/index.html') }]));
+prueba('auditoria.js --lote (buscar clientes)', () => correr(NODE, [S('buscar-clientes/scripts/auditoria.js'), '--lote', tmp + '/lote.json', '--salida', tmp + '/lote']),
+  [tmp + '/lote/mostrador.tsv', tmp + '/lote/mostrador.json', tmp + '/lote/resumen.html', tmp + '/lote/01-ferreteria-de-prueba/auditoria.png']);
+
 const ancho = Math.max(...resultados.map(r => r[1].length));
 resultados.forEach(r => console.log(`${r[0].padEnd(6)} ${r[1].padEnd(ancho)}  ${r[2]}`));
 const fallas = resultados.filter(r => r[0] !== 'OK').length;

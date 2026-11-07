@@ -37,12 +37,29 @@ Si dice «no encontré problemas graves», no es buen prospecto para una web nue
 
 Para una revisión más técnica: `node .claude/skills/crear-pagina/scripts/revisar.js <url> <carpeta>`.
 
+## Auditar toda la preselección de una vez
+
+Después del paso 7, en vez de auditar uno por uno:
+
+```bash
+node .claude/skills/buscar-clientes/scripts/auditoria.js --lote preseleccion.json --zonas zonas.json --salida <carpeta-privada>/auditorias-<zona>
+```
+
+Toma la lista de `shortlist.py` (o cualquier JSON con `name`, `cat`, `web`, `phone`, `email`; si quedaron solo los elegidos a ojo, pasale esa lista) y deja:
+
+- una carpeta por negocio (`01-<negocio>/`) con su hoja, su captura y su observación;
+- `resumen.html`: todos juntos, para mirarlos de un vistazo y descartar los que el escáner marcó de más;
+- `mostrador.tsv`: negocio, rubro, zona, teléfono, observación y línea, para pegar en el Mostrador → Ajustes → «Cargar muchos de una vez»;
+- `mostrador.json`: los mismos contactos como documentos `contactos/<id>`, para cargarlos con ArtifactData `batch` sin que quien vende toque nada.
+
+Cada negocio queda con la línea que conviene: `web` si su auditoría tiene algo importante o grave, `presencia` si su web está bien. Los que no abren se informan y no se cargan.
+
 ## Después de elegir
 
-Cargá los elegidos en el **Mostrador de ventas** (skill `venta-completa`) como `prospecto`, con la observación de su auditoría y la línea que conviene. De a 10 o 15 por día, que es lo que se manda a mano.
+Cargá los elegidos en el **Mostrador de ventas** (skill `venta-completa`) como `prospecto`, con la observación de su auditoría y la línea que conviene: con `mostrador.json` y ArtifactData `batch`, o pegando `mostrador.tsv`. De a 10 o 15 por día, que es lo que se manda a mano. Pasale a quien vende las hojas (`auditoria.png`) de los que va a contactar hoy, para que las mande junto con el mensaje.
 
 ## Cuidado
 
 - Los datos de OpenStreetMap pueden estar viejos: hay que confirmar en Google Maps que el local siga abierto.
 - Nominatim acepta como máximo una consulta por segundo (el script ya espera).
-- De cada sitio se baja solo la portada, una vez.
+- De cada sitio se baja solo la portada, una vez (también en el modo `--lote`).
