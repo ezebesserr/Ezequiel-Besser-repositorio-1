@@ -56,6 +56,15 @@ Los precios se piensan en dólares y al cliente se le pasan en pesos, al dólar 
 - Con web o Presencia nuestra, Redes del mes cuesta USD 100.
 - Un community manager freelance cobra de USD 325 a 750 por mes (iProfesional, 2025): Redes del mes va por debajo porque se arma en un día y con la identidad que ya hicimos.
 
+## Contadores (skill `contadores`)
+
+| Servicio | Qué incluye | USD |
+|---|---|---|
+| Puesta en marcha | Canal de recepción para sus clientes (WhatsApp, mail o carpetas), respuestas rápidas y la planilla modelo. Pago único. | 90 |
+| Papeles en orden | Lectura de hasta 300 comprobantes por mes a la planilla, con lo que hay que revisar marcado, copias renombradas por mes y recordatorios de vencimientos a sus clientes. Por mes. | 60 |
+
+- Cada 100 comprobantes más por mes, USD 15.
+
 ## Condiciones
 
 - Muestra gratis antes de cobrar nada.

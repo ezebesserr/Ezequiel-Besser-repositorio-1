@@ -37,6 +37,10 @@ prueba('tiendanube.py (socio de Tiendanube)', () => correr('python3', [S('catalo
 const RC = S('redes-y-campanas/ejemplo');
 prueba('campana.js (campañas a clientes)', () => correr(NODE, [S('redes-y-campanas/scripts/campana.js'), RC + '/clientes.csv', RC + '/campana.json', '--salida', tmp + '/campana']), [tmp + '/campana/envio.html', tmp + '/campana/resultados.csv']);
 prueba('redes.js (redes del mes)', () => correr(NODE, [S('redes-y-campanas/scripts/redes.js'), RC + '/redes.json', '--salida', tmp + '/redes']), [tmp + '/redes/calendario.pdf', tmp + '/redes/textos.txt']);
+prueba('facturas.py (contadores)', () => {
+  correr(NODE, [S('contadores/ejemplo/facturas-de-prueba.js'), S('contadores/ejemplo/facturas.json'), tmp + '/facturas-pdf']);
+  correr('python3', [S('contadores/scripts/facturas.py'), tmp + '/facturas-pdf', '--salida', tmp + '/facturas', '--renombrar']);
+}, [tmp + '/facturas/comprobantes.xlsx', tmp + '/facturas/comprobantes.csv']);
 prueba('presupuesto.js', () => correr(NODE, [S('mensajes-y-precios/scripts/presupuesto.js'), '--cliente', 'Prueba', '--paquete', 'completa', '--abono', 'presencia', '--dolar', '1500', '--salida', tmp + '/presupuesto']),
   [tmp + '/presupuesto/presupuesto.pdf', tmp + '/presupuesto/mensaje.txt']);
 prueba('catalogo-propio.js', () => correr(NODE, [S('mensajes-y-precios/scripts/catalogo-propio.js'), tmp + '/whatsapp', '--dolar', '1500']), [tmp + '/whatsapp/catalogo.txt', tmp + '/whatsapp/perfil.txt']);

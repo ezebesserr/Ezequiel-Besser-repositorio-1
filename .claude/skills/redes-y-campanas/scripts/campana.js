@@ -85,7 +85,8 @@ async function informe(o) {
     const plantilla = (C.mensajes || {})[c.segmento] || (C.mensajes || {}).todos;
     if (!plantilla) { console.error(`No hay mensaje para el segmento «${c.segmento}» ni uno «todos» en campana.json.`); process.exit(1); }
     const nombre = (c.nombre || '').split(/\s+/)[0];
-    const texto = plantilla.replace(/\{nombre\}/g, nombre || '').replace(/Hola ,/g, 'Hola,').replace(/\s+,/g, ',');
+    // {nombre} es el primer nombre; cualquier otra columna de la planilla también se puede usar ({vence}, {obligacion}…).
+    const texto = plantilla.replace(/\{(\w+)\}/g, (m, k) => k === 'nombre' ? (nombre || '') : (c[k] != null && c[k] !== '' ? c[k] : m)).replace(/Hola ,/g, 'Hola,').replace(/\s+,/g, ',');
     cola.push({ id: n, nombre: c.nombre || '', segmento: c.segmento || '', texto, link: 'https://wa.me/' + n + '?text=' + encodeURIComponent(texto) });
   }
   const porDia = Number(C.por_dia) || 40;
