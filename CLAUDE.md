@@ -41,6 +41,7 @@ Las webs son la base. Encima van tres líneas, elegidas en noviembre de 2026 ent
 | Auditoría de la web de un prospecto para mandar con el primer mensaje (o de toda la preselección con `--lote`, lista para el Mostrador) | `node .claude/skills/buscar-clientes/scripts/auditoria.js` |
 | Recorrido a pie por los prospectos auditados: tramos en Google Maps, qué decir en cada local y las hojas para dejar | `node .claude/skills/buscar-clientes/scripts/ruta.js` |
 | Presupuesto en PDF con los pesos del día | `node .claude/skills/mensajes-y-precios/scripts/presupuesto.js` |
+| Chequeo final del sitio y hoja de entrega para el cliente (QR, qué hacer esa semana, cómo pedir cambios) con su mensaje | `node .claude/skills/publicar/scripts/entrega.js` |
 | Informe mensual de un cliente / cierre de mes de todos | `node .claude/skills/presencia-mensual/scripts/informe.js` / `cierre.js` |
 | Tarjeta de reseñas con QR para el mostrador | `node .claude/skills/presencia-mensual/scripts/tarjeta.js` |
 | Planilla del catálogo para Google / precios con la lista del proveedor | `python3 .claude/skills/catalogo-vivo/scripts/planilla.py` / `precios.py` |

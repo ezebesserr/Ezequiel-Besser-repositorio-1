@@ -54,6 +54,14 @@ prueba('auditoria.js --lote (buscar clientes)', () => correr(NODE, [S('buscar-cl
 
 prueba('ruta.js (buscar clientes)', () => correr(NODE, [S('buscar-clientes/scripts/ruta.js'), tmp + '/lote']), [tmp + '/lote/ruta.pdf', tmp + '/lote/imprimir.pdf']);
 
+fs.mkdirSync(tmp + '/sitio', { recursive: true });
+fs.writeFileSync(tmp + '/sitio/index.html', '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">' +
+  '<title>Negocio de prueba · rubro · barrio</title><meta name="description" content="Prueba de entrega."><meta property="og:image" content="https://example.com/og.jpg">' +
+  '<script type="application/ld+json">{"@context":"https://schema.org","@type":"Store","name":"Negocio de prueba","telephone":"+54 9 11 2345-6789","address":{"@type":"PostalAddress","streetAddress":"Calle 123"}}</script>' +
+  '</head><body><h1>Negocio de prueba</h1><a href="https://wa.me/5491123456789">WhatsApp</a></body></html>');
+prueba('entrega.js (publicar)', () => correr(NODE, [S('publicar/scripts/entrega.js'), tmp + '/sitio/index.html', '--negocio', 'Negocio de prueba', '--dominio', 'prueba.com.ar', '--abono', 'presencia', '--salida', tmp + '/entrega']),
+  [tmp + '/entrega/entrega.pdf', tmp + '/entrega/mensaje.txt', tmp + '/entrega/chequeo.txt']);
+
 const ancho = Math.max(...resultados.map(r => r[1].length));
 resultados.forEach(r => console.log(`${r[0].padEnd(6)} ${r[1].padEnd(ancho)}  ${r[2]}`));
 const fallas = resultados.filter(r => r[0] !== 'OK').length;
