@@ -23,9 +23,19 @@ GitHub Pages no está pensado para alojar sitios comerciales, así que para los 
 
 ## Antes de entregar
 
-- [ ] Sin `noindex`. Title, description, Open Graph y JSON-LD con los datos reales.
-- [ ] WhatsApp, teléfono, mail y dirección verdaderos, con los links probados.
-- [ ] `revisar.js` sin problemas en compu y celular.
-- [ ] Imágenes livianas y con `alt`.
-- [ ] Pedirle al cliente que actualice el link de la web en su ficha de Google Maps y en Instagram.
-- [ ] Explicarle cómo pedir cambios y qué cubre el mantenimiento.
+Un comando chequea lo que no puede quedar mal y arma lo que se le da al cliente:
+
+```bash
+node .claude/skills/publicar/scripts/entrega.js <URL final> --negocio "<nombre>" [--dominio <negocio.com.ar>] [--vence AAAA-MM-DD] \
+  [--resenas <link para dejar reseña>] [--abono presencia|presencia-ia|precios|precios-grande|mantenimiento] [--telefono "<su WhatsApp>"] --salida <carpeta-privada>
+```
+
+- `chequeo.txt`: noindex, aviso de muestra o «Vista previa», datos a confirmar (`.pendiente`), WhatsApp sin el 9, HTTPS, recursos que no cargan, ancho en el celular, JSON-LD, título, descripción e imagen para compartir. Si algo es grave, sale con código 2: **no se entrega hasta arreglarlo**.
+- `entrega.pdf` y `entrega.png`: la hoja para el cliente, con el QR de su web (y el de reseñas, si pasás `--resenas`), lo que tiene que hacer esa semana, cómo pedir cambios, qué incluye su abono (sale de `precios.md`) y cuándo vence su dominio.
+- `mensaje.txt`: el mensaje de entrega, con la oferta de Presencia si no tiene abono. Con `--telefono`, imprime el link de WhatsApp listo.
+
+Lo que el comando no puede ver, a mano:
+
+- [ ] Que el WhatsApp, el teléfono, el mail y la dirección sean **los del negocio** (el comando ve el formato, no si son suyos), y los botones probados desde un celular.
+- [ ] `revisar.js` sin problemas en compu y celular, incluido el detector de diseño genérico.
+- [ ] Mandarle al cliente `entrega.png` (o el PDF) y `mensaje.txt`. La hoja ya le explica cómo pedir cambios y que ponga el link en Google Maps, Instagram y WhatsApp.

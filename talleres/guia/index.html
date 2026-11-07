@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía del taller · IA para tu comercio, paso a paso</title>
+<meta name="description" content="La guía que se llevan los participantes del taller: WhatsApp Business con IA, respuestas a consultas y reseñas, presupuestos, publicaciones y un plan de siete días.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Guía del taller · IA para tu comercio">
+<meta property="og:description" content="Los pasos y los textos para copiar que usamos en el taller, para repasar en el mostrador.">
+<meta property="og:image" content="https://ezebesserr.github.io/Ezequiel-Besser-repositorio-1/talleres/guia/og.jpg">
+<meta property="og:url" content="https://ezebesserr.github.io/Ezequiel-Besser-repositorio-1/talleres/guia/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Cabin+Sketch:wght@700&display=swap">
+<style>
+  /* La guía impresa del taller: hoja blanca para imprimir, títulos en tiza sobre una franja de pizarrón
+     y los textos para copiar en recuadros, como los que se pasan del pizarrón a la carpeta. */
+  :root{
+    --pizarra:#22332b; --madera:#7a4f27; --tiza:#f2f0e8; --tiza-amarilla:#f0cf62;
+    --papel:#ffffff; --fondo:#f2f4f2; --tinta:#1c2420; --gris:#55605a; --linea:#d6dcd8; --ojo:#9a3412;
+    --f-tiza:"Cabin Sketch","Comic Sans MS",cursive;
+    --f-texto:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:var(--f-texto);font-size:18px;line-height:1.55;color:var(--tinta);background:var(--fondo)}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--tiza-amarilla);outline-offset:3px}
+  .hoja{max-width:820px;margin:0 auto;background:var(--papel);padding-bottom:40px}
+  .pad{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+  .borrador{background:var(--tiza-amarilla);color:var(--pizarra);font:700 14px/1.3 var(--f-texto);text-align:center;padding:8px 16px}
+
+  header.tapa{background:var(--pizarra);color:var(--tiza);border-bottom:10px solid var(--madera);padding-top:28px;padding-bottom:26px}
+  .tapa p.de{font-size:15px;color:#cfd8d2}
+  .tapa h1{font:700 clamp(2.2rem,1.5rem + 3vw,3.4rem)/1.05 var(--f-tiza);margin-top:6px}
+  .tapa h1 em{font-style:normal;color:var(--tiza-amarilla)}
+  .tapa .bajada{margin-top:10px;color:#dfe6e1;max-width:52ch}
+
+  nav.indice{padding-top:22px}
+  nav.indice h2{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--gris)}
+  nav.indice ol{margin-top:8px;padding-left:1.4em;display:grid;gap:4px}
+
+  section.modulo{padding-top:34px}
+  .modulo h2{display:flex;gap:12px;align-items:baseline;font:700 clamp(1.7rem,1.3rem + 1.4vw,2.2rem)/1.1 var(--f-tiza);color:var(--pizarra);border-bottom:3px solid var(--pizarra);padding-bottom:6px}
+  .modulo h2 span{font:700 15px/1 var(--f-texto);background:var(--pizarra);color:var(--tiza-amarilla);padding:6px 8px;border-radius:3px;flex:none;transform:translateY(-4px)}
+  .modulo h3{font-size:20px;margin-top:20px}
+  .modulo p,.modulo ol,.modulo ul{margin-top:10px}
+  .modulo ol,.modulo ul{padding-left:1.3em}
+  .modulo li{margin-top:6px}
+  .ojo{border-left:5px solid var(--ojo);background:#fbf1ec;padding:12px 14px;margin-top:14px}
+  .ojo b{color:var(--ojo)}
+  .copiar{position:relative;margin-top:12px;background:var(--fondo);border:1px solid var(--linea);border-left:5px solid var(--pizarra);padding:14px 14px 14px 16px;font-size:17px;white-space:pre-wrap;border-radius:0 4px 4px 0}
+  .copiar .que{display:block;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--gris);margin-bottom:6px}
+  .copiar mark{background:#fff2b8;color:var(--tinta);padding:0 2px}
+  .btn-copiar{float:right;margin:-4px -4px 6px 10px;font:700 14px var(--f-texto);background:var(--papel);border:1.5px solid var(--pizarra);color:var(--pizarra);border-radius:3px;padding:6px 10px;cursor:pointer;min-height:36px}
+  .plan{list-style:none;padding-left:0 !important;display:grid;gap:8px}
+  .plan li{display:grid;grid-template-columns:76px minmax(0,1fr);gap:10px;border-bottom:1px dashed var(--linea);padding-bottom:8px}
+  .plan b{font:700 1.2rem/1.3 var(--f-tiza);color:var(--pizarra)}
+  .nota{font-size:15px;color:var(--gris)}
+  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--linea);font-size:15px;color:var(--gris)}
+  footer p+p{margin-top:6px}
+  @media print{
+    body{background:#fff;font-size:12pt}
+    .borrador,.btn-copiar{display:none}
+    .hoja{max-width:none}
+    .copiar,.ojo{break-inside:avoid}
+    section.modulo{break-before:auto}
+  }
+</style>
+</head>
+<body>
+<div class="borrador" role="note">Borrador de la guía: revisar antes de imprimir para el primer taller.</div>
+<div class="hoja">
+  <header class="tapa pad">
+    <p class="de">Taller «IA para tu comercio» · Ezequiel Besser</p>
+    <h1>La guía para <em>el mostrador</em></h1>
+    <p class="bajada">Todo lo que hicimos en el taller, paso a paso, con los textos listos para copiar. Lo que va resaltado en amarillo lo cambiás por tus datos.</p>
+  </header>
+
+  <nav class="indice pad" aria-labelledby="t-indice">
+    <h2 id="t-indice">En esta guía</h2>
+    <ol>
+      <li><a href="#antes">Antes de empezar: lo que nunca se le carga a una IA</a></li>
+      <li><a href="#whatsapp">WhatsApp Business con IA</a></li>
+      <li><a href="#consultas">Consultas y reseñas en un minuto</a></li>
+      <li><a href="#presupuestos">Presupuestos y listas de precios</a></li>
+      <li><a href="#publicaciones">Las publicaciones del mes</a></li>
+      <li><a href="#plan">Tu plan de siete días</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section class="modulo pad" id="antes" aria-labelledby="t-antes">
+      <h2 id="t-antes"><span>0</span>Antes de empezar</h2>
+      <p>La IA escribe rápido y bien, pero <b>no sabe nada de tu negocio</b> salvo lo que vos le digas, y a veces inventa con total seguridad. Tres reglas:</p>
+      <ol>
+        <li><b>Nunca le cargues</b> nombres y teléfonos de clientes, contraseñas, datos de tarjetas ni documentos.</li>
+        <li><b>Dale siempre tus datos reales</b>: precios, horarios, zonas de envío, formas de pago. Si no se los das, los inventa.</li>
+        <li><b>Revisá antes de mandar</b>: precios, cuentas, fechas y promesas. Lo que sale con tu nombre es tuyo.</li>
+      </ol>
+      <p>Para practicar sirven ChatGPT, Gemini o Claude, que tienen versión gratis. Elegí uno y usá siempre el mismo.</p>
+    </section>
+
+    <section class="modulo pad" id="whatsapp" aria-labelledby="t-wa">
+      <h2 id="t-wa"><span>1</span>WhatsApp Business con IA</h2>
+      <p>Desde 2026, WhatsApp Business ofrece en Argentina un asistente con IA que responde consultas y recomienda productos de tu catálogo. Según lo publicado al lanzarlo, pide tener la app en español y al menos un producto cargado. Funciona mejor cuanto más completo esté tu perfil.</p>
+      <h3>Paso a paso</h3>
+      <ol>
+        <li><b>Actualizá WhatsApp Business</b> desde la tienda de tu celular.</li>
+        <li><b>Completá el perfil del negocio</b>: horario, dirección, descripción corta, mail y web.</li>
+        <li><b>Cargá el catálogo</b>: empezá por tus 10 productos más pedidos, con foto, precio y una descripción de una línea.</li>
+        <li><b>Dejá listas las herramientas de siempre</b>: mensaje de bienvenida, mensaje de ausencia (fuera de horario) y respuestas rápidas para las 5 preguntas que más te hacen.</li>
+        <li><b>Buscá el asistente con IA</b> en Herramientas para la empresa. Si no aparece, todavía no está habilitado para tu cuenta: lo de los pasos 2 a 4 ya te sirve igual.</li>
+        <li><b>Configuralo</b>: qué consultas responde, la información del negocio y cuándo te pasa la conversación a vos.</li>
+        <li><b>Probalo desde otro celular</b> con 5 preguntas reales de tus clientes y corregí lo que conteste mal.</li>
+      </ol>
+      <div class="ojo"><p><b>Ojo:</b> los nombres de los menús cambian seguido y Meta puede cambiar las condiciones o empezar a cobrar por uso. Fijate en la app qué dice hoy antes de depender del asistente.</p></div>
+      <div class="copiar"><span class="que">Respuesta rápida para «¿tienen…?»</span>¡Hola! Gracias por escribirnos. Sí, lo tenemos. Te paso el precio y la foto en el catálogo: <mark>link de tu catálogo</mark>. Abrimos <mark>de lunes a viernes de 9 a 19</mark>. ¿Te lo separo?</div>
+    </section>
+
+    <section class="modulo pad" id="consultas" aria-labelledby="t-cons">
+      <h2 id="t-cons"><span>2</span>Consultas y reseñas en un minuto</h2>
+      <h3>Para contestar una consulta difícil</h3>
+      <div class="copiar"><span class="que">Copiá, completá lo amarillo y pegá la consulta</span>Sos quien atiende <mark>nombre del negocio</mark>, <mark>rubro</mark> de <mark>barrio</mark>. Respondé esta consulta en castellano rioplatense, amable y en pocas líneas. Usá solo estos datos reales: <mark>precios, horarios, stock, formas de pago, zonas de envío</mark>. Si falta un dato, decí que lo consultás y avisás. No prometas nada que no esté en los datos.
+Consulta: <mark>pegá acá el mensaje del cliente</mark></div>
+      <h3>Para responder una reseña buena</h3>
+      <div class="copiar"><span class="que">Reseña positiva</span>Escribí una respuesta corta y cálida para esta reseña de Google de <mark>nombre del negocio</mark>. Agradecé mencionando algo concreto que dijo la persona. Sin emojis, sin promociones y sin datos personales.
+Reseña: <mark>pegá la reseña</mark></div>
+      <h3>Para responder una reseña mala</h3>
+      <div class="copiar"><span class="que">Reseña negativa</span>Escribí una respuesta tranquila y profesional para esta reseña negativa de <mark>nombre del negocio</mark>. Reconocé lo que le molestó, no discutas ni des excusas, e invitá a la persona a escribirnos por WhatsApp para resolverlo. Máximo cuatro líneas.
+Reseña: <mark>pegá la reseña</mark>
+Lo que pasó según nosotros: <mark>contalo en una línea</mark></div>
+      <p class="nota">Las reseñas malas, leelas en frío y contestalas al otro día. Nunca ofrezcas descuentos a cambio de reseñas: Google lo prohíbe.</p>
+    </section>
+
+    <section class="modulo pad" id="presupuestos" aria-labelledby="t-pres">
+      <h2 id="t-pres"><span>3</span>Presupuestos y listas de precios</h2>
+      <p>La IA es buena para dejar prolijo un texto o una lista desordenada. <b>Las cuentas hacelas o controlalas con la calculadora</b>: a veces suma mal.</p>
+      <div class="copiar"><span class="que">Presupuesto prolijo</span>Armá un presupuesto claro para mandar por WhatsApp, de parte de <mark>nombre del negocio</mark>, para <mark>qué trabajo o pedido</mark>. Usá exactamente estos ítems, cantidades y precios, sin cambiarlos: <mark>pegá los ítems</mark>. Agregá la validez (<mark>7 días</mark>), la forma de pago (<mark>efectivo, transferencia, Mercado Pago</mark>) y el plazo de entrega (<mark>plazo</mark>). No calcules el total: dejá el espacio «Total: ___».</div>
+      <div class="copiar"><span class="que">Ordenar una lista desordenada</span>Pasá esta lista a una tabla con las columnas código, producto, presentación y precio. No cambies ningún número ni nombre; si algo no se entiende, marcalo con «revisar».
+Lista: <mark>pegá la lista o una foto</mark></div>
+    </section>
+
+    <section class="modulo pad" id="publicaciones" aria-labelledby="t-pub">
+      <h2 id="t-pub"><span>4</span>Las publicaciones del mes</h2>
+      <p>Cuatro publicaciones por mes alcanzan: un producto, una novedad, algo del oficio y los horarios o una fecha especial. Siempre con fotos tuyas.</p>
+      <div class="copiar"><span class="que">Cuatro textos con tus fotos</span>Sos quien maneja las redes de <mark>nombre del negocio</mark>, <mark>rubro</mark> de <mark>barrio</mark>. Escribí 4 textos cortos para publicar este mes en Instagram y en la ficha de Google: uno sobre <mark>producto</mark>, uno sobre <mark>novedad</mark>, uno que cuente <mark>algo del oficio que sabemos hacer</mark> y uno con el horario de <mark>fecha especial</mark>. Tono de barrio, sin frases de publicidad gastadas de esas que podría decir cualquier negocio, máximo 3 líneas cada uno y una invitación concreta al final (escribinos, vení, reservá).</div>
+      <p class="nota">Si la IA escribe algo que vos no dirías en el mostrador, cambialo. Tus clientes te conocen.</p>
+    </section>
+
+    <section class="modulo pad" id="plan" aria-labelledby="t-plan">
+      <h2 id="t-plan"><span>5</span>Tu plan de siete días</h2>
+      <ol class="plan">
+        <li><b>Día 1</b><span>Perfil de WhatsApp Business completo y mensaje de ausencia.</span></li>
+        <li><b>Día 2</b><span>Los 10 productos más pedidos en el catálogo, con foto y precio.</span></li>
+        <li><b>Día 3</b><span>Cinco respuestas rápidas para las preguntas de siempre.</span></li>
+        <li><b>Día 4</b><span>Revisar si aparece el asistente con IA y probarlo desde otro celular.</span></li>
+        <li><b>Día 5</b><span>Responder las reseñas de Google que tenés sin contestar.</span></li>
+        <li><b>Día 6</b><span>Armar tu presupuesto modelo y guardarlo como respuesta rápida.</span></li>
+        <li><b>Día 7</b><span>Programar las cuatro publicaciones del mes.</span></li>
+      </ol>
+      <p class="nota" style="margin-top:14px">¿Preferís que lo dejemos funcionando nosotros? Configuramos el WhatsApp, ponemos a punto tu ficha de Google o armamos tu catálogo con precios al día. Preguntanos.</p>
+    </section>
+
+    <footer class="pad">
+      <p>Taller «IA para tu comercio» · Ezequiel Besser · estudiante de Ingeniería en el ITBA</p>
+      <p>Las herramientas cambian rápido: esta guía se revisó en noviembre de 2026.</p>
+    </footer>
+  </main>
+</div>
+<script>
+(function(){
+  document.querySelectorAll('.copiar').forEach(function(box){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'btn-copiar'; b.textContent = 'Copiar';
+    b.addEventListener('click', function(){
+      var texto = Array.prototype.filter.call(box.childNodes, function(n){ return !(n.classList && (n.classList.contains('que') || n.classList.contains('btn-copiar'))); })
+        .map(function(n){ return n.textContent; }).join('').trim();
+      var listo = function(){ b.textContent = 'Copiado'; setTimeout(function(){ b.textContent = 'Copiar'; }, 1800); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texto).then(listo, function(){ b.textContent = 'Seleccioná y copiá'; });
+      else b.textContent = 'Seleccioná y copiá';
+    });
+    box.insertBefore(b, box.firstChild);
+  });
+})();
+</script>
+</body>
+</html>

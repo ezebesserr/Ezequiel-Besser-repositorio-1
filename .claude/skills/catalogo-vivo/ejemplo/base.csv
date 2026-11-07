@@ -1,0 +1,36 @@
+codigo,rubro,nombre,medida,material,unidad,proveedor,codigo_proveedor,costo,precio
+TH-B001,bulones,Bulón hexagonal rosca total,M6 × 20,Acero zincado,Caja x 100,Fijaciones Delta,FD-1062,7800.00,11350
+TH-B002,bulones,Bulón hexagonal rosca total,M6 × 30,Acero zincado,Caja x 100,Fijaciones Delta,FD-1063,9200.00,13350
+TH-B003,bulones,Bulón hexagonal rosca total,M8 × 25,Acero zincado,Caja x 100,Fijaciones Delta,FD-1081,13600.00,19750
+TH-B004,bulones,Bulón hexagonal rosca total,M8 × 40,Acero zincado,Caja x 100,Fijaciones Delta,FD-1084,17900.00,26000
+TH-B005,bulones,Bulón hexagonal rosca parcial,M10 × 50,Acero zincado,Caja x 50,Fijaciones Delta,FD-1105,21400.00,31050
+TH-B006,bulones,Bulón hexagonal rosca parcial,M12 × 60,Acero zincado,Caja x 25,Fijaciones Delta,FD-1126,19800.00,28750
+TH-B007,bulones,Bulón carrocero cabeza redonda,"1/4"" × 2""",Acero zincado,Caja x 100,Fijaciones Delta,FD-1402,15300.00,22200
+TH-B008,bulones,Bulón carrocero cabeza redonda,"5/16"" × 2 1/2""",Acero zincado,Caja x 50,Fijaciones Delta,FD-1425,13900.00,20200
+TH-T001,tornillos,"Autoperforante punta mecha, cabeza hexagonal","14 × 1""",Acero zincado,Caja x 100,Fijaciones Delta,FD-3100,8600.00,12500
+TH-T002,tornillos,"Autoperforante punta aguja, cabeza tanque (T1)","8 × 1/2""",Acero fosfatado,Bolsa x 500,Fijaciones Delta,FD-3205,6900.00,10050
+TH-T003,tornillos,"Tornillo para madera, cabeza fresada Phillips",4 × 40 mm,Acero zincado,Bolsa x 100,Fijaciones Delta,FD-3540,3900.00,5700
+TH-T004,tornillos,"Tornillo para madera, cabeza fresada Phillips",5 × 60 mm,Acero zincado,Bolsa x 100,Fijaciones Delta,FD-3560,6700.00,9750
+TH-T005,tornillos,"Tornillo Parker, cabeza tanque","8 × 3/4""",Acero zincado,Caja x 100,Fijaciones Delta,FD-3608,3200.00,4650
+TH-T006,tornillos,"Autoperforante para techo, con arandela de neoprene","14 × 2""",Acero zincado,Caja x 100,Fijaciones Delta,FD-3714,14800.00,21500
+TH-N001,tuercas,Tuerca hexagonal,M6,Acero zincado,Bolsa x 100,Fijaciones Delta,FD-5006,2600.00,4050
+TH-N002,tuercas,Tuerca hexagonal,M8,Acero zincado,Bolsa x 100,Fijaciones Delta,FD-5008,3900.00,6050
+TH-N003,tuercas,Tuerca hexagonal,M10,Acero zincado,Bolsa x 100,Fijaciones Delta,FD-5010,6800.00,10550
+TH-N004,tuercas,Tuerca autofrenante con nylon,M8,Acero zincado,Bolsa x 100,Fijaciones Delta,FD-5208,7900.00,12250
+TH-N005,tuercas,Tuerca mariposa,"1/4""",Acero zincado,Bolsa x 50,Fijaciones Delta,FD-5302,5400.00,8400
+TH-A001,arandelas,Arandela plana,M6,Acero zincado,Bolsa x 100,Fijaciones Delta,FD-6006,1300.00,2100
+TH-A002,arandelas,Arandela plana,M8,Acero zincado,Bolsa x 100,Fijaciones Delta,FD-6008,1900.00,3050
+TH-A003,arandelas,Arandela plana,M10,Acero zincado,Bolsa x 100,Fijaciones Delta,FD-6010,2900.00,4650
+TH-A004,arandelas,Arandela grower (de presión),M8,Acero zincado,Bolsa x 100,Fijaciones Delta,FD-6108,2700.00,4350
+TH-V001,varillas,Varilla roscada,"1/4"" × 1 m",Acero zincado,Por unidad,Fijaciones Delta,FD-7025,1450.00,2150
+TH-V002,varillas,Varilla roscada,"5/16"" × 1 m",Acero zincado,Por unidad,Fijaciones Delta,FD-7031,2200.00,3200
+TH-V003,varillas,Varilla roscada,"3/8"" × 1 m",Acero zincado,Por unidad,Fijaciones Delta,FD-7037,3100.00,4500
+TH-V004,varillas,Varilla roscada,M10 × 1 m,Acero zincado,Por unidad,Fijaciones Delta,FD-7110,2900.00,4250
+TH-K001,anclajes,Taco de nylon con tope,6 mm,Nylon,Bolsa x 100,Fijaciones Delta,FD-8006,2400.00,3500
+TH-K002,anclajes,Taco de nylon con tope,8 mm,Nylon,Bolsa x 100,Fijaciones Delta,FD-8008,3800.00,5550
+TH-K003,anclajes,Anclaje tipo camisa con bulón,"3/8"" × 3""",Acero zincado,Caja x 25,Fijaciones Delta,FD-8237,16500.00,23950
+TH-K004,anclajes,Clavo de acero para concreto,"2 1/2""",Acero templado,Caja x 100,Fijaciones Delta,FD-8425,5900.00,8600
+TH-I001,inoxidable,Bulón hexagonal inoxidable A2,M6 × 25,Acero inoxidable,Bolsa x 50,Inox Ribera,IR-206,12400.00,17400
+TH-I002,inoxidable,Tuerca hexagonal inoxidable A2,M6,Acero inoxidable,Bolsa x 100,Inox Ribera,IR-306,7800.00,10950
+TH-I003,inoxidable,Arandela plana inoxidable A2,M8,Acero inoxidable,Bolsa x 100,Inox Ribera,IR-408,5600.00,7850
+TH-I004,inoxidable,"Autoperforante inoxidable, cabeza tanque","10 × 3/4""",Acero inoxidable,Caja x 100,Inox Ribera,IR-510,11900.00,16700

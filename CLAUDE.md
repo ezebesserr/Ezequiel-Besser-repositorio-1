@@ -9,10 +9,11 @@ Hablá en español rioplatense, directo y sin vueltas. La persona con la que tra
 | Ruta | Qué es |
 |---|---|
 | `index.html` | Página personal de clases particulares, publicada en GitHub Pages. No la toques salvo que te lo pidan. |
-| `muestras/<rubro>/` | Webs de muestra con negocios inventados, para mostrar como trabajo propio. Referencia de calidad: `muestras/ferreteria/`. |
+| `muestras/<rubro>/` | Webs de muestra con negocios inventados, para mostrar como trabajo propio. Referencia de calidad: `muestras/ferreteria/`. También las muestras de los servicios: `muestras/presencia/` (informe mensual) y `muestras/catalogo-vivo/` (catálogo con precios al día y su informe de cambios). |
+| `talleres/` | Página del taller «IA para tu comercio» (borrador con datos a completar) y la guía para los participantes. |
 | `clientes/<negocio>/` | Muestras y sitios de negocios reales, uno por carpeta, con su `brief.md`. |
 | `creador/diseno/` | Cómo queremos los diseños (`preferencias.md`, manda sobre todo lo demás), qué lleva cada rubro (`rubros.md`) y las identidades ya usadas (`identidades-usadas.md`). |
-| `creador/negocio/` | Perfil de quien firma, precios y condiciones. |
+| `creador/negocio/` | Perfil de quien firma, precios y condiciones, y la guía para darse de alta en el monotributo. |
 | `creador/plantilla-brief.md` | Plantilla para juntar los datos de cada negocio. |
 | `.claude/skills/` | Las skills del taller. |
 
@@ -22,6 +23,35 @@ Hablá en español rioplatense, directo y sin vueltas. La persona con la que tra
 - **mensajes-y-precios**: escribe los mensajes (WhatsApp, mail, llamada, seguimiento) y los presupuestos.
 - **crear-pagina**: saca la identidad real del local, propone tres direcciones, arma la muestra o el sitio final y lo revisa (incluido el detector de diseño genérico).
 - **publicar**: publica en GitHub Pages o Cloudflare Pages, genera la imagen para compartir, conecta el dominio y entrega.
+- **presencia-mensual**: pone a punto la ficha de Google, arma el circuito de reseñas, prueba si lo recomiendan los asistentes con IA y arma el informe mensual.
+- **catalogo-vivo**: catálogo cargado desde una planilla de Google y precios al día con la lista de cada proveedor (la IA transcribe, el script calcula, el cliente aprueba).
+- **talleres-ia**: prepara, da y hace el seguimiento de los talleres «IA para tu comercio».
+- **venta-completa**: lleva cada negocio de punta a punta con el Mostrador de ventas: quien vende solo toca «mandar», habla con el cliente y cobra.
+
+## Líneas de negocio
+
+Las webs son la base. Encima van tres líneas, elegidas en noviembre de 2026 entre 36 ideas: **Presencia mensual** (cada web deja un ingreso por mes), **Catálogo vivo** (el ticket más alto, con abono para los precios) y **Talleres de IA** (cobran solos y traen clientes para las otras dos). Precios en `creador/negocio/precios.md`.
+
+## Herramientas que ahorran pasos
+
+| Para | Comando o lugar |
+|---|---|
+| Seguimiento de cada contacto, mensajes armados por etapa y WhatsApp a un toque | **Mostrador de ventas** (página privada de Claude; ver `venta-completa`) |
+| Ideas de negocio, recorridos y puntaje | **Fichero de negocios con IA** (página privada de Claude) |
+| Auditoría de la web de un prospecto para mandar con el primer mensaje (o de toda la preselección con `--lote`, lista para el Mostrador) | `node .claude/skills/buscar-clientes/scripts/auditoria.js` |
+| Prospectos para Catálogo vivo: rubros de catálogo grande con señales concretas en su web (lista en PDF, productos sin precio) | `python3 .claude/skills/buscar-clientes/scripts/catalogo.py` |
+| Recorrido a pie por los prospectos auditados: tramos en Google Maps, qué decir en cada local y las hojas para dejar | `node .claude/skills/buscar-clientes/scripts/ruta.js` |
+| Presupuesto en PDF con los pesos del día | `node .claude/skills/mensajes-y-precios/scripts/presupuesto.js` |
+| Chequeo final del sitio y hoja de entrega para el cliente (QR, qué hacer esa semana, cómo pedir cambios) con su mensaje | `node .claude/skills/publicar/scripts/entrega.js` |
+| Informe mensual de un cliente / cierre de mes de todos | `node .claude/skills/presencia-mensual/scripts/informe.js` / `cierre.js` |
+| Tarjeta de reseñas con QR para el mostrador | `node .claude/skills/presencia-mensual/scripts/tarjeta.js` |
+| Planilla del catálogo para Google / precios con la lista del proveedor | `python3 .claude/skills/catalogo-vivo/scripts/planilla.py` / `precios.py` |
+| Afiche, posteos, propuesta y constancias de un taller | `node .claude/skills/talleres-ia/scripts/kit.js` |
+| Catálogo, perfil y respuestas rápidas del WhatsApp Business propio | `node .claude/skills/mensajes-y-precios/scripts/catalogo-propio.js` |
+| Actualizar el dólar de referencia de `precios.md` | `node .claude/skills/mensajes-y-precios/scripts/dolar.js` |
+| Probar todas las herramientas después de tocar alguna | `node .claude/skills/venta-completa/scripts/probar-todo.js` |
+
+Todos los que manejan datos de clientes se niegan a guardar dentro del repo. Los QR usan `npm install -g qrcode`. Para buscar y auditar clientes desde la nube, abrí la sesión en el entorno «Ezequiel-Besser-repositorio-1», que tiene salida a internet.
 
 ## Flujo de trabajo
 

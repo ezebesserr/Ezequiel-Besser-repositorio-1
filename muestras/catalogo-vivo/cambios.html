@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cambios de precios · Bulonera Tres Hilos · lista de Fijaciones Delta</title>
+<meta name="description" content="Informe de cambios de precios de Bulonera Tres Hilos con la lista de Fijaciones Delta: qué sube, qué baja y qué hay que revisar antes de publicar.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Cambios de precios · Bulonera Tres Hilos">
+<meta property="og:description" content="Lista de Fijaciones Delta del 3/11/2026: qué sube, qué baja y qué hay que revisar.">
+<meta property="og:image" content="https://ezebesserr.github.io/Ezequiel-Besser-repositorio-1/muestras/catalogo-vivo/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@400;600&family=Work+Sans:wght@400;500;700&display=swap">
+<style>
+  /* Informe del taller: planilla de cambios, en tinta sobre papel, con el rojo y el azul de la lapicera del corrector. */
+  :root{--papel:#fbfaf7;--tinta:#1d2329;--gris:#5b6670;--linea:#dfe3e6;--sube:#9a3412;--baja:#1d4ed8;--marca:#fde68a;
+    --f-texto:"Work Sans",system-ui,sans-serif;--f-num:"Red Hat Mono",ui-monospace,monospace}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--papel);color:var(--tinta);font:16px/1.5 var(--f-texto)}
+  .w{max-width:980px;margin:0 auto;padding:28px max(16px,env(safe-area-inset-left)) 60px max(16px,env(safe-area-inset-right))}
+  .cinta{background:var(--tinta);color:#fff;font:600 12px/1.3 var(--f-num);letter-spacing:.06em;text-transform:uppercase;padding:8px 16px}
+  h1{font-size:clamp(1.6rem,1.2rem + 1.6vw,2.3rem);line-height:1.1;margin:0 0 6px;text-wrap:balance}
+  h2{font-size:1.2rem;margin:34px 0 10px}
+  .sub{color:var(--gris);margin:0}
+  .param{display:flex;flex-wrap:wrap;gap:6px 18px;margin:16px 0 0;padding:12px 0;border-block:1px solid var(--linea);font:14px/1.4 var(--f-num);color:var(--gris)}
+  .param b{color:var(--tinta);font-weight:600}
+  .resumen{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:20px}
+  .resumen div{border-top:3px solid var(--tinta);padding-top:8px}
+  .resumen b{display:block;font:600 1.8rem/1.1 var(--f-num)}
+  .resumen .s b{color:var(--sube)} .resumen .b b{color:var(--baja)}
+  .tabla{overflow-x:auto;margin-top:8px}
+  table{width:100%;border-collapse:collapse;font-size:15px;min-width:560px}
+  th{text-align:left;font:600 12px/1.3 var(--f-num);text-transform:uppercase;letter-spacing:.05em;color:var(--gris);border-bottom:2px solid var(--tinta);padding:8px 6px}
+  td{padding:8px 6px;border-bottom:1px solid var(--linea);vertical-align:top}
+  .num{text-align:right;font-family:var(--f-num);white-space:nowrap;font-variant-numeric:tabular-nums}
+  th.num{text-align:right}
+  .cod{font-family:var(--f-num);font-size:13px;color:var(--gris);white-space:nowrap}
+  .med{font-family:var(--f-num);font-size:13px}
+  .uni{display:block;font-size:13px;color:var(--gris)}
+  .sube .var{color:var(--sube)} .baja .var{color:var(--baja)}
+  .ojo{background:var(--marca);font:600 11px/1 var(--f-num);text-transform:uppercase;padding:3px 5px;border-radius:2px;margin-left:6px;white-space:nowrap}
+  ul{padding-left:1.1em} li{margin:4px 0}
+  .nota{color:var(--gris);font-size:15px}
+  .aprobar{margin-top:34px;padding:16px;border:2px solid var(--tinta);border-radius:4px}
+  .aprobar p{margin:0}
+</style>
+</head>
+<body>
+<div class="cinta" role="note">Informe de muestra · el negocio, el proveedor y los precios son inventados</div>
+<main class="w">
+  <h1>Cambios de precios de Bulonera Tres Hilos</h1>
+  <p class="sub">Lista de Fijaciones Delta del 3/11/2026 · informe armado el 06/11/2026</p>
+  <p class="param"><span>Bonificación de la lista: <b>30 %</b></span><span>IVA sumado: <b>0 %</b></span><span>Margen: <b>45 % / 55 % / 60 %</b></span><span>Redondeo: <b>para arriba, de a $50</b></span></p>
+  <div class="resumen">
+    <div class="s"><b>28</b>suben</div>
+    <div class="b"><b>1</b>bajan</div>
+    <div><b>1</b>sin cambio</div>
+    <div><b>+8,9 %</b>en promedio</div>
+    <div><b>1</b>no vinieron</div>
+    <div><b>2</b>nuevos en la lista</div>
+  </div>
+
+  <h2>Para revisar antes de publicar</h2>
+  <p class="nota">Precios que cambian 15 % o más: puede ser un aumento real o un error de la lista.</p>
+  <div class="tabla"><table><thead><tr><th>Código</th><th>Producto</th><th class="num">Antes</th><th class="num">Ahora</th><th class="num">Cambio</th></tr></thead><tbody><tr class="sube"><td class="cod">TH-B006</td><td>Bulón hexagonal rosca parcial <span class="med">M12 × 60</span><span class="uni">Caja x 25</span> <span class="ojo">revisar</span></td><td class="num">$ 28.750</td><td class="num">$ 35.100</td><td class="num var">+22,1 %</td></tr><tr class="sube"><td class="cod">TH-T006</td><td>Autoperforante para techo, con arandela de neoprene <span class="med">14 × 2&quot;</span><span class="uni">Caja x 100</span> <span class="ojo">revisar</span></td><td class="num">$ 21.500</td><td class="num">$ 25.400</td><td class="num var">+18,1 %</td></tr></tbody></table></div>
+  <h3>No vinieron en la lista</h3><ul><li><b>TH-N005</b> Tuerca mariposa 1/4&quot; (código del proveedor FD-5302). Queda a $ 8.400 hasta que nos digan qué hacer.</li></ul>
+  <h3>Productos nuevos del proveedor</h3><p class='nota'>No están en el catálogo. ¿Los sumamos?</p><ul><li><b>FD-1086</b> Bulón hexagonal rosca total M8 × 50 acero zincado (caja x 100): lista $ 29.871.</li><li><b>FD-3104</b> Autoperforante punta mecha cabeza hexagonal 14 × 1 1/2&quot; acero zincado (caja x 100): lista $ 14.329.</li></ul>
+  
+
+  <h2>Todos los cambios</h2>
+  <div class="tabla"><table><thead><tr><th>Código</th><th>Producto</th><th class="num">Antes</th><th class="num">Ahora</th><th class="num">Cambio</th></tr></thead><tbody><tr class="sube"><td class="cod">TH-B006</td><td>Bulón hexagonal rosca parcial <span class="med">M12 × 60</span><span class="uni">Caja x 25</span> <span class="ojo">revisar</span></td><td class="num">$ 28.750</td><td class="num">$ 35.100</td><td class="num var">+22,1 %</td></tr><tr class="sube"><td class="cod">TH-T006</td><td>Autoperforante para techo, con arandela de neoprene <span class="med">14 × 2&quot;</span><span class="uni">Caja x 100</span> <span class="ojo">revisar</span></td><td class="num">$ 21.500</td><td class="num">$ 25.400</td><td class="num var">+18,1 %</td></tr><tr class="sube"><td class="cod">TH-A001</td><td>Arandela plana <span class="med">M6</span><span class="uni">Bolsa x 100</span></td><td class="num">$ 2.100</td><td class="num">$ 2.300</td><td class="num var">+9,5 %</td></tr><tr class="sube"><td class="cod">TH-K003</td><td>Anclaje tipo camisa con bulón <span class="med">3/8&quot; × 3&quot;</span><span class="uni">Caja x 25</span></td><td class="num">$ 23.950</td><td class="num">$ 26.100</td><td class="num var">+9,0 %</td></tr><tr class="sube"><td class="cod">TH-K004</td><td>Clavo de acero para concreto <span class="med">2 1/2&quot;</span><span class="uni">Caja x 100</span></td><td class="num">$ 8.600</td><td class="num">$ 9.350</td><td class="num var">+8,7 %</td></tr><tr class="sube"><td class="cod">TH-N001</td><td>Tuerca hexagonal <span class="med">M6</span><span class="uni">Bolsa x 100</span></td><td class="num">$ 4.050</td><td class="num">$ 4.400</td><td class="num var">+8,6 %</td></tr><tr class="sube"><td class="cod">TH-A003</td><td>Arandela plana <span class="med">M10</span><span class="uni">Bolsa x 100</span></td><td class="num">$ 4.650</td><td class="num">$ 5.050</td><td class="num var">+8,6 %</td></tr><tr class="sube"><td class="cod">TH-N002</td><td>Tuerca hexagonal <span class="med">M8</span><span class="uni">Bolsa x 100</span></td><td class="num">$ 6.050</td><td class="num">$ 6.550</td><td class="num var">+8,3 %</td></tr><tr class="sube"><td class="cod">TH-A002</td><td>Arandela plana <span class="med">M8</span><span class="uni">Bolsa x 100</span></td><td class="num">$ 3.050</td><td class="num">$ 3.300</td><td class="num var">+8,2 %</td></tr><tr class="sube"><td class="cod">TH-B003</td><td>Bulón hexagonal rosca total <span class="med">M8 × 25</span><span class="uni">Caja x 100</span></td><td class="num">$ 19.750</td><td class="num">$ 21.350</td><td class="num var">+8,1 %</td></tr><tr class="sube"><td class="cod">TH-B004</td><td>Bulón hexagonal rosca total <span class="med">M8 × 40</span><span class="uni">Caja x 100</span></td><td class="num">$ 26.000</td><td class="num">$ 28.100</td><td class="num var">+8,1 %</td></tr><tr class="sube"><td class="cod">TH-N003</td><td>Tuerca hexagonal <span class="med">M10</span><span class="uni">Bolsa x 100</span></td><td class="num">$ 10.550</td><td class="num">$ 11.400</td><td class="num var">+8,1 %</td></tr><tr class="sube"><td class="cod">TH-V002</td><td>Varilla roscada <span class="med">5/16&quot; × 1 m</span><span class="uni">Por unidad</span></td><td class="num">$ 3.200</td><td class="num">$ 3.450</td><td class="num var">+7,8 %</td></tr><tr class="sube"><td class="cod">TH-V003</td><td>Varilla roscada <span class="med">3/8&quot; × 1 m</span><span class="uni">Por unidad</span></td><td class="num">$ 4.500</td><td class="num">$ 4.850</td><td class="num var">+7,8 %</td></tr><tr class="sube"><td class="cod">TH-T004</td><td>Tornillo para madera, cabeza fresada Phillips <span class="med">5 × 60 mm</span><span class="uni">Bolsa x 100</span></td><td class="num">$ 9.750</td><td class="num">$ 10.500</td><td class="num var">+7,7 %</td></tr><tr class="sube"><td class="cod">TH-B002</td><td>Bulón hexagonal rosca total <span class="med">M6 × 30</span><span class="uni">Caja x 100</span></td><td class="num">$ 13.350</td><td class="num">$ 14.350</td><td class="num var">+7,5 %</td></tr><tr class="sube"><td class="cod">TH-T001</td><td>Autoperforante punta mecha, cabeza hexagonal <span class="med">14 × 1&quot;</span><span class="uni">Caja x 100</span></td><td class="num">$ 12.500</td><td class="num">$ 13.400</td><td class="num var">+7,2 %</td></tr><tr class="sube"><td class="cod">TH-V004</td><td>Varilla roscada <span class="med">M10 × 1 m</span><span class="uni">Por unidad</span></td><td class="num">$ 4.250</td><td class="num">$ 4.550</td><td class="num var">+7,1 %</td></tr><tr class="sube"><td class="cod">TH-B001</td><td>Bulón hexagonal rosca total <span class="med">M6 × 20</span><span class="uni">Caja x 100</span></td><td class="num">$ 11.350</td><td class="num">$ 12.150</td><td class="num var">+7,0 %</td></tr><tr class="sube"><td class="cod">TH-T003</td><td>Tornillo para madera, cabeza fresada Phillips <span class="med">4 × 40 mm</span><span class="uni">Bolsa x 100</span></td><td class="num">$ 5.700</td><td class="num">$ 6.100</td><td class="num var">+7,0 %</td></tr><tr class="sube"><td class="cod">TH-V001</td><td>Varilla roscada <span class="med">1/4&quot; × 1 m</span><span class="uni">Por unidad</span></td><td class="num">$ 2.150</td><td class="num">$ 2.300</td><td class="num var">+7,0 %</td></tr><tr class="sube"><td class="cod">TH-B005</td><td>Bulón hexagonal rosca parcial <span class="med">M10 × 50</span><span class="uni">Caja x 50</span></td><td class="num">$ 31.050</td><td class="num">$ 33.200</td><td class="num var">+6,9 %</td></tr><tr class="sube"><td class="cod">TH-B007</td><td>Bulón carrocero cabeza redonda <span class="med">1/4&quot; × 2&quot;</span><span class="uni">Caja x 100</span></td><td class="num">$ 22.200</td><td class="num">$ 23.650</td><td class="num var">+6,5 %</td></tr><tr class="sube"><td class="cod">TH-N004</td><td>Tuerca autofrenante con nylon <span class="med">M8</span><span class="uni">Bolsa x 100</span></td><td class="num">$ 12.250</td><td class="num">$ 13.050</td><td class="num var">+6,5 %</td></tr><tr class="sube"><td class="cod">TH-B008</td><td>Bulón carrocero cabeza redonda <span class="med">5/16&quot; × 2 1/2&quot;</span><span class="uni">Caja x 50</span></td><td class="num">$ 20.200</td><td class="num">$ 21.500</td><td class="num var">+6,4 %</td></tr><tr class="sube"><td class="cod">TH-A004</td><td>Arandela grower (de presión) <span class="med">M8</span><span class="uni">Bolsa x 100</span></td><td class="num">$ 4.350</td><td class="num">$ 4.600</td><td class="num var">+5,7 %</td></tr><tr class="sube"><td class="cod">TH-K001</td><td>Taco de nylon con tope <span class="med">6 mm</span><span class="uni">Bolsa x 100</span></td><td class="num">$ 3.500</td><td class="num">$ 3.700</td><td class="num var">+5,7 %</td></tr><tr class="sube"><td class="cod">TH-K002</td><td>Taco de nylon con tope <span class="med">8 mm</span><span class="uni">Bolsa x 100</span></td><td class="num">$ 5.550</td><td class="num">$ 5.800</td><td class="num var">+4,5 %</td></tr><tr class="igual"><td class="cod">TH-T005</td><td>Tornillo Parker, cabeza tanque <span class="med">8 × 3/4&quot;</span><span class="uni">Caja x 100</span></td><td class="num">$ 4.650</td><td class="num">$ 4.650</td><td class="num var">0,0 %</td></tr><tr class="baja"><td class="cod">TH-T002</td><td>Autoperforante punta aguja, cabeza tanque (T1) <span class="med">8 × 1/2&quot;</span><span class="uni">Bolsa x 500</span></td><td class="num">$ 10.050</td><td class="num">$ 9.600</td><td class="num var">−4,5 %</td></tr></tbody></table></div>
+
+  <div class="aprobar"><p><b>Para publicar:</b> respondé «OK» por WhatsApp, o decinos qué precio querés cambiar. Hasta que lo apruebes, la web sigue con los precios de antes.</p></div>
+</main>
+</body>
+</html>

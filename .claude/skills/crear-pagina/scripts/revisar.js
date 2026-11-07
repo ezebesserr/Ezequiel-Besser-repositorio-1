@@ -34,8 +34,10 @@ const path = require('path');
     await page.goto(url, { waitUntil: 'load', timeout: 45000 });
     await page.waitForTimeout(1200);
     await page.screenshot({ path: path.join(outDir, nombre + '.jpg'), type: 'jpeg', quality: 70, fullPage: true });
+    // En el celular el navegador agranda la pantalla para que entre lo que sobra: se compara contra el ancho real (390).
     const ancho = await page.evaluate(() => [document.documentElement.scrollWidth, window.innerWidth]);
-    if (ancho[0] > ancho[1]) rep.problemas.push(`${nombre}: la página se corre de costado (${ancho[0]}px de ancho en una pantalla de ${ancho[1]}px)`);
+    const anchoReal = Math.min(ancho[1], vp.width);
+    if (ancho[0] > anchoReal) rep.problemas.push(`${nombre}: la página se corre de costado (${ancho[0]}px de ancho en una pantalla de ${anchoReal}px)`);
     errs.forEach(e => rep.problemas.push(`${nombre}: error de JavaScript: ${e.slice(0, 160)}`));
     fallidas.forEach(f => rep.problemas.push(`${nombre}: no cargó ${f.slice(0, 140)}`));
 

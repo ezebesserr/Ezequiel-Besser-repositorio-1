@@ -11,6 +11,37 @@ Los precios se piensan en dólares y al cliente se le pasan en pesos, al dólar 
 - **Extras**: versión en otro idioma USD 60 · menú digital con QR USD 50 · pago con Mercado Pago, se cotiza aparte.
 - **Mantenimiento**: USD 20 por mes (hosting, HTTPS, copias de seguridad y hasta una hora de cambios).
 
+## Presencia mensual (skill `presencia-mensual`)
+
+| Servicio | Qué incluye | USD |
+|---|---|---|
+| Puesta a punto de Google | Ficha completa (rubros, horarios, fotos, productos), tarjeta con QR para pedir reseñas, respuesta a las últimas 10 reseñas y los datos del negocio ordenados en la web. Pago único. | 90 |
+| Presencia | Mantenimiento de la web, ficha al día (dos publicaciones y fotos nuevas por mes, horarios de feriados), respuesta a todas las reseñas e informe mensual. Por mes. | 40 |
+| Presencia + IA | Lo de Presencia, más la prueba mensual en ChatGPT, Gemini y Google con IA y una mejora por mes para aparecer en sus respuestas. Por mes. | 60 |
+
+- Presencia ya incluye el mantenimiento de USD 20. Si la web no la hicimos nosotros, Presencia cuesta USD 30 por mes (sin el mantenimiento).
+- Se paga por mes adelantado y se puede dejar avisando con 15 días.
+
+## Catálogo vivo (skill `catalogo-vivo`)
+
+| Servicio | Qué incluye | USD |
+|---|---|---|
+| Precios al día | Hasta 3 proveedores y 1.500 productos. Hasta dos actualizaciones por mes, cada una con su informe de cambios para aprobar. Por mes. | 45 |
+| Precios al día, grande | Hasta 8 proveedores y 5.000 productos. Una actualización por cada lista que llegue. Por mes. | 80 |
+
+- La carga inicial de hasta 500 productos va incluida en el paquete Catálogo; cada 500 más, USD 20.
+
+## Talleres de IA (skill `talleres-ia`)
+
+| Servicio | Qué incluye | USD |
+|---|---|---|
+| Taller abierto | Tres horas, cupo de 15 personas, guía impresa. Por persona. | 25 |
+| Taller cerrado | Para una cámara, un centro comercial o una empresa, hasta 20 personas, en su sede y con ejemplos de sus rubros. | 300 |
+| WhatsApp Business configurado | Perfil, catálogo de hasta 20 productos, respuestas rápidas, mensaje de ausencia y el asistente con IA si la app lo ofrece. Pago único. | 40 |
+
+- Quienes hicieron el taller pagan USD 25 la configuración de WhatsApp y tienen un 15 % menos en la puesta a punto de Google, durante 15 días.
+- Primer taller abierto a USD 15 por persona, para juntar opiniones.
+
 ## Condiciones
 
 - Muestra gratis antes de cobrar nada.
@@ -19,10 +50,12 @@ Los precios se piensan en dólares y al cliente se le pasan en pesos, al dólar 
 - El dominio queda siempre a nombre del cliente.
 - Fotos y textos los pasa el cliente, o se usan los de su web vieja y sus redes.
 - Precio de lanzamiento: 30% menos para los tres primeros clientes, a cambio de mostrar el trabajo en el portfolio y una reseña en Google.
-- Para hacer factura, hace falta estar en el Monotributo.
+- Para hacer factura, hace falta estar en el Monotributo (pasos, categoría y costos en `monotributo.md`).
 
 ## De dónde salen estos números (noviembre de 2026)
 
 - Hay webs de plantilla desde unos USD 100: Neolo ofrece una de una página por USD 99 y hay avisos en Servidos desde $150.000.
 - Un freelancer junior cobra de USD 300 a 800 por una web institucional (guía de precios 2026 de Neolo).
-- Dólar oficial de referencia: $1.560 (venta en el Banco Nación, 30/10/2026). Actualizalo con `curl -s https://dolarapi.com/v1/dolares/oficial`.
+- Dólar oficial de referencia: $1.560 (venta en el Banco Nación, 30/10/2026). Actualizalo con `node .claude/skills/mensajes-y-precios/scripts/dolar.js` (o `--valor <cotización>` si no hay red).
+- Chatbots de WhatsApp con IA: las plataformas cobran desde unos USD 30 por mes los planes básicos y de USD 130 a 200 los que tienen IA, más los mensajes de Meta (guías de precios de Aurora Inbox y Duotach, 2026). Por eso Presencia y Precios al día van por debajo de un chatbot.
+- Poner a punto una ficha de Google cuesta de USD 100 a 200 en Fiverr, por única vez (búsqueda de noviembre de 2026). No encontramos tarifas de abonos ni de talleres en Argentina: los de arriba salen de nuestra escala y se ajustan con los primeros clientes.

@@ -1,0 +1,12 @@
+{
+  "margen": 45,
+  "margen_por_rubro": {
+    "tuercas": 55,
+    "arandelas": 60,
+    "inoxidable": 40
+  },
+  "redondeo": 50,
+  "bonificacion": 30,
+  "iva_lista": 0,
+  "alerta": 15
+}

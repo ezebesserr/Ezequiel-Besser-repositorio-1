@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe mensual de presencia en Google · Ferretería Rosca (muestra)</title>
+<meta name="description" content="Informe de muestra del abono Presencia: cuántos contactos llegaron desde Google, qué buscaron, las reseñas, qué dice la IA del local y qué hicimos en el mes.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Informe mensual de presencia · muestra">
+<meta property="og:description" content="Así le mostramos cada mes a un comercio cuántos clientes llegaron desde Google y qué hicimos para que lleguen más.">
+<meta property="og:image" content="https://ezebesserr.github.io/Ezequiel-Besser-repositorio-1/muestras/presencia/og.jpg">
+<meta property="og:url" content="https://ezebesserr.github.io/Ezequiel-Besser-repositorio-1/muestras/presencia/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+  /* Informe mensual del abono Presencia. Lleva la identidad de cada cliente (colores y letras salen del JSON de datos);
+     la estructura es la del taller: un número grande, de dónde vino, qué dice la IA, qué hicimos y qué sigue. */
+  :root{
+    --marca:#12355b; --acento:#ffc629; --tinta:#16212c; --gris:#58636e; --linea:#d9dee3; --papel:#ffffff; --fondo:#eef1f4;
+    --sube:#1e6b3a; --baja:#a33a1f;
+    --f-titulos:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+    --f-texto:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:var(--f-texto);font-size:17px;line-height:1.5;color:var(--tinta);background:var(--fondo)}
+  :focus-visible{outline:3px solid var(--acento);outline-offset:2px}
+  .num{font-variant-numeric:tabular-nums}
+  .cinta{background:repeating-linear-gradient(-45deg,var(--acento) 0 16px,var(--tinta) 16px 32px);padding:5px 0}
+  .cinta p{background:var(--acento);color:var(--tinta);font:700 13px/1.2 var(--f-titulos);letter-spacing:.1em;text-transform:uppercase;width:max-content;max-width:calc(100% - 32px);margin:0 auto;padding:4px 12px;border-radius:2px;text-align:center}
+  .hoja{max-width:880px;margin:0 auto;background:var(--papel);min-height:100vh}
+  .pad{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+
+  header.cab{background:var(--marca);color:#fff;padding-top:22px;padding-bottom:20px}
+  .cab .de{font:600 13px/1.2 var(--f-texto);letter-spacing:.08em;text-transform:uppercase;color:var(--acento)}
+  .cab h1{font:800 clamp(2rem,1.4rem + 2.6vw,3.1rem)/1 var(--f-titulos);text-transform:uppercase;letter-spacing:.01em;margin-top:6px}
+  .cab .neg{margin-top:6px;font-size:18px;color:#d9e3ee}
+
+  .principal{padding-top:24px;padding-bottom:10px;display:grid;gap:18px}
+  @media (min-width:700px){.principal{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:end}}
+  .grande b{display:block;font:800 clamp(4rem,3rem + 5vw,6.4rem)/0.9 var(--f-titulos);color:var(--marca)}
+  .grande span{display:block;font:600 20px/1.25 var(--f-texto);margin-top:6px}
+  .grande .vs{margin-top:10px;font-size:16px;color:var(--gris)}
+  .grande .vs strong{color:var(--sube)}
+  .resumen{margin-top:14px;font-size:17px;border-left:4px solid var(--acento);padding-left:12px}
+
+  .grafico{position:relative}
+  .grafico h2{font:600 14px/1.3 var(--f-texto);color:var(--gris);margin-bottom:6px}
+  .grafico svg{width:100%;height:auto;display:block;overflow:visible}
+  .grafico .eje{font:500 12px var(--f-texto);fill:var(--gris)}
+  .grafico .valor{font:700 14px var(--f-texto);fill:var(--tinta)}
+  .grafico .barra{fill:var(--marca)}
+  .grafico .barra.vieja{fill:var(--marca);opacity:.42}
+  .grafico .golpe{fill:transparent;cursor:default}
+  .tip{position:absolute;pointer-events:none;background:var(--tinta);color:#fff;font:500 14px/1.3 var(--f-texto);padding:6px 9px;border-radius:3px;transform:translate(-50%,-110%);white-space:nowrap}
+  details.tabla-datos{margin-top:6px;font-size:15px}
+  details.tabla-datos summary{cursor:pointer;color:var(--gris);min-height:32px;display:inline-flex;align-items:center}
+  details.tabla-datos table{border-collapse:collapse;margin-top:6px}
+  details.tabla-datos td,details.tabla-datos th{padding:4px 12px 4px 0;text-align:left;border-bottom:1px solid var(--linea)}
+
+  section.bloque{padding-top:28px;padding-bottom:6px}
+  section.bloque h2{font:800 clamp(1.5rem,1.2rem + 1.2vw,2rem)/1.05 var(--f-titulos);text-transform:uppercase;letter-spacing:.01em;color:var(--marca);border-bottom:3px solid var(--acento);padding-bottom:6px;margin-bottom:14px}
+  .nota{font-size:15px;color:var(--gris)}
+
+  .acciones{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px}
+  @media (min-width:700px){.acciones{grid-template-columns:repeat(4,minmax(0,1fr))}}
+  .acc{border-top:1px solid var(--linea);padding-top:8px}
+  .acc b{display:block;font:700 2.1rem/1 var(--f-titulos);color:var(--tinta)}
+  .acc span{display:block;font-weight:600}
+  .acc small{display:block;font-size:14px;color:var(--gris)}
+  .acc small .s{color:var(--sube);font-weight:600} .acc small .b{color:var(--baja);font-weight:600}
+
+  .busquedas{list-style:none;display:grid;gap:8px}
+  .busquedas li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center}
+  .busquedas .t{font-weight:600}
+  .busquedas .n{font-weight:600;color:var(--gris)}
+  .busquedas .r{grid-column:1 / -1;height:6px;background:var(--fondo);border-radius:0 3px 3px 0}
+  .busquedas .r i{display:block;height:100%;background:var(--marca);border-radius:0 3px 3px 0}
+
+  .resenas{display:grid;gap:16px}
+  @media (min-width:700px){.resenas{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}}
+  .estrellas b{font:800 3.2rem/1 var(--f-titulos);color:var(--marca)}
+  .estrellas p{margin-top:4px}
+  .ejemplo{background:var(--fondo);border-radius:3px;padding:14px}
+  .ejemplo .quien{font-weight:600}
+  .ejemplo .rta{margin-top:10px;padding-left:12px;border-left:3px solid var(--marca)}
+  .ejemplo .rta b{display:block;font-size:14px;color:var(--gris);font-weight:600}
+  .ejemplo .marca-ej{font-size:13px;color:var(--gris);margin-top:8px}
+
+  .ia{width:100%;border-collapse:collapse;font-size:15px;min-width:520px}
+  .ia-wrap{overflow-x:auto}
+  .ia th{text-align:left;font:700 13px/1.2 var(--f-texto);text-transform:uppercase;letter-spacing:.04em;color:var(--gris);padding:8px 6px;border-bottom:2px solid var(--tinta)}
+  .ia td{padding:9px 6px;border-bottom:1px solid var(--linea);vertical-align:top}
+  .ia td.r{white-space:nowrap;font-weight:600}
+  .ia .si{color:var(--sube)} .ia .no{color:var(--baja)}
+  .ia .si::before{content:"✓ "} .ia .no::before{content:"✗ "}
+  .ia-total{margin-top:10px;font-weight:600}
+
+  .listas{display:grid;gap:22px}
+  @media (min-width:700px){.listas{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .listas h3{font:700 1.25rem/1.1 var(--f-titulos);text-transform:uppercase;margin-bottom:8px}
+  .listas ul{list-style:none;display:grid;gap:8px}
+  .listas li{padding-left:22px;position:relative}
+  .hicimos li::before{content:"✓";position:absolute;left:0;color:var(--sube);font-weight:700}
+  .proponemos li::before{content:"→";position:absolute;left:0;color:var(--marca);font-weight:700}
+  .pedimos li::before{content:"□";position:absolute;left:0;color:var(--tinta)}
+
+  footer{padding-top:26px;padding-bottom:30px;margin-top:26px;border-top:1px solid var(--linea);font-size:14px;color:var(--gris)}
+  footer p+p{margin-top:6px}
+
+  @media print{
+    body{background:#fff}
+    .cinta{display:none}
+    .hoja{max-width:none;min-height:0}
+    section.bloque{break-inside:avoid}
+    details.tabla-datos{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="cinta" id="cinta" role="note"><p>Informe de muestra · el local y los números son inventados</p></div>
+<div class="hoja">
+  <header class="cab pad">
+    <p class="de" id="de">Informe de presencia</p>
+    <h1 id="titulo">Octubre 2026</h1>
+    <p class="neg" id="negocio">Ferretería Rosca · Villa Urquiza</p>
+  </header>
+
+  <main>
+    <div class="principal pad">
+      <div class="grande">
+        <b class="num" id="total">214</b>
+        <span id="total-txt">personas te llamaron, te escribieron o pidieron cómo llegar desde Google</span>
+        <p class="vs" id="vs"></p>
+        <p class="resumen" id="resumen"></p>
+      </div>
+      <div class="grafico" id="grafico">
+        <h2 id="graf-tit">Contactos desde Google, últimos seis meses</h2>
+        <svg id="barras" viewBox="0 0 420 220" role="img" aria-labelledby="graf-tit"></svg>
+        <div class="tip" id="tip" hidden></div>
+        <details class="tabla-datos"><summary>Ver los números</summary><table id="tabla"></table></details>
+      </div>
+    </div>
+
+    <section class="bloque pad" aria-labelledby="t-acc">
+      <h2 id="t-acc">Cómo te contactaron</h2>
+      <div class="acciones" id="acciones"></div>
+      <p class="nota" id="nota-acc" style="margin-top:12px"></p>
+    </section>
+
+    <section class="bloque pad" aria-labelledby="t-bus">
+      <h2 id="t-bus">Qué buscaron para encontrarte</h2>
+      <ul class="busquedas" id="busquedas"></ul>
+    </section>
+
+    <section class="bloque pad" aria-labelledby="t-res">
+      <h2 id="t-res">Reseñas</h2>
+      <div class="resenas">
+        <div class="estrellas" id="estrellas"></div>
+        <div class="ejemplo" id="ejemplo"></div>
+      </div>
+    </section>
+
+    <section class="bloque pad" aria-labelledby="t-ia">
+      <h2 id="t-ia">Qué dice la IA de tu local</h2>
+      <p class="nota" style="margin-bottom:10px">Le hicimos las mismas preguntas que haría un vecino a tres asistentes con IA, sin decirles el nombre del local.</p>
+      <div class="ia-wrap" role="region" aria-label="Respuestas de los asistentes" tabindex="0"><table class="ia" id="ia"></table></div>
+      <p class="ia-total" id="ia-total"></p>
+    </section>
+
+    <section class="bloque pad" aria-labelledby="t-mes">
+      <h2 id="t-mes">El mes</h2>
+      <div class="listas">
+        <div class="hicimos"><h3>Lo que hicimos</h3><ul id="hicimos"></ul></div>
+        <div class="proponemos"><h3 id="t-prop">Para el mes que viene</h3><ul id="proponemos"></ul></div>
+        <div class="pedimos"><h3>Te pedimos</h3><ul id="pedimos"></ul></div>
+      </div>
+    </section>
+
+    <footer class="pad">
+      <p id="fuente"></p>
+      <p id="firma"></p>
+    </footer>
+  </main>
+</div>
+
+<!-- Los datos del informe. Cada mes se cambia solo este bloque (ver la skill presencia-mensual). -->
+<script type="application/json" id="datos">
+{
+  "muestra": true,
+  "negocio": "Ferretería Rosca",
+  "zona": "Villa Urquiza",
+  "mes": "octubre de 2026",
+  "titulo": "Octubre 2026",
+  "proximo_mes": "noviembre",
+  "colores": { "marca": "#12355b", "acento": "#ffc629" },
+  "resumen": "El mejor mes desde que arrancamos. Subieron sobre todo los mensajes: la ficha ahora muestra el botón de WhatsApp y las fotos nuevas del mostrador.",
+  "contactos": { "meses": ["May", "Jun", "Jul", "Ago", "Sep", "Oct"], "valores": [118, 126, 131, 149, 181, 214] },
+  "acciones": [
+    { "nombre": "Mensajes", "detalle": "botón de WhatsApp de la ficha", "valor": 74, "antes": 58 },
+    { "nombre": "Llamadas", "detalle": "desde la ficha", "valor": 61, "antes": 55 },
+    { "nombre": "Cómo llegar", "detalle": "pidieron el recorrido", "valor": 52, "antes": 47 },
+    { "nombre": "Visitas a la web", "detalle": "desde la ficha", "valor": 27, "antes": 21 }
+  ],
+  "busquedas": [["ferretería villa urquiza", 212], ["ferretería cerca", 164], ["pinturería", 88], ["copia de llaves", 61], ["ferretería rosca", 47]],
+  "resenas": {
+    "nuevas": 9, "respondidas": 9, "promedio": 4.6, "total": 87, "promedio_antes": 4.5,
+    "ejemplo": { "autor": "Martina G.", "estrellas": 5, "texto": "Fui con una canilla que goteaba y me explicaron qué repuesto llevar. En diez minutos lo tenía resuelto.", "respuesta": "¡Gracias, Martina! Para eso estamos: traé la pieza y la resolvemos en el mostrador. Te esperamos cuando necesites." }
+  },
+  "ia": {
+    "asistentes": ["ChatGPT", "Gemini", "Google con IA"],
+    "preguntas": [
+      ["¿Qué ferretería abre los sábados en Villa Urquiza?", [1, 1, 1]],
+      ["¿Dónde preparan pintura a color cerca de Triunvirato y Monroe?", [0, 1, 1]],
+      ["¿Quién hace copias de llaves en Villa Urquiza?", [0, 0, 1]],
+      ["Ferretería con envío a domicilio en Coghlan", [0, 0, 0]],
+      ["¿Qué ferretería me recomendás en Villa Urquiza?", [1, 0, 1]]
+    ],
+    "antes": 5
+  },
+  "hicimos": [
+    "Respondimos las 9 reseñas nuevas, cada una el mismo día.",
+    "Subimos 6 fotos nuevas a la ficha: mostrador, sector pinturería y la máquina de copias.",
+    "Dos publicaciones en la ficha: «Pintura a color en 10 minutos» y el horario del feriado.",
+    "Sumamos a la web preguntas frecuentes sobre envíos y copias de llaves, para que la IA las encuentre.",
+    "Revisamos que dirección, horario y teléfono digan lo mismo en la web, la ficha y las redes."
+  ],
+  "proponemos": [
+    "Cargar 20 productos con foto en la sección Productos de la ficha: pinturas, cerraduras y herramientas.",
+    "Publicar el horario de fin de año antes del 1 de diciembre.",
+    "Sumar las zonas de envío (Coghlan y Villa Ortúzar) a la ficha y a la web: hoy ninguna IA las menciona."
+  ],
+  "pedimos": [
+    "Tres o cuatro fotos nuevas del frente, con el cartel.",
+    "Confirmar si en diciembre abren los domingos."
+  ],
+  "fuente": "Números del panel Rendimiento de la ficha de Google, del 1 al 31 de octubre. Las preguntas a los asistentes se hicieron el 31/10 desde una sesión sin historial.",
+  "firma": "Preparado por Ezequiel Besser, El Creador de Páginas Web."
+}
+</script>
+<script>
+(function(){
+  var D = JSON.parse(document.getElementById('datos').textContent);
+  var $ = function(id){ return document.getElementById(id); };
+  function el(tag, cls, txt){ var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+  function n(x){ return Number(x).toLocaleString('es-AR'); }
+  function pct(a, b){ return b ? Math.round((a - b) / b * 100) : 0; }
+  function cambio(a, b){
+    var p = pct(a, b), s = el('span', p >= 0 ? 's' : 'b', (p >= 0 ? '▲ ' : '▼ ') + Math.abs(p) + ' %');
+    return s;
+  }
+
+  if (D.colores) {
+    if (D.colores.marca) document.documentElement.style.setProperty('--marca', D.colores.marca);
+    if (D.colores.acento) document.documentElement.style.setProperty('--acento', D.colores.acento);
+  }
+  if (D.letras_url) { var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = D.letras_url; document.head.appendChild(l); }
+  if (D.letras) {
+    if (D.letras.titulos) document.documentElement.style.setProperty('--f-titulos', '"' + D.letras.titulos + '", "Arial Narrow", Arial, sans-serif');
+    if (D.letras.texto) document.documentElement.style.setProperty('--f-texto', '"' + D.letras.texto + '", system-ui, sans-serif');
+  }
+  $('cinta').hidden = !D.muestra;
+  if (!D.muestra) document.title = 'Informe de ' + D.mes + ' · ' + D.negocio;
+  $('de').textContent = 'Informe de presencia en Google';
+  $('titulo').textContent = D.titulo;
+  $('negocio').textContent = D.negocio + (D.zona ? ' · ' + D.zona : '');
+
+  // Número principal
+  var v = D.contactos.valores, total = v[v.length - 1], antes = v[v.length - 2];
+  $('total').textContent = n(total);
+  var vs = $('vs'); vs.textContent = '';
+  var fuerte = el('strong', null, (total >= antes ? '+' : '−') + Math.abs(pct(total, antes)) + ' %');
+  vs.appendChild(fuerte); vs.appendChild(document.createTextNode(' que el mes anterior (' + n(antes) + ')'));
+  $('resumen').textContent = D.resumen || '';
+
+  // Gráfico de barras: una serie, el último mes resaltado y con su valor
+  (function(){
+    var svg = $('barras'), W = 420, H = 220, top = 22, bottom = 28, left = 34, right = 6;
+    var max = Math.max.apply(null, v), paso = max > 150 ? 100 : 50, techo = Math.ceil(max / paso) * paso;
+    var alto = H - top - bottom, banda = (W - left - right) / v.length, ancho = Math.min(34, banda * 0.5);
+    var ns = 'http://www.w3.org/2000/svg';
+    function s(tag, attrs, txt){ var e = document.createElementNS(ns, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (txt != null) e.textContent = txt; svg.appendChild(e); return e; }
+    for (var g = 0; g <= techo; g += paso) {
+      var y = top + alto - g / techo * alto;
+      s('line', { x1: left, x2: W - right, y1: y, y2: y, stroke: '#d9dee3', 'stroke-width': g === 0 ? 1.2 : 0.8 });
+      s('text', { x: left - 6, y: y + 4, 'text-anchor': 'end', class: 'eje' }, n(g));
+    }
+    var tip = $('tip');
+    v.forEach(function(val, i){
+      var h = val / techo * alto, x = left + banda * i + (banda - ancho) / 2, y = top + alto - h, r = Math.min(4, h);
+      var ultimo = i === v.length - 1;
+      s('path', { class: 'barra' + (ultimo ? '' : ' vieja'), d: 'M' + x + ',' + (top + alto) + 'V' + (y + r) + 'Q' + x + ',' + y + ' ' + (x + r) + ',' + y + 'H' + (x + ancho - r) + 'Q' + (x + ancho) + ',' + y + ' ' + (x + ancho) + ',' + (y + r) + 'V' + (top + alto) + 'Z' });
+      s('text', { x: x + ancho / 2, y: H - 8, 'text-anchor': 'middle', class: 'eje' }, D.contactos.meses[i]);
+      if (ultimo) s('text', { x: x + ancho / 2, y: y - 7, 'text-anchor': 'middle', class: 'valor' }, n(val));
+      var golpe = s('rect', { class: 'golpe', x: left + banda * i, y: top, width: banda, height: alto, tabindex: '0', 'aria-label': D.contactos.meses[i] + ': ' + n(val) + ' contactos' });
+      function ver(){
+        var caja = svg.getBoundingClientRect(), esc = caja.width / W;
+        tip.textContent = D.contactos.meses[i] + ': ' + n(val) + ' contactos';
+        tip.style.left = (x + ancho / 2) * esc + 'px'; tip.style.top = (y * esc + svg.offsetTop) + 'px'; tip.hidden = false;
+      }
+      golpe.addEventListener('mouseenter', ver); golpe.addEventListener('focus', ver);
+      golpe.addEventListener('mouseleave', function(){ tip.hidden = true; }); golpe.addEventListener('blur', function(){ tip.hidden = true; });
+    });
+    var t = $('tabla'); t.textContent = '';
+    var cab = el('tr'); cab.appendChild(el('th', null, 'Mes')); cab.appendChild(el('th', null, 'Contactos')); t.appendChild(cab);
+    v.forEach(function(val, i){ var tr = el('tr'); tr.appendChild(el('td', null, D.contactos.meses[i])); tr.appendChild(el('td', 'num', n(val))); t.appendChild(tr); });
+  })();
+
+  // Cómo te contactaron
+  var acc = $('acciones'); acc.textContent = '';
+  D.acciones.forEach(function(a){
+    var d = el('div', 'acc');
+    d.appendChild(el('b', 'num', n(a.valor)));
+    d.appendChild(el('span', null, a.nombre));
+    var sm = el('small'); sm.appendChild(document.createTextNode(a.detalle + ' · ')); sm.appendChild(cambio(a.valor, a.antes));
+    d.appendChild(sm); acc.appendChild(d);
+  });
+  $('nota-acc').textContent = 'Comparado con el mes anterior. Suman ' + n(total) + ' contactos.';
+
+  // Búsquedas
+  var bus = $('busquedas'), maxB = Math.max.apply(null, D.busquedas.map(function(b){ return b[1]; }));
+  D.busquedas.forEach(function(b){
+    var li = el('li'); li.appendChild(el('span', 't', '«' + b[0] + '»')); li.appendChild(el('span', 'n num', n(b[1]) + ' veces'));
+    var r = el('span', 'r'); var i = el('i'); i.style.width = Math.round(b[1] / maxB * 100) + '%'; r.appendChild(i); li.appendChild(r);
+    bus.appendChild(li);
+  });
+
+  // Reseñas
+  var R = D.resenas, est = $('estrellas');
+  est.appendChild(el('b', 'num', String(R.promedio).replace('.', ',')));
+  est.appendChild(el('p', null, 'de 5 estrellas, con ' + n(R.total) + ' reseñas (antes ' + String(R.promedio_antes).replace('.', ',') + ').'));
+  est.appendChild(el('p', null, R.nuevas + ' reseñas nuevas este mes, ' + R.respondidas + ' respondidas.'));
+  if (R.ejemplo) {
+    var ej = $('ejemplo');
+    ej.appendChild(el('p', 'quien', R.ejemplo.autor + ' · ' + '★★★★★'.slice(0, R.ejemplo.estrellas)));
+    ej.appendChild(el('p', null, '«' + R.ejemplo.texto + '»'));
+    var rta = el('div', 'rta'); rta.appendChild(el('b', null, 'La respuesta que publicamos')); rta.appendChild(el('p', null, R.ejemplo.respuesta)); ej.appendChild(rta);
+    if (D.muestra) ej.appendChild(el('p', 'marca-ej', 'Reseña de ejemplo, inventada para la muestra.'));
+  }
+
+  // Qué dice la IA
+  var ia = $('ia'), A = D.ia.asistentes, si = 0, todas = 0;
+  var cab2 = el('tr'); cab2.appendChild(el('th', null, 'Pregunta')); A.forEach(function(a){ cab2.appendChild(el('th', null, a)); }); ia.appendChild(cab2);
+  D.ia.preguntas.forEach(function(q){
+    var tr = el('tr'); tr.appendChild(el('td', null, q[0]));
+    q[1].forEach(function(x){ todas++; if (x) si++; tr.appendChild(el('td', 'r ' + (x ? 'si' : 'no'), x ? 'Aparece' : 'No aparece')); });
+    ia.appendChild(tr);
+  });
+  $('ia-total').textContent = 'Aparece en ' + si + ' de ' + todas + ' respuestas' + (D.ia.antes != null ? ' (el mes pasado, ' + D.ia.antes + ' de ' + todas + ').' : '.');
+
+  // Listas del mes
+  function lista(id, xs){ var ul = $(id); (xs || []).forEach(function(x){ ul.appendChild(el('li', null, x)); }); }
+  lista('hicimos', D.hicimos); lista('proponemos', D.proponemos); lista('pedimos', D.pedimos);
+  if (D.proximo_mes) $('t-prop').textContent = 'Para ' + D.proximo_mes;
+  $('fuente').textContent = D.fuente || '';
+  $('firma').textContent = D.firma || '';
+})();
+</script>
+</body>
+</html>
