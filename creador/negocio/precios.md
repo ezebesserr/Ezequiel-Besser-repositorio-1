@@ -28,8 +28,11 @@ Los precios se piensan en dólares y al cliente se le pasan en pesos, al dólar 
 |---|---|---|
 | Precios al día | Hasta 3 proveedores y 1.500 productos. Hasta dos actualizaciones por mes, cada una con su informe de cambios para aprobar. Por mes. | 45 |
 | Precios al día, grande | Hasta 8 proveedores y 5.000 productos. Una actualización por cada lista que llegue. Por mes. | 80 |
+| Solo la lista | Para quien no tiene web: hasta 3 proveedores, la lista nueva en PDF para el mostrador, para WhatsApp y en texto, con lo que subió marcado. Por mes. | 35 |
+| Tienda en Tiendanube | Tienda armada con la identidad del local, hasta 100 productos cargados desde la planilla, medios de pago, envíos y dominio. Pago único (el plan de Tiendanube lo paga el cliente). | 250 |
 
 - La carga inicial de hasta 500 productos va incluida en el paquete Catálogo; cada 500 más, USD 20.
+- Tienda en Tiendanube: la creamos desde nuestro portal de socios; Tiendanube nos paga además una comisión mensual sobre el plan del cliente (20 % desde el nivel Silver, con la certificación aprobada).
 
 ## Talleres de IA (skill `talleres-ia`)
 

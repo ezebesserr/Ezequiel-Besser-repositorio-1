@@ -32,6 +32,8 @@ const E = S('catalogo-vivo/ejemplo');
 prueba('precios.py (catálogo vivo)', () => correr('python3', [S('catalogo-vivo/scripts/precios.py'), '--base', E + '/base.csv', '--lista', E + '/lista-fijaciones-delta.csv', '--proveedor', 'Fijaciones Delta', '--reglas', E + '/reglas.json', '--salida', tmp + '/precios']),
   [tmp + '/precios/catalogo.csv', tmp + '/precios/cambios.html', tmp + '/precios/base-nueva.csv']);
 prueba('planilla.py (catálogo vivo)', () => correr('python3', [S('catalogo-vivo/scripts/planilla.py'), '--negocio', 'Prueba', '--desde', E + '/base.csv', '--reglas', E + '/reglas.json', '--salida', tmp + '/planilla.xlsx']), [tmp + '/planilla.xlsx']);
+prueba('lista.js (listas sin dolor)', () => correr(NODE, [S('catalogo-vivo/scripts/lista.js'), tmp + '/precios/base-nueva.csv', '--negocio', 'Prueba', '--anterior', E + '/base.csv', '--salida', tmp + '/lista']), [tmp + '/lista/lista.pdf', tmp + '/lista/lista.txt']);
+prueba('tiendanube.py (socio de Tiendanube)', () => correr('python3', [S('catalogo-vivo/scripts/tiendanube.py'), E + '/base.csv', '--salida', tmp + '/tiendanube.csv']), [tmp + '/tiendanube.csv']);
 prueba('presupuesto.js', () => correr(NODE, [S('mensajes-y-precios/scripts/presupuesto.js'), '--cliente', 'Prueba', '--paquete', 'completa', '--abono', 'presencia', '--dolar', '1500', '--salida', tmp + '/presupuesto']),
   [tmp + '/presupuesto/presupuesto.pdf', tmp + '/presupuesto/mensaje.txt']);
 prueba('catalogo-propio.js', () => correr(NODE, [S('mensajes-y-precios/scripts/catalogo-propio.js'), tmp + '/whatsapp', '--dolar', '1500']), [tmp + '/whatsapp/catalogo.txt', tmp + '/whatsapp/perfil.txt']);
