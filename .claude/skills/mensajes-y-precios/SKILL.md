@@ -39,11 +39,25 @@ Quién firma y qué trabajos mostrar: `creador/negocio/perfil.md`. Precios y con
 
 **Presupuesto** (cuando ya vieron la muestra): link a la muestra, paquete y qué incluye, precio en pesos, forma de pago (50% para arrancar y 50% al publicar), plazo, extras opcionales y mantenimiento. Si es de los tres primeros clientes, ofrecé el precio de lanzamiento.
 
-## Precio en pesos
+## Presupuesto en un paso
 
-1. Paquete y extras en dólares, de `precios.md`.
-2. Dólar oficial del día: `curl -s https://dolarapi.com/v1/dolares/oficial` (usá `venta`).
-3. Pesos = dólares × cotización, redondeado a miles. Aclarar "precio válido por 15 días".
+```bash
+node .claude/skills/mensajes-y-precios/scripts/presupuesto.js --cliente "<negocio>" --paquete completa \
+  [--extra idioma] [--abono presencia] [--lanzamiento] [--muestra <link>] [--telefono "<su WhatsApp>"] \
+  [--alias "<alias o CBU>"] [--dolar <cotización>] --salida <carpeta-privada>
+```
+
+- Lee los precios de `creador/negocio/precios.md` y la firma de `creador/negocio/perfil.md`: si cambia un precio, se cambia solo ahí.
+- `--paquete` es lo de pago único (Esencial, Completa, Catálogo, Puesta a punto de Google, talleres, WhatsApp configurado); `--abono`, lo mensual (Mantenimiento, Presencia, Presencia + IA, Precios al día); `--extra`, los extras. Alcanza con parte del nombre.
+- Sin `--dolar`, trae el dólar oficial del día de dolarapi.com; si no hay red, usa la referencia de `precios.md` y avisa.
+- Deja `presupuesto.pdf` (para mandar), `presupuesto.html` y `mensaje.txt`, y si le pasás `--telefono`, el link de WhatsApp con el mensaje ya escrito. La carpeta de salida va fuera del repo: los montos acordados son privados.
+- Lo que falta (tu WhatsApp, tu mail, el alias) sale resaltado en amarillo en el PDF y el script lo avisa.
+
+A mano, si hiciera falta: dólares de `precios.md` × dólar oficial (venta), redondeado a miles, «precio válido por 15 días».
+
+## El Mostrador
+
+El seguimiento de cada contacto vive en el **Mostrador de ventas**, una página privada de Claude (buscala con la herramienta Artifact, `action: "list"`). Tiene el próximo paso de cada uno, el mensaje de su etapa con WhatsApp a un toque y los abonos del mes. Cuando armes mensajes para prospectos nuevos, cargalos ahí con ArtifactData (colección `contactos`; ver la skill `venta-completa`).
 
 ## Recordatorios para quien manda los mensajes
 
