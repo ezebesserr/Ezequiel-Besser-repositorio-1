@@ -15,9 +15,14 @@ Muestra para enseñar: `muestras/catalogo-vivo/` (Bulonera Tres Hilos, inventada
 ## 1. Armar el catálogo (una vez)
 
 1. **Diseño**: seguí la skill `crear-pagina` (identidad del local, tres direcciones, revisar.js). De la muestra se copia la estructura y el código, no la estética.
-2. **Planilla**: que la cree el cliente en su cuenta de Google y nos comparta como editores, así queda a su nombre. Dos hojas:
-   - **Base** (privada, no se publica nunca): `codigo, rubro, nombre, medida, material, unidad, proveedor, codigo_proveedor, costo, precio, foto`.
-   - **Catálogo** (la que lee la web): en A1, `=QUERY(Base!A:K; "select A, B, C, D, E, F, J, K"; 1)`. Muestra todo menos proveedor, código de proveedor y costo. Con la planilla en español el separador es `;`.
+2. **Planilla**: la armamos nosotros y el cliente la sube a su Google Drive, así queda a su nombre y nos comparte como editores.
+
+   ```bash
+   python3 .claude/skills/catalogo-vivo/scripts/planilla.py --negocio "<negocio>" --salida <carpeta-privada>/planilla.xlsx \
+     [--desde <productos.csv o .xlsx>] [--reglas reglas.json] [--rubros "bulones,tornillos"]
+   ```
+
+   Trae cuatro hojas: **Instrucciones** (para el cliente), **Base** (privada, no se publica nunca: `codigo, rubro, nombre, medida, material, unidad, proveedor, codigo_proveedor, costo, precio, foto`, con las columnas privadas en rojo y la lista de rubros), **Catálogo** (la que lee la web: `=QUERY(Base!A:K; "select A, B, C, D, E, F, J, K where A is not null"; 1)`, todo menos proveedor, código de proveedor y costo) y **Reglas** (márgenes y bonificaciones). Con `--desde` ya sale cargada con sus productos.
 3. **Publicar solo la hoja Catálogo**: Archivo → Compartir → Publicar en la web → elegir «Catálogo» → «Valores separados por comas (.csv)» → Publicar. Pegá esa URL en `CSV_URL` del `index.html`. Abrila en una ventana privada y confirmá que **no** aparecen costos.
 4. **Respaldo**: dejá también los datos en `<script type="text/csv" id="datos">` del `index.html`. Si la planilla no responde, la web muestra esos. Se actualizan en cada mantenimiento.
 5. Google tarda unos minutos en mostrar los cambios de la hoja publicada. Avisale al cliente.
@@ -27,7 +32,7 @@ Muestra para enseñar: `muestras/catalogo-vivo/` (Bulonera Tres Hilos, inventada
 
 Todo lo del cliente (listas, `base.csv`, `reglas.json`, informes) va **fuera de este repo**, que es público. Usá la carpeta temporal de la sesión o una carpeta privada del cliente.
 
-1. **Reglas del cliente** (una vez, por escrito): bonificación de cada proveedor, si la lista viene con IVA o «+ IVA», margen por rubro, redondeo y desde qué variación se revisa a mano. Van en `reglas.json`, como `.claude/skills/catalogo-vivo/ejemplo/reglas.json`.
+1. **Reglas del cliente** (una vez, por escrito): bonificación de cada proveedor, si la lista viene con IVA o «+ IVA», margen por rubro, redondeo y desde qué variación se revisa a mano. Las carga él mismo en la hoja **Reglas** de su planilla (tipo, clave, valor); bajala como CSV y pasala con `--reglas reglas.csv`: el script toma la bonificación y el IVA del proveedor de esa lista. También sirve un `reglas.json` como `.claude/skills/catalogo-vivo/ejemplo/reglas.json`.
 2. **Pasar la lista a limpio** con tres columnas: `codigo_proveedor, descripcion, precio_lista`.
    - Excel o CSV: elegí las columnas. El script lee `.xlsx` directo y entiende encabezados con tildes.
    - PDF: leelo con Read (de a 20 páginas) y transcribí cada fila al CSV, **sin hacer cuentas**: el precio tal cual figura, sin bonificación ni IVA.

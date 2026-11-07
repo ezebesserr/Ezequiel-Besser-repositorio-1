@@ -138,11 +138,41 @@ def porcentaje(valor):
     return f"{signo}{abs(valor):.1f}".replace(".", ",") + " %"
 
 
+def leer_reglas_csv(ruta):
+    """La hoja «Reglas» de la planilla, bajada como CSV: tipo, clave, valor.
+    Tipos: margen (sin clave), margen_rubro (clave = rubro), bonificacion e iva_lista (clave = proveedor,
+    o vacía para todos), redondeo y alerta (sin clave)."""
+    reglas = {"margen_por_rubro": {}, "bonificacion_por_proveedor": {}, "iva_por_proveedor": {}}
+    for fila in leer_tabla(ruta):
+        tipo = clave_columna(fila.get("tipo"))
+        clave = str(fila.get("clave") or "").strip()
+        valor = numero(fila.get("valor"))
+        if not tipo or valor is None:
+            continue
+        valor = int(valor) if valor == valor.to_integral_value() else float(valor)
+        if tipo == "margen_rubro" and clave:
+            reglas["margen_por_rubro"][clave] = valor
+        elif tipo in ("bonificacion", "iva_lista") and clave:
+            reglas["bonificacion_por_proveedor" if tipo == "bonificacion" else "iva_por_proveedor"][clave] = valor
+        elif tipo in ("margen", "bonificacion", "iva_lista", "redondeo", "alerta"):
+            reglas[tipo] = valor
+    return reglas
+
+
 def cargar_reglas(args):
     reglas = {"margen": 45, "margen_por_rubro": {}, "redondeo": 50, "bonificacion": 0, "iva_lista": 0, "alerta": 15}
     if args.reglas:
-        with open(args.reglas, encoding="utf-8") as fh:
-            reglas.update(json.load(fh))
+        if args.reglas.lower().endswith((".csv", ".xlsx")):
+            reglas.update(leer_reglas_csv(args.reglas))
+        else:
+            with open(args.reglas, encoding="utf-8") as fh:
+                reglas.update(json.load(fh))
+    # Bonificación e IVA propios del proveedor de esta lista, si la planilla los tiene
+    prov = clave_columna(args.proveedor)
+    for clave, destino in (("bonificacion_por_proveedor", "bonificacion"), ("iva_por_proveedor", "iva_lista")):
+        for nombre, valor in (reglas.get(clave) or {}).items():
+            if clave_columna(nombre) == prov:
+                reglas[destino] = valor
     for clave in ("margen", "redondeo", "bonificacion", "iva_lista", "alerta"):
         valor = getattr(args, clave)
         if valor is not None:
