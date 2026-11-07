@@ -26,10 +26,25 @@ Hablá en español rioplatense, directo y sin vueltas. La persona con la que tra
 - **presencia-mensual**: pone a punto la ficha de Google, arma el circuito de reseñas, prueba si lo recomiendan los asistentes con IA y arma el informe mensual.
 - **catalogo-vivo**: catálogo cargado desde una planilla de Google y precios al día con la lista de cada proveedor (la IA transcribe, el script calcula, el cliente aprueba).
 - **talleres-ia**: prepara, da y hace el seguimiento de los talleres «IA para tu comercio».
+- **venta-completa**: lleva cada negocio de punta a punta con el Mostrador de ventas: quien vende solo toca «mandar», habla con el cliente y cobra.
 
 ## Líneas de negocio
 
 Las webs son la base. Encima van tres líneas, elegidas en noviembre de 2026 entre 36 ideas: **Presencia mensual** (cada web deja un ingreso por mes), **Catálogo vivo** (el ticket más alto, con abono para los precios) y **Talleres de IA** (cobran solos y traen clientes para las otras dos). Precios en `creador/negocio/precios.md`.
+
+## Herramientas que ahorran pasos
+
+| Para | Comando o lugar |
+|---|---|
+| Seguimiento de cada contacto, mensajes armados por etapa y WhatsApp a un toque | **Mostrador de ventas** (página privada de Claude; ver `venta-completa`) |
+| Ideas de negocio, recorridos y puntaje | **Fichero de negocios con IA** (página privada de Claude) |
+| Presupuesto en PDF con los pesos del día | `node .claude/skills/mensajes-y-precios/scripts/presupuesto.js` |
+| Informe mensual de un cliente / cierre de mes de todos | `node .claude/skills/presencia-mensual/scripts/informe.js` / `cierre.js` |
+| Tarjeta de reseñas con QR para el mostrador | `node .claude/skills/presencia-mensual/scripts/tarjeta.js` |
+| Planilla del catálogo para Google / precios con la lista del proveedor | `python3 .claude/skills/catalogo-vivo/scripts/planilla.py` / `precios.py` |
+| Afiche, posteos, propuesta y constancias de un taller | `node .claude/skills/talleres-ia/scripts/kit.js` |
+
+Todos los que manejan datos de clientes se niegan a guardar dentro del repo. Los QR usan `npm install -g qrcode`.
 
 ## Flujo de trabajo
 
