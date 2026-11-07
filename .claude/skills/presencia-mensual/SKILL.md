@@ -29,7 +29,14 @@ Resultado: tres cosas concretas para arreglar, con captura. Se las mandamos con 
 - Completar todo lo de la auditoría con datos reales del local. Nada de palabras clave agregadas al nombre: Google lo penaliza.
 - Fotos: al menos 10 reales (frente con cartel, mostrador, productos, el oficio). Si no hay, se las pedimos o vamos a sacarlas.
 - WhatsApp: si la ficha ofrece la opción de chat por WhatsApp, configurala; si no, que esté bien a mano en la web.
-- Reseñas: con el link para pedir reseñas de la ficha, armá la tarjeta del mostrador con el QR (sin descuentos ni premios a cambio, que Google lo prohíbe) y un mensaje corto para mandar después de cada venta. Respondé las últimas 10 reseñas.
+- Reseñas: con el link para pedir reseñas de la ficha (Perfil de Negocio → «Pedir reseñas»), armá la tarjeta del mostrador con su identidad (sin descuentos ni premios a cambio, que Google lo prohíbe) y un mensaje corto para mandar después de cada venta. Respondé las últimas 10 reseñas.
+
+  ```bash
+  node .claude/skills/presencia-mensual/scripts/tarjeta.js --negocio "<negocio>" --link "<link de reseñas>" \
+    --marca "<color de su marca>" --acento "<segundo color>" --letra "<familia de Google Fonts>" --salida <carpeta>
+  ```
+
+  Deja `tarjeta.pdf` (cuatro de 10 × 14 cm por hoja A4, para imprimir y recortar) y `tarjeta.png` (para mandarla por WhatsApp o subirla a las redes). Colores y letra, los de `identidades-usadas.md`.
 - Web: `LocalBusiness` en JSON-LD con los mismos datos que la ficha y una sección de preguntas frecuentes con lo que más les preguntan.
 
 ## 3. Rutina de cada mes (unas dos horas por cliente)
@@ -45,6 +52,14 @@ Resultado: tres cosas concretas para arreglar, con captura. Se las mandamos con 
   ```
 
   Deja `informe.html`, `informe.pdf` e `informe.jpg`. El script no deja guardar dentro del repo: los números de los clientes son privados. Mirá el PDF antes de mandarlo.
+
+- **Todos los clientes de una vez**: con una carpeta privada que tenga una subcarpeta por cliente (cada una con su `datos.json`, al que se le suman `telefono`, `contacto`, `abono` y `abono_usd`):
+
+  ```bash
+  node .claude/skills/presencia-mensual/scripts/cierre.js <carpeta-clientes> <carpeta-salida> [--dolar <cotización>] [--alias "<alias o CBU>"]
+  ```
+
+  Arma todos los informes y deja `cierre.html`: por cliente, el mensaje del mes (cuántos contactos, la variación, lo que le pedimos y el abono en pesos) con el botón de WhatsApp ya escrito y la ruta del PDF para adjuntar. También `cierre.csv` con el total de abonos del mes. Después, en el Mostrador, pasá la fecha de cada cliente con abono al fin del mes siguiente.
 
 ## 4. Prueba con asistentes de IA
 

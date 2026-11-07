@@ -18,6 +18,23 @@ La tercera línea del taller. Cobra por sí misma y además consigue clientes pa
 4. **Inscripción**: un formulario de Google con nombre, comercio, rubro, WhatsApp y «¿qué querés resolver?». Avisá en el formulario que el WhatsApp se usa solo para el taller. Las respuestas son privadas: nunca al repo.
 5. **Adaptar la guía** a los rubros de los inscriptos: cambiá los ejemplos de los recuadros por consultas, productos y reseñas típicas de esos rubros (sin datos de nadie). Revisá el módulo de WhatsApp en un celular real esa misma semana: los menús cambian.
 
+## El kit en un comando
+
+Con la fecha, el lugar, el valor y el WhatsApp de inscripción cargados en un `taller.json` privado (copiá `.claude/skills/talleres-ia/ejemplo/taller.json`):
+
+```bash
+node .claude/skills/talleres-ia/scripts/kit.js <carpeta-privada>/taller.json <carpeta-privada>/kit [--asistentes asistentes.csv] [--dolar <cotización>]
+```
+
+Deja todo listo para mandar o imprimir:
+
+- `afiche.pdf` y `afiche.png`: A4 para el local del socio y las vidrieras, con un QR que abre WhatsApp con «quiero anotarme» ya escrito.
+- `posteo.png` (1080 × 1080) e `historia.png` (1080 × 1920) para las redes del socio.
+- `propuesta.pdf`: la propuesta para la cámara o el centro comercial, con los valores en pesos de `precios.md`.
+- `constancias.pdf`: con `--asistentes` (un CSV con nombre y comercio), una constancia por persona para entregar al final.
+
+Lo que falte en `taller.json` sale resaltado y el script lo lista. El QR usa la librería `qrcode` (`npm install -g qrcode`); sin ella, el afiche sale sin QR.
+
 ## 2. El día (tres horas)
 
 | Tiempo | Qué | Cómo |
