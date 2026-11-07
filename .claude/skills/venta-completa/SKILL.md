@@ -11,7 +11,7 @@ La idea: quien vende hace solo tres cosas. **Toca «WhatsApp»** en el Mostrador
 
 Es una página privada de Claude llamada **Mostrador de ventas**. Buscala con la herramienta Artifact (`action: "list"`) y trabajá sus datos con ArtifactData sobre esa URL. Tiene:
 
-- `config/general`: `firma`, `presentacion`, `dolar`, `fecha_dolar`, `link_trabajo`, `link_presencia`, `link_catalogo`, `link_taller`, `alias`.
+- `config/general`: `firma`, `presentacion`, `dolar`, `fecha_dolar`, `link_trabajo`, `link_presencia`, `link_catalogo`, `link_taller`, `alias` y, opcional, `precios` (`{esencial, completa, catalogo, puesta, presencia}` en USD, copia de `creador/negocio/precios.md`; sin él, usa los de noviembre de 2026). Si cambia un precio en `precios.md`, actualizalo también acá.
 - `contactos/<id>` (un documento por negocio; el id es el nombre en minúscula con guiones, por ejemplo `vidrieria-del-bajo`):
 
 | Campo | Qué va |
@@ -28,6 +28,10 @@ Es una página privada de Claude llamada **Mostrador de ventas**. Buscala con la
 - `config/metas`: los supuestos de la pestaña Metas (`mensajes` por semana, `responden`, `muestra`, `capacidad` de muestras por mes, `compran`, `ticket`, `abono_pct`, `abono_usd`, `bajas`, `talleres`, `asistentes`, `precio_taller`, `taller_compra`). Si quien vende pregunta «¿cómo voy?», compará la proyección con los números reales del embudo y proponé qué supuesto ajustar.
 
 Reglas para escribir: un `set` por documento con **todos** los campos (leelo primero y pasá su `version` como `if_version`); para varios contactos, `batch`. Sumá una línea al `historial` en cada cambio de etapa. Los datos de clientes viven **solo** ahí o en archivos privados, nunca en este repo.
+
+## Cuando el cliente contesta
+
+En la ficha de cada contacto, «Si te contesta…» tiene las respuestas a lo que más dicen: «Ya tengo web» (o «Ya tengo la ficha» en Presencia), «¿Cuánto sale?», «Es caro», «Lo hace un conocido», «Mandame info», «No tengo tiempo», «Vendo por Instagram», «Lo pienso» y «No me interesa». Quien vende toca una y la respuesta queda en el cuadro del mensaje, con la observación de ese local y los precios en pesos del día, lista para WhatsApp. «Lo pienso» además anota el seguimiento a cuatro días. Si un cliente dice algo que no está, escribí la respuesta y, si se repite, sumala a `objeciones()` en el Mostrador.
 
 ## «¿Qué tengo para hoy?»
 
