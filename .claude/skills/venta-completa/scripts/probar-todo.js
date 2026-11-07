@@ -42,6 +42,7 @@ prueba('facturas.py (contadores)', () => {
   correr('python3', [S('contadores/scripts/facturas.py'), tmp + '/facturas-pdf', '--salida', tmp + '/facturas', '--renombrar']);
 }, [tmp + '/facturas/comprobantes.xlsx', tmp + '/facturas/comprobantes.csv']);
 prueba('fichas.js (inmobiliarias)', () => correr(NODE, [S('inmobiliarias/scripts/fichas.js'), S('inmobiliarias/ejemplo/propiedades.csv'), S('inmobiliarias/ejemplo/inmobiliaria.json'), '--salida', tmp + '/fichas']), [tmp + '/fichas/PR-101/ficha.pdf', tmp + '/fichas/PR-101/textos.txt']);
+prueba('visibilidad.js (exportar)', () => correr(NODE, [S('exportar/scripts/visibilidad.js'), S('exportar/ejemplo/visibilidad.json'), '--salida', tmp + '/visibilidad']), [tmp + '/visibilidad/informe.pdf']);
 prueba('presupuesto.js', () => correr(NODE, [S('mensajes-y-precios/scripts/presupuesto.js'), '--cliente', 'Prueba', '--paquete', 'completa', '--abono', 'presencia', '--dolar', '1500', '--salida', tmp + '/presupuesto']),
   [tmp + '/presupuesto/presupuesto.pdf', tmp + '/presupuesto/mensaje.txt']);
 prueba('catalogo-propio.js', () => correr(NODE, [S('mensajes-y-precios/scripts/catalogo-propio.js'), tmp + '/whatsapp', '--dolar', '1500']), [tmp + '/whatsapp/catalogo.txt', tmp + '/whatsapp/perfil.txt']);

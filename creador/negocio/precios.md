@@ -76,6 +76,22 @@ Los precios se piensan en dólares y al cliente se le pasan en pesos, al dólar 
 - El catálogo de propiedades en su web es el paquete Catálogo (USD 650), con Precios al día como abono.
 - Las apps de ambientación virtual cobran de USD 0,4 a 1 por foto en planes por volumen; las agencias, de 30 a 80 € (guías de GenRoom e Imagen AI, 2026).
 
+## Exportar el taller (skill `exportar`)
+
+Para clientes de Uruguay, España, México o Estados Unidos, en dólares (en euros, el mismo número). A validar con las primeras ventas.
+
+| Servicio | Qué incluye | USD |
+|---|---|---|
+| Esencial (afuera) | Lo mismo que Esencial, a distancia, en el castellano del cliente. | 290 |
+| Completa (afuera) | Lo mismo que Completa, a distancia. | 550 |
+| Catálogo (afuera) | Lo mismo que Catálogo, a distancia. | 950 |
+| Mantenimiento (afuera) | Hosting, HTTPS, copias y hasta una hora de cambios. Por mes. | 30 |
+| Auditoría de visibilidad en IA | Prueba en ChatGPT, Gemini y Google con IA, revisión de ficha y web, e informe con cinco acciones. Pago único. | 150 |
+| Control de visibilidad en IA | La prueba de cada mes con las mismas preguntas y una mejora por mes. Por mes. | 60 |
+
+- Afuera, una auditoría así se cobra de USD 500 a 2.000 (datos de agencias que venden el servicio; ver «Segunda ronda» en el Fichero).
+- Antes del primer cobro: cómo cobrar desde afuera y la factura de exportación, con un contador.
+
 ## Condiciones
 
 - Muestra gratis antes de cobrar nada.

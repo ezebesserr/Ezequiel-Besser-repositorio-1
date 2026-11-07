@@ -28,7 +28,12 @@ for i in sel:
                 out[i] = {}; continue
             lat, lon = float(res[0]["lat"]), float(res[0]["lon"])
         a = get(f"https://nominatim.openstreetmap.org/reverse?format=json&zoom=16&lat={lat}&lon={lon}")["address"]; time.sleep(1.1)
-        if a.get("state", "").startswith("Ciudad"):
+        if a.get("country_code", "ar") != "ar":
+            # Afuera (exportar el taller): barrio y ciudad, y el país como área.
+            barrio = a.get("suburb") or a.get("neighbourhood") or a.get("quarter") or ""
+            ciudad = a.get("city") or a.get("town") or a.get("village") or a.get("state") or ""
+            zona, area = " · ".join(x for x in (barrio, ciudad) if x), a.get("country_code", "").upper()
+        elif a.get("state", "").startswith("Ciudad"):
             barrio = a.get("suburb") or a.get("neighbourhood") or a.get("quarter") or ""
             zona, area = f"{barrio} · CABA", "CABA"
         else:
