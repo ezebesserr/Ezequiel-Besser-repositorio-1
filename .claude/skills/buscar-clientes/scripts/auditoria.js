@@ -8,8 +8,8 @@
 // Uno:   node auditoria.js <url o archivo> --negocio "Nombre" [--muestra <link>] --salida <carpeta>
 // Lista: node auditoria.js --lote preseleccion.json [--zonas zonas.json] [--muestra <link>] --salida <carpeta>
 //        (la salida de shortlist.py y geo.py de esta skill). Deja además mostrador.tsv para pegar en el
-//        Mostrador («Cargar muchos de una vez»), mostrador.json (los mismos contactos, para que Claude los cargue)
-//        y resumen.html con todos los hallazgos.
+//        Mostrador («Cargar muchos de una vez»), mostrador.json (los mismos contactos, para que Claude los cargue),
+//        resumen.html con todos los hallazgos y lote.json (lo usa ruta.js para el recorrido a pie).
 // Baja solo la portada de cada sitio, una vez. La salida va fuera del repo (es material de prospección).
 const fs = require('fs');
 const path = require('path');
@@ -180,7 +180,9 @@ async function auditar(b, objetivo, negocio, muestra, salida, P) {
     const linea = r.error ? '' : (graves ? 'web' : 'presencia');
     const tel = n.phone || n.telefono || (r.datos && r.datos.waNum ? '+' + r.datos.waNum : '') || (r.datos && r.datos.tel) || '';
     console.log(r.error ? r.error : `${(r.hallazgos || []).length} hallazgos`);
-    resumen.push({ i: i + 1, negocio, url, zona: z.zona || n.zona || '', rubro: n.cat || n.rubro || '', tel, email: n.email || '', r, carpeta, linea });
+    const direccion = [[n.street, n.num].filter(Boolean).join(' '), n.city].filter(Boolean).join(', ') || n.direccion || '';
+    const lat = z.lat != null ? z.lat : (n.loc ? n.loc[0] : n.lat), lon = z.lon != null ? z.lon : (n.loc ? n.loc[1] : n.lon);
+    resumen.push({ i: i + 1, negocio, url, zona: z.zona || n.zona || '', rubro: n.cat || n.rubro || '', tel, email: n.email || '', direccion, lat, lon, r, carpeta, linea });
     if (!r.error) filas.push([negocio, n.cat || n.rubro || '', z.zona || n.zona || '', tel, r.observacion || 'su web se ve bien en el celular: ofrecerle Presencia en Google', linea].map(x => String(x).replace(/[\t\n]/g, ' ')).join('\t'));
   }
   await b.close();
@@ -193,6 +195,10 @@ async function auditar(b, objetivo, negocio, muestra, salida, P) {
     proximo: x.linea === 'web' ? 'Mandar el primer mensaje con la hoja de la auditoría' : 'Ofrecerle Presencia (su web está bien)', fecha_proximo: hoy,
     notas: 'Auditoría: ' + path.join(x.carpeta, 'auditoria.png'), historial: [{ f: hoy, t: 'Auditada y cargada como prospecto' }], creado: ahora, actualizado: ahora } }));
   fs.writeFileSync(path.join(salida, 'mostrador.json'), JSON.stringify(docs, null, 2));
+  // Todo junto, para ruta.js (el recorrido a pie) y para volver a mirar el lote sin auditar de nuevo.
+  fs.writeFileSync(path.join(salida, 'lote.json'), JSON.stringify(resumen.map(x => ({ i: x.i, negocio: x.negocio, rubro: x.rubro, zona: x.zona,
+    direccion: x.direccion, lat: x.lat == null ? null : Number(x.lat), lon: x.lon == null ? null : Number(x.lon), telefono: x.tel, email: x.email, web: x.url,
+    linea: x.linea, observacion: x.r.observacion || '', error: x.r.error || '', carpeta: path.relative(salida, x.carpeta) })), null, 2));
   const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Auditorías</title>
 <style>body{margin:0;background:#eef0ee;color:#182019;font:16px/1.45 system-ui,sans-serif}.w{max-width:980px;margin:0 auto;padding:20px 16px}
 h1{font-size:1.6rem;margin:0 0 6px}.c{background:#fff;border:1px solid #d3d9d4;border-radius:3px;padding:12px 14px;margin:10px 0;display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px}

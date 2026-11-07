@@ -47,10 +47,12 @@ prueba('kit.js (talleres)', () => correr(NODE, [S('talleres-ia/scripts/kit.js'),
 prueba('auditoria.js (buscar clientes)', () => correr(NODE, [S('buscar-clientes/scripts/auditoria.js'), path.join(REPO, 'muestras/ferreteria/index.html'), '--negocio', 'Prueba', '--salida', tmp + '/auditoria']), [tmp + '/auditoria/auditoria.png']);
 
 fs.writeFileSync(tmp + '/lote.json', JSON.stringify([
-  { name: 'Ferretería de prueba', cat: 'ferretería', web: path.join(REPO, 'muestras/ferreteria/index.html'), phone: '11 2345-6789' },
-  { name: 'Catálogo de prueba', cat: 'bulonera', web: path.join(REPO, 'muestras/catalogo-vivo/index.html') }]));
+  { name: 'Ferretería de prueba', cat: 'ferretería', web: path.join(REPO, 'muestras/ferreteria/index.html'), phone: '11 2345-6789', lat: -34.511, lon: -58.495 },
+  { name: 'Catálogo de prueba', cat: 'bulonera', web: path.join(REPO, 'muestras/catalogo-vivo/index.html'), lat: -34.4985, lon: -58.4905 }]));
 prueba('auditoria.js --lote (buscar clientes)', () => correr(NODE, [S('buscar-clientes/scripts/auditoria.js'), '--lote', tmp + '/lote.json', '--salida', tmp + '/lote']),
   [tmp + '/lote/mostrador.tsv', tmp + '/lote/mostrador.json', tmp + '/lote/resumen.html', tmp + '/lote/01-ferreteria-de-prueba/auditoria.png']);
+
+prueba('ruta.js (buscar clientes)', () => correr(NODE, [S('buscar-clientes/scripts/ruta.js'), tmp + '/lote']), [tmp + '/lote/ruta.pdf', tmp + '/lote/imprimir.pdf']);
 
 const ancho = Math.max(...resultados.map(r => r[1].length));
 resultados.forEach(r => console.log(`${r[0].padEnd(6)} ${r[1].padEnd(ancho)}  ${r[2]}`));

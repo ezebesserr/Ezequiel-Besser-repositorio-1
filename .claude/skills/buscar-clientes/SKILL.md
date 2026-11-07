@@ -54,6 +54,21 @@ Toma la lista de `shortlist.py` (o cualquier JSON con `name`, `cat`, `web`, `pho
 
 Cada negocio queda con la línea que conviene: `web` si su auditoría tiene algo importante o grave, `presencia` si su web está bien. Los que no abren se informan y no se cargan.
 
+## Salir a recorrer
+
+Muchos comercios de barrio contestan más en persona que por WhatsApp. Con el lote auditado:
+
+```bash
+node .claude/skills/buscar-clientes/scripts/ruta.js <carpeta-privada>/auditorias-<zona> [--desde "lat,lon"] [--linea web]
+```
+
+Ordena los locales para caminar lo menos posible y deja en la misma carpeta:
+
+- `ruta.pdf`, para el celular: un botón por tramo de hasta 4 locales abre Google Maps a pie. Sin `--desde`, el primer tramo sale desde donde esté quien vende. En cada local figuran qué ofrecer, el guion con su observación resaltada y casillas para anotar cómo le fue.
+- `imprimir.pdf`: las hojas de auditoría en el mismo orden, para imprimir y dejar.
+
+Mandale los dos a quien vende (SendUserFile). Cuando vuelva y cuente qué pasó en cada uno («3 quiere la muestra, 5 volver el jueves»), actualizá el Mostrador. Antes de salir, que confirme en Maps que cada local sigue abierto: el PDF tiene el link.
+
 ## Después de elegir
 
 Cargá los elegidos en el **Mostrador de ventas** (skill `venta-completa`) como `prospecto`, con la observación de su auditoría y la línea que conviene: con `mostrador.json` y ArtifactData `batch`, o pegando `mostrador.tsv`. De a 10 o 15 por día, que es lo que se manda a mano. Pasale a quien vende las hojas (`auditoria.png`) de los que va a contactar hoy, para que las mande junto con el mensaje.
