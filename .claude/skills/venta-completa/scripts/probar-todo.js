@@ -52,6 +52,10 @@ fs.writeFileSync(tmp + '/lote.json', JSON.stringify([
 prueba('auditoria.js --lote (buscar clientes)', () => correr(NODE, [S('buscar-clientes/scripts/auditoria.js'), '--lote', tmp + '/lote.json', '--salida', tmp + '/lote']),
   [tmp + '/lote/mostrador.tsv', tmp + '/lote/mostrador.json', tmp + '/lote/resumen.html', tmp + '/lote/01-ferreteria-de-prueba/auditoria.png']);
 
+fs.writeFileSync(tmp + '/escaneados.json', JSON.stringify([
+  { id: 'p1', name: 'Catálogo de prueba', cat: 'shop=hardware', ok: true, score: 0, web: 'file://' + path.join(REPO, 'muestras/catalogo-vivo/index.html') },
+  { id: 'p2', name: 'Ferretería de prueba', cat: 'shop=hardware', ok: true, score: 0, web: 'file://' + path.join(REPO, 'muestras/ferreteria/index.html') }]));
+prueba('catalogo.py (buscar clientes)', () => correr('python3', [S('buscar-clientes/scripts/catalogo.py'), tmp + '/escaneados.json', tmp + '/catalogo.json']), [tmp + '/catalogo.json']);
 prueba('ruta.js (buscar clientes)', () => correr(NODE, [S('buscar-clientes/scripts/ruta.js'), tmp + '/lote']), [tmp + '/lote/ruta.pdf', tmp + '/lote/imprimir.pdf']);
 
 fs.mkdirSync(tmp + '/sitio', { recursive: true });

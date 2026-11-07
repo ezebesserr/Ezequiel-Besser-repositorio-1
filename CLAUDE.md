@@ -39,6 +39,7 @@ Las webs son la base. Encima van tres líneas, elegidas en noviembre de 2026 ent
 | Seguimiento de cada contacto, mensajes armados por etapa y WhatsApp a un toque | **Mostrador de ventas** (página privada de Claude; ver `venta-completa`) |
 | Ideas de negocio, recorridos y puntaje | **Fichero de negocios con IA** (página privada de Claude) |
 | Auditoría de la web de un prospecto para mandar con el primer mensaje (o de toda la preselección con `--lote`, lista para el Mostrador) | `node .claude/skills/buscar-clientes/scripts/auditoria.js` |
+| Prospectos para Catálogo vivo: rubros de catálogo grande con señales concretas en su web (lista en PDF, productos sin precio) | `python3 .claude/skills/buscar-clientes/scripts/catalogo.py` |
 | Recorrido a pie por los prospectos auditados: tramos en Google Maps, qué decir en cada local y las hojas para dejar | `node .claude/skills/buscar-clientes/scripts/ruta.js` |
 | Presupuesto en PDF con los pesos del día | `node .claude/skills/mensajes-y-precios/scripts/presupuesto.js` |
 | Chequeo final del sitio y hoja de entrega para el cliente (QR, qué hacer esa semana, cómo pedir cambios) con su mensaje | `node .claude/skills/publicar/scripts/entrega.js` |
@@ -50,7 +51,7 @@ Las webs son la base. Encima van tres líneas, elegidas en noviembre de 2026 ent
 | Actualizar el dólar de referencia de `precios.md` | `node .claude/skills/mensajes-y-precios/scripts/dolar.js` |
 | Probar todas las herramientas después de tocar alguna | `node .claude/skills/venta-completa/scripts/probar-todo.js` |
 
-Todos los que manejan datos de clientes se niegan a guardar dentro del repo. Los QR usan `npm install -g qrcode`.
+Todos los que manejan datos de clientes se niegan a guardar dentro del repo. Los QR usan `npm install -g qrcode`. Para buscar y auditar clientes desde la nube, abrí la sesión en el entorno «Ezequiel-Besser-repositorio-1», que tiene salida a internet.
 
 ## Flujo de trabajo
 

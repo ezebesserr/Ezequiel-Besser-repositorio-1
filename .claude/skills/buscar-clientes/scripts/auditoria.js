@@ -40,10 +40,24 @@ async function auditar(b, objetivo, negocio, muestra, salida, P) {
   const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, locale: 'es-AR', deviceScaleFactor: 2 });
   const p = await ctx.newPage();
   const fallidas = [], errores = [];
-  p.on('requestfailed', r => fallidas.push(r.url()));
+  // Solo cuentan las partes que ve el visitante: los contadores y la publicidad no, y en una red que solo deja salir
+  // https (como la de las sesiones en la nube), lo que va por http tampoco, porque desde acá no se puede saber.
+  const RASTREO = /google-analytics\.com|analytics\.google\.com|googletagmanager\.com|doubleclick\.net|googleadservices|google\.com\/(?:ccm|rmkt|pagead)|connect\.facebook\.net|facebook\.com\/tr|hotjar|clarity\.ms|tiktok\.com|pinimg|bat\.bing/i;
+  const SOLO_HTTPS = !!(process.env.HTTPS_PROXY || process.env.https_proxy) && !(process.env.HTTP_PROXY || process.env.http_proxy);
+  p.on('requestfailed', r => {
+    const u = r.url(), t = (r.failure() || {}).errorText || '';
+    if (RASTREO.test(u) || /ERR_ABORTED/.test(t) || (SOLO_HTTPS && /^http:/i.test(u))) return;
+    fallidas.push(u);
+  });
+  let porHttps = false;
   p.on('pageerror', e => errores.push(String(e)));
   try { await p.goto(url, { waitUntil: 'load', timeout: 45000 }); }
-  catch (e) { await ctx.close(); return { negocio, url, error: 'no abre: ' + e.message.split('\n')[0] }; }
+  catch (e) {
+    // Algunas redes (como la de las sesiones en la nube) solo dejan salir https: antes de darla por caída, probamos con https.
+    let ok = false;
+    if (/^http:\/\//i.test(url)) { try { fallidas.length = 0; await p.goto(url.replace(/^http:/i, 'https:'), { waitUntil: 'load', timeout: 45000 }); ok = true; porHttps = true; } catch (e2) {} }
+    if (!ok) { await ctx.close(); return { negocio, url, error: 'no abre: ' + e.message.split('\n')[0] }; }
+  }
   await p.waitForTimeout(1500);
   const finalUrl = p.url();
   const d = await p.evaluate(() => {
@@ -80,6 +94,7 @@ async function auditar(b, objetivo, negocio, muestra, salida, P) {
   if (esUrl && finalUrl.startsWith('http://')) add(2, 'Sin conexión segura (HTTPS)', 'Chrome la marca como «No seguro» al lado de la dirección, y eso espanta clientes.', 'el navegador la marca como «No seguro» porque no tiene HTTPS');
   if (d.letra && d.letra < 11) add(2, 'Letra muy chica en el celular', `El texto se ve de unos ${Math.round(d.letra)} píxeles: ilegible sin hacer zoom.`, 'en el celular la letra queda tan chica que no se puede leer sin hacer zoom');
   if (!d.wa) add(2, 'No hay botón de WhatsApp', 'Desde el celular no hay forma de escribirles con un toque, que es como hoy consulta la mayoría.', 'no tiene un botón para escribirles por WhatsApp desde el celular');
+  if (porHttps) fallidas.length = 0; // abrió recién con https: lo que falle puede ser de esa versión y no de la que ve la gente
   if (fallidas.length) add(2, fallidas.length === 1 ? 'Hay una parte que no carga' : `Hay ${fallidas.length} partes que no cargan`, 'Imágenes o archivos que la página pide y no aparecen.', 'hay partes de la página que no cargan');
   if (d.frames) add(2, 'Hecha con frames', 'Una técnica de fines de los noventa: Google la indexa mal y en el celular no se puede usar.', 'está hecha con frames, una técnica de los noventa que en el celular no anda');
   if (d.anioCopy && d.anioCopy <= anio - 4) add(1, `El pie dice © ${d.anioCopy}`, 'Le da al cliente la sensación de que nadie la actualiza hace años.', `el pie de la página dice © ${d.anioCopy}`);
@@ -170,7 +185,7 @@ async function auditar(b, objetivo, negocio, muestra, salida, P) {
   const zonas = o.zonas ? JSON.parse(fs.readFileSync(o.zonas, 'utf8')) : {};
   const filas = [], resumen = [];
   for (let i = 0; i < lista.length; i++) {
-    const n = lista[i], negocio = n.name || n.nombre || n.negocio || `Negocio ${i + 1}`, url = n.web || n.url;
+    const n = lista[i], negocio = n.name || n.nombre || n.negocio || `Negocio ${i + 1}`, url = n.final || n.web || n.url; // final: la dirección a la que llegó scan.py
     if (!url) continue;
     const carpeta = path.join(salida, String(i + 1).padStart(2, '0') + '-' + slug(negocio));
     process.stdout.write(`${i + 1}/${lista.length} ${negocio}… `);
@@ -182,8 +197,8 @@ async function auditar(b, objetivo, negocio, muestra, salida, P) {
     console.log(r.error ? r.error : `${(r.hallazgos || []).length} hallazgos`);
     const direccion = [[n.street, n.num].filter(Boolean).join(' '), n.city].filter(Boolean).join(', ') || n.direccion || '';
     const lat = z.lat != null ? z.lat : (n.loc ? n.loc[0] : n.lat), lon = z.lon != null ? z.lon : (n.loc ? n.loc[1] : n.lon);
-    resumen.push({ i: i + 1, negocio, url, zona: z.zona || n.zona || '', rubro: n.cat || n.rubro || '', tel, email: n.email || '', direccion, lat, lon, r, carpeta, linea });
-    if (!r.error) filas.push([negocio, n.cat || n.rubro || '', z.zona || n.zona || '', tel, r.observacion || 'su web se ve bien en el celular: ofrecerle Presencia en Google', linea].map(x => String(x).replace(/[\t\n]/g, ' ')).join('\t'));
+    resumen.push({ i: i + 1, negocio, url, zona: z.zona || n.zona || '', rubro: n.rubro || n.cat || '', tel, email: n.email || '', direccion, lat, lon, r, carpeta, linea });
+    if (!r.error) filas.push([negocio, n.rubro || n.cat || '', z.zona || n.zona || '', tel, r.observacion || 'su web se ve bien en el celular: ofrecerle Presencia en Google', linea].map(x => String(x).replace(/[\t\n]/g, ' ')).join('\t'));
   }
   await b.close();
   fs.writeFileSync(path.join(salida, 'mostrador.tsv'), filas.join('\n') + '\n');

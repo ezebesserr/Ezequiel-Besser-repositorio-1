@@ -17,6 +17,26 @@ Los scripts están en `.claude/skills/buscar-clientes/scripts/`. Trabajá en una
 6. **Revisión a ojo**: `python3 sheets.py preseleccion.json capturas hojas` y mirá las hojas. Quedate solo con los que **de verdad se ven viejos**: Flash que hoy sale en blanco, diseño en tablas, letra diminuta, sin versión para celular, "¡Hola mundo!", páginas por defecto del hosting. Descartá los modernos que el escáner marcó de más.
 7. **Zona**: `python3 geo.py preseleccion.json zonas.json 0,3,7` (índices elegidos). Devuelve barrio en CABA y localidad y partido en el GBA.
 
+## Prospectos para Catálogo vivo
+
+Después del paso 3, sobre los mismos datos:
+
+```bash
+python3 .claude/skills/buscar-clientes/scripts/catalogo.py escaneados.json catalogo.json
+```
+
+Revisa los rubros de catálogo grande: ferretería, materiales, electricidad, sanitarios, pinturería, muebles, repuestos y otros. En la portada y hasta dos páginas de productos anota:
+
+- si publican la lista de precios en un archivo;
+- si el catálogo es un PDF, y cuánto pesa;
+- si piden consultar el precio;
+- si muestran productos sin precio;
+- si ya tienen tienda online.
+
+Deja la frase para el primer mensaje (`frase_catalogo`) y una «afinidad» para ordenarlos. Los que ya venden online (Tiendanube, Mercado Shops…) no son prospectos de Catálogo vivo.
+
+**Antes de usar una frase, abrí lo que afirma.** Un PDF que se llama «catálogo» puede no tener ni un precio (ya nos pasó con uno de 51 páginas y 13 MB). «Cotizá online» puede querer decir que tienen precios. Si no lo podés confirmar, la frase no va.
+
 ## Qué entregar
 
 Para cada negocio: nombre, rubro, zona, dirección, web, teléfonos, WhatsApp, mail, Instagram, nivel (muy cutre / vieja / sin sitio), qué tiene de cutre en una frase concreta y verificable, y el paquete sugerido según `creador/negocio/precios.md`. Agrupá los que quedan cerca para visitarlos a pie.
@@ -77,4 +97,6 @@ Cargá los elegidos en el **Mostrador de ventas** (skill `venta-completa`) como 
 
 - Los datos de OpenStreetMap pueden estar viejos: hay que confirmar en Google Maps que el local siga abierto.
 - Nominatim acepta como máximo una consulta por segundo (el script ya espera).
-- De cada sitio se baja solo la portada, una vez (también en el modo `--lote`).
+- De cada sitio se baja solo la portada, una vez (también en el modo `--lote`; `catalogo.py` suma hasta dos páginas de productos).
+- **Desde la nube**, todo esto necesita salir a internet. El entorno «Ezequiel-Besser-repositorio-1» ya lo permite, e instala `osmium` y `qrcode` al arrancar: elegilo al abrir la sesión. Con otro entorno, el proxy rechaza las webs de los negocios.
+- En esa red solo sale https: `auditoria.js` reintenta con https las webs `http://` y no cuenta como rotas las partes que no pudo pedir por eso, ni los contadores y la publicidad.

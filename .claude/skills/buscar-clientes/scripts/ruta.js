@@ -1,5 +1,6 @@
 // Recorrido a pie para visitar prospectos, a partir de un lote de auditorías (auditoria.js --lote).
-// Uso: node ruta.js <carpeta-del-lote> [--desde "-34.5106,-58.4908"] [--linea web|presencia] [--paradas 4] [--salida <carpeta>]
+// Uso: node ruta.js <carpeta-del-lote> [--desde "-34.5106,-58.4908"] [--linea web|presencia|catalogo] [--paradas 4] [--salida <carpeta>]
+// En lote.json, cada local puede llevar "linea": "catalogo" (guion de Catálogo vivo) y "hoja": false (no dejar la auditoría).
 // Ordena los locales para caminar lo menos posible y deja, en la carpeta del lote (o en --salida):
 //   ruta.pdf      para el celular: un toque por tramo abre Google Maps a pie, y en cada local qué decir y qué ofrecer
 //   imprimir.pdf  las hojas de auditoría en el mismo orden, para imprimir y dejar en cada local
@@ -99,9 +100,12 @@ function duracion(min) { const h = Math.floor(min / 60), m = Math.round(min % 60
   const yo = (P.firma || '<tu nombre>') + (P.presentacion ? ', ' + P.presentacion.charAt(0).toLowerCase() + P.presentacion.slice(1) + ',' : '');
 
   // El guion es igual para todos salvo la observación, que va resaltada.
+  const conHoja = x => x.hoja !== false && fs.existsSync(path.join(carpeta, x.carpeta || '', 'auditoria.png'));
   const guion = x => x.linea === 'presencia'
     ? esc(`«Hola, buen día. ¿Está el dueño o el encargado? Me llamo ${yo} y ayudo a comercios de la zona a que los encuentren en Google. `) + '<b>Su página se ve bien</b>' + esc('; lo que les puedo dejar al día es la ficha de Google Maps y las reseñas. Si quiere, le muestro cómo aparecen hoy.»')
-    : esc(`«Hola, buen día. ¿Está el dueño o el encargado? Me llamo ${yo} y hago páginas web para comercios de la zona. Entré a su página y vi que `) + '<b>' + esc(x.observacion) + '</b>' + esc('. Le dejo esta hoja con cómo la ve un cliente desde el celular. Si le sirve, le armo una muestra sin cargo con sus datos y la ve antes de decidir nada.»');
+    : x.linea === 'catalogo'
+    ? esc(`«Hola, buen día. ¿Está el dueño o el encargado? Me llamo ${yo} y armo catálogos web para comercios de la zona. Vi que en su web `) + '<b>' + esc(x.observacion) + '</b>' + esc('. ' + (conHoja(x) ? 'Le dejo esta hoja con cómo la ve un cliente desde el celular. ' : '') + 'Si le sirve, le armo sin cargo una muestra con 30 de sus productos, con buscador y pedido por WhatsApp, y la ve antes de decidir nada.»')
+    : esc(`«Hola, buen día. ¿Está el dueño o el encargado? Me llamo ${yo} y hago páginas web para comercios de la zona. Entré a su página y vi que `) + '<b>' + esc(x.observacion) + '</b>' + esc('. ' + (conHoja(x) ? 'Le dejo esta hoja con cómo la ve un cliente desde el celular. ' : '') + 'Si le sirve, le armo una muestra sin cargo con sus datos y la ve antes de decidir nada.»');
 
   const paradaHTML = (x, n) => `<article class="parada">
   <div class="num">${n}</div>
@@ -110,7 +114,7 @@ function duracion(min) { const h = Math.floor(min / 60), m = Math.round(min % 60
     <p class="dato">${esc([x.rubro, x.direccion || x.zona].filter(Boolean).join(' · '))}</p>
     ${x.telefono ? `<p class="dato">Tel. ${esc(x.telefono)}</p>` : ''}
     <p class="links"><a href="${esc(linkFicha(x))}">¿Sigue abierto? Ver en Maps</a></p>
-    <p class="eti">${x.linea === 'presencia' ? 'Ofrecer: Presencia en Google' : 'Ofrecer: web nueva, con muestra sin cargo'}</p>
+    <p class="eti">${x.linea === 'presencia' ? 'Ofrecer: Presencia en Google' : x.linea === 'catalogo' ? 'Ofrecer: Catálogo vivo, con muestra sin cargo' : 'Ofrecer: web nueva, con muestra sin cargo'}</p>
     <p class="guion">${guion(x)}</p>
     <ul class="marcas"><li>Hablé con el dueño</li><li>Dejé la hoja</li><li>Volver otro día</li><li>Quiere la muestra</li></ul>
   </div>
@@ -163,7 +167,7 @@ ${sinLugar.length ? `<h2>Sin ubicación</h2><p class="resumen">Estos no tienen d
   await p.goto('file://' + path.join(salida, 'ruta.html'), { waitUntil: 'load' }); await p.waitForTimeout(600);
   await p.pdf({ path: path.join(salida, 'ruta.pdf'), width: '110mm', height: '240mm', printBackground: true, preferCSSPageSize: true });
 
-  const hojas = ruta.concat(sinLugar).map(x => path.join(carpeta, x.carpeta || '', 'auditoria.png')).filter(f => fs.existsSync(f));
+  const hojas = ruta.concat(sinLugar).filter(x => x.hoja !== false).map(x => path.join(carpeta, x.carpeta || '', 'auditoria.png')).filter(f => fs.existsSync(f));
   if (hojas.length) {
     const imp = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>@page{size:A4;margin:0}*{margin:0;padding:0}img{display:block;width:210mm;height:297mm;object-fit:contain;break-after:page}</style></head><body>${hojas.map(f => `<img src="data:image/png;base64,${fs.readFileSync(f).toString('base64')}" alt="">`).join('')}</body></html>`;
     await p.setContent(imp, { waitUntil: 'load' });
