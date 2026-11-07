@@ -34,6 +34,9 @@ prueba('precios.py (catálogo vivo)', () => correr('python3', [S('catalogo-vivo/
 prueba('planilla.py (catálogo vivo)', () => correr('python3', [S('catalogo-vivo/scripts/planilla.py'), '--negocio', 'Prueba', '--desde', E + '/base.csv', '--reglas', E + '/reglas.json', '--salida', tmp + '/planilla.xlsx']), [tmp + '/planilla.xlsx']);
 prueba('lista.js (listas sin dolor)', () => correr(NODE, [S('catalogo-vivo/scripts/lista.js'), tmp + '/precios/base-nueva.csv', '--negocio', 'Prueba', '--anterior', E + '/base.csv', '--salida', tmp + '/lista']), [tmp + '/lista/lista.pdf', tmp + '/lista/lista.txt']);
 prueba('tiendanube.py (socio de Tiendanube)', () => correr('python3', [S('catalogo-vivo/scripts/tiendanube.py'), E + '/base.csv', '--salida', tmp + '/tiendanube.csv']), [tmp + '/tiendanube.csv']);
+const RC = S('redes-y-campanas/ejemplo');
+prueba('campana.js (campañas a clientes)', () => correr(NODE, [S('redes-y-campanas/scripts/campana.js'), RC + '/clientes.csv', RC + '/campana.json', '--salida', tmp + '/campana']), [tmp + '/campana/envio.html', tmp + '/campana/resultados.csv']);
+prueba('redes.js (redes del mes)', () => correr(NODE, [S('redes-y-campanas/scripts/redes.js'), RC + '/redes.json', '--salida', tmp + '/redes']), [tmp + '/redes/calendario.pdf', tmp + '/redes/textos.txt']);
 prueba('presupuesto.js', () => correr(NODE, [S('mensajes-y-precios/scripts/presupuesto.js'), '--cliente', 'Prueba', '--paquete', 'completa', '--abono', 'presencia', '--dolar', '1500', '--salida', tmp + '/presupuesto']),
   [tmp + '/presupuesto/presupuesto.pdf', tmp + '/presupuesto/mensaje.txt']);
 prueba('catalogo-propio.js', () => correr(NODE, [S('mensajes-y-precios/scripts/catalogo-propio.js'), tmp + '/whatsapp', '--dolar', '1500']), [tmp + '/whatsapp/catalogo.txt', tmp + '/whatsapp/perfil.txt']);

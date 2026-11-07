@@ -45,6 +45,17 @@ Los precios se piensan en dólares y al cliente se le pasan en pesos, al dólar 
 - Quienes hicieron el taller pagan USD 25 la configuración de WhatsApp y tienen un 15 % menos en la puesta a punto de Google, durante 15 días.
 - Primer taller abierto a USD 15 por persona, para juntar opiniones.
 
+## Redes y campañas (skill `redes-y-campanas`)
+
+| Servicio | Qué incluye | USD |
+|---|---|---|
+| Redes del mes | 12 publicaciones y 8 historias con la identidad del local y sus fotos, textos, calendario para aprobar y todo programado en Meta Business Suite. Por mes. | 120 |
+| Campaña a sus clientes | Base ordenada con permiso, mensajes por segmento, página de envío con un toque por cliente e informe de resultados. Por campaña. | 60 |
+| Campaña de fiestas | Dos envíos en diciembre (antes de Navidad y antes de Reyes) con su informe. Pago único. | 100 |
+
+- Con web o Presencia nuestra, Redes del mes cuesta USD 100.
+- Un community manager freelance cobra de USD 325 a 750 por mes (iProfesional, 2025): Redes del mes va por debajo porque se arma en un día y con la identidad que ya hicimos.
+
 ## Condiciones
 
 - Muestra gratis antes de cobrar nada.

@@ -1,0 +1,10 @@
+{
+  "negocio": "Ferretería Rosca (inventada)",
+  "titulo": "Fiestas 2026",
+  "por_dia": 40,
+  "mensajes": {
+    "frecuentes": "Hola {nombre}, ¿cómo estás? Te escribimos de Ferretería Rosca. Para las fiestas armamos cajas de regalo con herramientas desde $ 25.000 y las envolvemos sin cargo. Si querés que te reservemos una, respondé este mensaje. ¡Gracias por elegirnos todo el año!",
+    "nuevos": "Hola {nombre}, te escribimos de Ferretería Rosca. Gracias por tu primera compra. Para las fiestas tenemos cajas de regalo con herramientas desde $ 25.000. Si te interesa, respondé este mensaje y te contamos.",
+    "todos": "Hola, te escribimos de Ferretería Rosca. Para las fiestas tenemos cajas de regalo con herramientas desde $ 25.000. Si te interesa, respondé este mensaje."
+  }
+}
