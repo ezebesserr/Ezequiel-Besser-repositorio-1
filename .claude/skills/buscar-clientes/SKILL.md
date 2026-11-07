@@ -21,9 +21,25 @@ Los scripts están en `.claude/skills/buscar-clientes/scripts/`. Trabajá en una
 
 Para cada negocio: nombre, rubro, zona, dirección, web, teléfonos, WhatsApp, mail, Instagram, nivel (muy cutre / vieja / sin sitio), qué tiene de cutre en una frase concreta y verificable, y el paquete sugerido según `creador/negocio/precios.md`. Agrupá los que quedan cerca para visitarlos a pie.
 
-## Auditar una web puntual
+## Auditar una web puntual (y mandarla con el primer mensaje)
 
-`node .claude/skills/crear-pagina/scripts/revisar.js <url> <carpeta>` y contá lo que se ve: qué no carga, cómo queda en el celular, si el navegador dice "No seguro".
+```bash
+node .claude/skills/buscar-clientes/scripts/auditoria.js <url> --negocio "<nombre>" [--muestra <link a un trabajo nuestro>] --salida <carpeta-privada>/<negocio>
+```
+
+Saca la primera pantalla en un celular y busca problemas concretos y comprobables: Flash, sin versión para celular, se corre de costado, el WhatsApp sin el 9, sin HTTPS, letra ilegible, sin botón de WhatsApp, cosas que no cargan, frames, © viejo, peso. Deja:
+
+- `auditoria.png` (y `.pdf`): la hoja «Así ve su web un cliente desde el celular», con la captura, lo que encontramos ordenado por gravedad, cómo se arregla y un trabajo nuestro. Se manda por WhatsApp junto con el primer mensaje.
+- `observacion.txt`: la frase para el mensaje («Entré a la web de X y vi que …»), que va al campo `observacion` del Mostrador.
+- `auditoria.json`: los hallazgos, para elegir la línea a ofrecer.
+
+Si dice «no encontré problemas graves», no es buen prospecto para una web nueva; puede serlo para Presencia (su ficha de Google).
+
+Para una revisión más técnica: `node .claude/skills/crear-pagina/scripts/revisar.js <url> <carpeta>`.
+
+## Después de elegir
+
+Cargá los elegidos en el **Mostrador de ventas** (skill `venta-completa`) como `prospecto`, con la observación de su auditoría y la línea que conviene. De a 10 o 15 por día, que es lo que se manda a mano.
 
 ## Cuidado
 

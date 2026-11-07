@@ -38,6 +38,7 @@ Las webs son la base. Encima van tres líneas, elegidas en noviembre de 2026 ent
 |---|---|
 | Seguimiento de cada contacto, mensajes armados por etapa y WhatsApp a un toque | **Mostrador de ventas** (página privada de Claude; ver `venta-completa`) |
 | Ideas de negocio, recorridos y puntaje | **Fichero de negocios con IA** (página privada de Claude) |
+| Auditoría de la web de un prospecto para mandar con el primer mensaje | `node .claude/skills/buscar-clientes/scripts/auditoria.js` |
 | Presupuesto en PDF con los pesos del día | `node .claude/skills/mensajes-y-precios/scripts/presupuesto.js` |
 | Informe mensual de un cliente / cierre de mes de todos | `node .claude/skills/presencia-mensual/scripts/informe.js` / `cierre.js` |
 | Tarjeta de reseñas con QR para el mostrador | `node .claude/skills/presencia-mensual/scripts/tarjeta.js` |
