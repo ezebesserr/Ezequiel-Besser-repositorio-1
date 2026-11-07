@@ -44,6 +44,7 @@ Las webs son la base. Encima van tres líneas, elegidas en noviembre de 2026 ent
 | Tarjeta de reseñas con QR para el mostrador | `node .claude/skills/presencia-mensual/scripts/tarjeta.js` |
 | Planilla del catálogo para Google / precios con la lista del proveedor | `python3 .claude/skills/catalogo-vivo/scripts/planilla.py` / `precios.py` |
 | Afiche, posteos, propuesta y constancias de un taller | `node .claude/skills/talleres-ia/scripts/kit.js` |
+| Catálogo, perfil y respuestas rápidas del WhatsApp Business propio | `node .claude/skills/mensajes-y-precios/scripts/catalogo-propio.js` |
 
 Todos los que manejan datos de clientes se niegan a guardar dentro del repo. Los QR usan `npm install -g qrcode`.
 

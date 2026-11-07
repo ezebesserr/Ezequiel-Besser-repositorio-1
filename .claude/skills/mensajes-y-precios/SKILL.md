@@ -55,6 +55,14 @@ node .claude/skills/mensajes-y-precios/scripts/presupuesto.js --cliente "<negoci
 
 A mano, si hiciera falta: dólares de `precios.md` × dólar oficial (venta), redondeado a miles, «precio válido por 15 días».
 
+## El WhatsApp Business del taller
+
+```bash
+node .claude/skills/mensajes-y-precios/scripts/catalogo-propio.js <carpeta> [--dolar <cotización>]
+```
+
+Deja una tarjeta de 1080 × 1080 por servicio para el catálogo de WhatsApp Business (web de una pantalla, completa, catálogo, puesta a punto de Google, Presencia, WhatsApp configurado y taller), `catalogo.txt` con el nombre, el precio en pesos y la descripción de cada uno, y `perfil.txt` con la descripción del perfil, la bienvenida, la ausencia y las respuestas rápidas (`/muestra`, `/precios`, `/pasos`, `/pago`, `/plazos`, `/google`). Todo sale de `precios.md`: cuando cambia un precio o el dólar, se vuelve a correr y se reemplazan las tarjetas.
+
 ## El Mostrador
 
 El seguimiento de cada contacto vive en el **Mostrador de ventas**, una página privada de Claude (buscala con la herramienta Artifact, `action: "list"`). Tiene el próximo paso de cada uno, el mensaje de su etapa con WhatsApp a un toque y los abonos del mes. Cuando armes mensajes para prospectos nuevos, cargalos ahí con ArtifactData (colección `contactos`; ver la skill `venta-completa`).
