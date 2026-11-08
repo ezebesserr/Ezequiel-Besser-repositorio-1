@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ezequiel Besser · Páginas web para comercios</title>
+<meta name="description" content="Páginas web, catálogos con precios al día, ficha de Google, WhatsApp Business y talleres de IA para comercios y pymes de CABA y GBA. Muestra gratis antes de pagar.">
+<meta property="og:title" content="Ezequiel Besser · La web de tu comercio, hecha a medida">
+<meta property="og:description" content="Primero te muestro cómo quedaría tu web, gratis. Si te gusta, seguimos.">
+<meta property="og:image" content="https://ezebesserr.github.io/Ezequiel-Besser-repositorio-1/flyer/og.jpg">
+<meta property="og:url" content="https://ezebesserr.github.io/Ezequiel-Besser-repositorio-1/flyer/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;700;900&family=Chivo+Mono:wght@400;600&display=swap">
+<style>
+  /* Identidad: la lámina de un estudiante de Ingeniería (marco, rótulo, lista de piezas, cotas)
+     con el tinta y el dorado de su página de clases. Letras de Omnibus-Type, fundición porteña. */
+  :root{
+    --tinta:#11151c; --tinta-2:#2b313c; --gris:#5d636d;
+    --oro:#d4af37; --oro-osc:#8a6d1e; --oro-claro:#f7efd2;
+    --grilla:rgba(60,110,165,.09); --grilla-2:rgba(60,110,165,.2);
+    --f:"Chivo",system-ui,sans-serif; --mono:"Chivo Mono",ui-monospace,monospace;
+  }
+  @page{size:A4;margin:0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#dfe2e6}
+  body{font-family:var(--f);color:var(--tinta);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @media print{html,body{background:#fff}}
+
+  .hoja{width:210mm;height:297mm;margin:0 auto;position:relative;overflow:hidden;background:#fff}
+  @media screen and (min-width:830px){.hoja{margin:24px auto;box-shadow:0 2px 14px rgba(0,0,0,.18)}}
+
+  /* Marco de la lámina con sus zonas; adentro, papel milimetrado (1 cm y 2 mm) */
+  .marco{position:absolute;inset:22px;border:2px solid var(--tinta);
+    background-image:
+      linear-gradient(var(--grilla-2) 1px,transparent 1px),linear-gradient(90deg,var(--grilla-2) 1px,transparent 1px),
+      linear-gradient(var(--grilla) 1px,transparent 1px),linear-gradient(90deg,var(--grilla) 1px,transparent 1px);
+    background-size:37.8px 37.8px,37.8px 37.8px,7.56px 7.56px,7.56px 7.56px}
+  .zona{position:absolute;font:600 9px/1 var(--mono);color:var(--gris)}
+  .zona.h{top:7px;transform:translateX(-50%)} .zona.h.b{top:auto;bottom:6px}
+  .zona.v{left:8px;transform:translateY(-50%)} .zona.v.d{left:auto;right:8px}
+  .marca{position:absolute;background:var(--tinta)}
+  .marca.h{width:1px;height:8px;top:14px} .marca.h.b{top:auto;bottom:14px}
+  .marca.v{height:1px;width:8px;left:14px} .marca.v.d{left:auto;right:14px}
+
+  .lamina{position:absolute;inset:24px;padding:24px 30px 0;display:flex;flex-direction:column}
+
+  .etq{font:600 10.5px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--oro-osc)}
+
+  /* Cabeza */
+  .cabeza{display:grid;grid-template-columns:186px 1fr;gap:30px;align-items:start}
+  .quien{text-align:center;padding-top:6px}
+  .foto{position:relative;width:162px;height:162px;margin:0 auto 14px}
+  .foto::before,.foto::after{content:"";position:absolute;z-index:0;
+    background:repeating-linear-gradient(90deg,var(--tinta) 0 12px,transparent 12px 15px,var(--tinta) 15px 17px,transparent 17px 20px)}
+  .foto::before{left:-14px;right:-14px;top:50%;height:1px}
+  .foto::after{top:-14px;bottom:-14px;left:50%;width:1px;
+    background:repeating-linear-gradient(180deg,var(--tinta) 0 12px,transparent 12px 15px,var(--tinta) 15px 17px,transparent 17px 20px)}
+  .foto img{position:relative;z-index:1;width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;
+    border:5px solid var(--oro);box-shadow:0 0 0 1.5px var(--tinta)}
+  .nombre{font:900 20px/1.1 var(--f);letter-spacing:-.005em}
+  .cred{font:400 10.5px/1.4 var(--mono);color:var(--gris);margin-top:5px}
+
+  h1{font:900 50px/1.02 var(--f);letter-spacing:-.018em;margin:12px 0 0;padding-bottom:30px}
+  .cota{position:relative;display:inline-block}
+  .cota-l{position:absolute;left:0;right:0;top:calc(100% + 2px);height:16px;display:flex;align-items:center;gap:6px;color:var(--oro-osc)}
+  .cota-l::before,.cota-l::after{content:"";position:absolute;bottom:7px;width:1.2px;height:20px;background:currentColor}
+  .cota-l::before{left:0} .cota-l::after{right:0}
+  .cota-l i{flex:1;height:1.2px;background:currentColor;position:relative}
+  .cota-l i::before{content:"";position:absolute;top:-4px;border:4.6px solid transparent}
+  .cota-l i:first-child::before{left:0;border-left:0;border-right:11px solid currentColor}
+  .cota-l i:last-child::before{right:0;border-right:0;border-left:11px solid currentColor}
+  .cota-l b{font:600 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+  .baja{font:400 15.5px/1.45 var(--f);color:var(--tinta-2);max-width:480px;text-wrap:pretty}
+  .baja b{font-weight:700;color:var(--tinta)}
+
+  /* La oferta de entrada */
+  .gancho{display:flex;align-items:stretch;margin:22px 0 20px;background:var(--tinta);color:#fff}
+  .gancho .tag{flex:0 0 auto;display:flex;align-items:center;padding:0 16px;background:var(--oro);color:var(--tinta);
+    font:600 11px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;text-align:center}
+  .gancho p{padding:11px 18px 12px;font:400 15px/1.4 var(--f)}
+  .gancho p b{display:block;font-weight:900;font-size:19px;line-height:1.2;margin-bottom:2px}
+
+  /* Lista de piezas */
+  .lista h2{margin-bottom:7px;display:flex;justify-content:space-between;align-items:baseline}
+  .lista h2 span{color:var(--gris);letter-spacing:.04em}
+  table{width:100%;border-collapse:collapse;background:#fff;border:2px solid var(--tinta)}
+  thead th{font:600 9.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gris);
+    text-align:left;padding:7px 10px;border-bottom:1.5px solid var(--tinta)}
+  thead th:first-child{text-align:center}
+  tbody td,tbody th{padding:6px 10px;border-top:1px solid #b9bec6;vertical-align:middle;text-align:left}
+  tbody tr:first-child td,tbody tr:first-child th{border-top:0}
+  td.pos{width:50px;text-align:center;border-right:1px solid #b9bec6}
+  th.trab{width:206px;font:700 16px/1.15 var(--f);border-right:1px solid #b9bec6}
+  td.que{font:400 13px/1.38 var(--f);color:var(--tinta-2);text-wrap:pretty}
+  .globo{display:inline-flex;align-items:center;justify-content:center;width:27px;height:27px;border-radius:50%;
+    border:1.5px solid var(--tinta);font:600 12.5px/1 var(--mono)}
+  tr.web .globo{background:var(--oro);border-color:var(--tinta)}
+  tr.aparte td,tr.aparte th{border-top:1.5px dashed var(--tinta);background:var(--oro-claro)}
+  tr.aparte .globo{border-style:dashed}
+
+  /* Pie: notas y rótulo, que va calzado en la esquina del marco como en cualquier plano */
+  .pie{margin:auto -30px 0 0;padding-top:16px;display:grid;grid-template-columns:1fr 440px;gap:16px;align-items:end}
+  .notas{padding:0 0 20px}
+  .notas h2{margin-bottom:6px}
+  .notas ol{list-style:none;counter-reset:n}
+  .notas li{counter-increment:n;font:400 12.5px/1.35 var(--f);color:var(--tinta-2);padding-left:22px;position:relative;margin-top:4px}
+  .notas li::before{content:counter(n) ".";position:absolute;left:0;font:600 11.5px/1.5 var(--mono);color:var(--tinta)}
+  .notas b{font-weight:700;color:var(--tinta)}
+
+  .rotulo{display:grid;grid-template-columns:128px 1fr 1fr;border:2px solid var(--tinta);border-right:0;border-bottom:0;background:#fff}
+  .rotulo > div{padding:6px 9px 7px;border-left:1px solid var(--tinta);border-top:1px solid var(--tinta)}
+  .rotulo .qr{grid-row:1 / span 3;border-left:0;border-top:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px}
+  .rotulo .qr svg{width:108px;height:108px;display:block}
+  .rotulo .qr span{font:600 8.5px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;text-align:center}
+  .rotulo .dibujo{grid-column:2 / span 2;border-top:0}
+  .rotulo small{display:block;font:600 8px/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--gris);margin-bottom:4px}
+  .rotulo strong{display:block;font:700 15px/1.15 var(--f)}
+  .rotulo .dibujo strong{font-size:19px;font-weight:900}
+  .rotulo .mail strong{font:600 11px/1.3 var(--mono)}
+  .rotulo .aprobo strong{font-size:13px}
+  .rotulo a{color:inherit;text-decoration:none}
+</style>
+</head>
+<body>
+<main class="hoja">
+  <div class="marco" aria-hidden="true"></div>
+  <div aria-hidden="true">
+    <span class="zona h" style="left:120px">1</span><span class="zona h" style="left:307px">2</span><span class="zona h" style="left:487px">3</span><span class="zona h" style="left:674px">4</span>
+    <span class="zona h b" style="left:120px">1</span><span class="zona h b" style="left:307px">2</span><span class="zona h b" style="left:487px">3</span><span class="zona h b" style="left:674px">4</span>
+    <span class="marca h" style="left:214px"></span><span class="marca h" style="left:397px"></span><span class="marca h" style="left:580px"></span>
+    <span class="marca h b" style="left:214px"></span><span class="marca h b" style="left:397px"></span><span class="marca h b" style="left:580px"></span>
+    <span class="zona v" style="top:113px">A</span><span class="zona v" style="top:292px">B</span><span class="zona v" style="top:471px">C</span><span class="zona v" style="top:651px">D</span><span class="zona v" style="top:830px">E</span><span class="zona v" style="top:1010px">F</span>
+    <span class="zona v d" style="top:113px">A</span><span class="zona v d" style="top:292px">B</span><span class="zona v d" style="top:471px">C</span><span class="zona v d" style="top:651px">D</span><span class="zona v d" style="top:830px">E</span><span class="zona v d" style="top:1010px">F</span>
+    <span class="marca v" style="top:202px"></span><span class="marca v" style="top:382px"></span><span class="marca v" style="top:561px"></span><span class="marca v" style="top:741px"></span><span class="marca v" style="top:920px"></span>
+    <span class="marca v d" style="top:202px"></span><span class="marca v d" style="top:382px"></span><span class="marca v d" style="top:561px"></span><span class="marca v d" style="top:741px"></span><span class="marca v d" style="top:920px"></span>
+  </div>
+
+  <div class="lamina">
+    <header class="cabeza">
+      <div class="quien">
+        <div class="foto"><img src="foto.jpg" alt="Ezequiel Besser" width="162" height="162"></div>
+        <p class="nombre">Ezequiel Besser</p>
+        <p class="cred">Estudiante de Ingeniería<br>ITBA</p>
+      </div>
+      <div class="oferta">
+        <p class="etq">Páginas web y más · Comercios y pymes de CABA y GBA</p>
+        <h1>La web de tu comercio, hecha <span class="cota">a medida<span class="cota-l" aria-hidden="true"><i></i><b>tu comercio</b><i></i></span></span>.</h1>
+        <p class="baja">Y todo lo que viene después: que te encuentren en <b>Google</b>, que te escriban por <b>WhatsApp</b> y que tus <b>precios</b> estén al día.</p>
+      </div>
+    </header>
+
+    <div class="gancho">
+      <span class="tag">Muestra<br>gratis</span>
+      <p><b>Primero te muestro cómo quedaría tu web.</b> Si te gusta, seguimos. Si no, no pagás nada.</p>
+    </div>
+
+    <section class="lista">
+      <h2 class="etq">Lista de trabajos <span>Pedí uno o todos</span></h2>
+      <table>
+        <thead><tr><th scope="col">Pos.</th><th scope="col">Trabajo</th><th scope="col">Qué te llevás</th></tr></thead>
+        <tbody>
+          <tr class="web"><td class="pos"><span class="globo">1</span></td><th class="trab" scope="row">Página web</th><td class="que">Pensada primero para el celular, con botón de WhatsApp, mapa y tu propio dominio. La de una página, lista en 7 días.</td></tr>
+          <tr class="web"><td class="pos"><span class="globo">2</span></td><th class="trab" scope="row">Catálogo online</th><td class="que">Tus productos con fotos, buscador y filtros. Lo cargás y lo cambiás desde una planilla de Google.</td></tr>
+          <tr><td class="pos"><span class="globo">3</span></td><th class="trab" scope="row">Precios al día</th><td class="que">Me pasás la lista nueva del proveedor y actualizo todo el catálogo. Vos aprobás antes de publicar.</td></tr>
+          <tr><td class="pos"><span class="globo">4</span></td><th class="trab" scope="row">Ficha de Google Maps</th><td class="que">Horarios, fotos y productos completos, reseñas respondidas y una tarjeta con QR para pedir más.</td></tr>
+          <tr><td class="pos"><span class="globo">5</span></td><th class="trab" scope="row">Presencia mensual</th><td class="que">Web y ficha al día, informe mensual de los clientes que llegaron por Google y si ChatGPT y Gemini te recomiendan.</td></tr>
+          <tr><td class="pos"><span class="globo">6</span></td><th class="trab" scope="row">WhatsApp Business</th><td class="que">Perfil, catálogo, respuestas rápidas y mensaje de ausencia, configurados en tu celular.</td></tr>
+          <tr><td class="pos"><span class="globo">7</span></td><th class="trab" scope="row">Talleres «IA para tu comercio»</th><td class="que">Tres horas prácticas para usar la IA en tu negocio. Abiertos, o cerrados para cámaras y empresas.</td></tr>
+          <tr><td class="pos"><span class="globo">8</span></td><th class="trab" scope="row">Menú con QR y extras</th><td class="que">Menú digital para gastronomía, tu web en otro idioma y cobros con Mercado Pago.</td></tr>
+          <tr class="aparte"><td class="pos"><span class="globo">9</span></td><th class="trab" scope="row">Clases particulares</th><td class="que">Matemática, Física y Química, para secundaria y universidad.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer class="pie">
+      <div class="notas">
+        <h2 class="etq">Notas</h2>
+        <ol>
+          <li><b>La muestra es gratis:</b> pagás recién si te gusta.</li>
+          <li>50 % para arrancar y 50 % al publicar.</li>
+          <li>Dos rondas de cambios incluidas.</li>
+          <li>El dominio queda siempre a tu nombre.</li>
+        </ol>
+      </div>
+      <div class="rotulo">
+        <div class="qr"><!--qr:wa--><svg role="img" aria-label="QR para escribir por WhatsApp" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h45v45H0z"/><path stroke="#11151c" d="M0 0.5h7m2 0h2m2 0h1m1 0h2m1 0h4m1 0h2m1 0h1m3 0h4m2 0h1m1 0h7M0 1.5h1m5 0h1m2 0h2m2 0h2m1 0h1m6 0h1m3 0h1m1 0h4m2 0h1m2 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m1 0h1m1 0h2m4 0h3m1 0h1m1 0h5m2 0h2m4 0h1m2 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m1 0h3m1 0h2m1 0h3m1 0h2m2 0h1m1 0h1m2 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m1 0h1m3 0h3m1 0h9m1 0h1m2 0h1m1 0h1m2 0h3m1 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m1 0h1m6 0h2m1 0h3m3 0h1m1 0h2m2 0h1m7 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M8 7.5h3m5 0h3m1 0h1m3 0h1m1 0h1m1 0h4m4 0h1M0 8.5h1m1 0h5m2 0h3m1 0h1m4 0h1m1 0h11m1 0h1m1 0h1m1 0h1m1 0h5M0 9.5h2m1 0h3m1 0h2m2 0h2m1 0h1m1 0h3m5 0h1m2 0h1m1 0h1m1 0h1m3 0h1m4 0h1m1 0h3M2 10.5h1m3 0h3m7 0h3m4 0h1m2 0h1m3 0h2m1 0h2m1 0h4m1 0h3M2 11.5h1m1 0h2m2 0h3m3 0h2m1 0h6m3 0h2m1 0h1m1 0h1m3 0h2m2 0h1M4 12.5h1m1 0h1m2 0h2m1 0h2m1 0h1m2 0h1m1 0h1m1 0h2m1 0h1m1 0h4m1 0h1m3 0h2m2 0h1m1 0h1m1 0h1M0 13.5h6m2 0h1m1 0h2m1 0h2m1 0h1m2 0h3m1 0h2m1 0h1m7 0h2m5 0h2M2 14.5h3m1 0h6m2 0h2m2 0h1m4 0h1m2 0h4m5 0h3m2 0h5M0 15.5h1m4 0h1m1 0h1m1 0h2m1 0h3m1 0h6m1 0h5m2 0h1m1 0h5m1 0h2M0 16.5h1m2 0h2m1 0h3m1 0h1m1 0h1m1 0h1m4 0h1m3 0h1m1 0h1m2 0h1m1 0h1m2 0h1m1 0h1m4 0h4M0 17.5h1m2 0h1m1 0h1m1 0h1m2 0h3m1 0h2m1 0h3m1 0h1m2 0h1m1 0h2m2 0h2m2 0h6m4 0h1M0 18.5h1m3 0h1m1 0h2m3 0h1m3 0h1m2 0h1m4 0h1m1 0h5m1 0h1m1 0h1m1 0h1m6 0h3M1 19.5h1m1 0h3m1 0h1m2 0h2m1 0h3m1 0h6m1 0h2m1 0h1m7 0h1m2 0h2m1 0h1m1 0h1M0 20.5h2m1 0h7m1 0h2m1 0h2m4 0h6m2 0h5m3 0h5m1 0h1M0 21.5h2m2 0h1m3 0h3m3 0h5m1 0h1m3 0h1m1 0h2m2 0h1m2 0h2m1 0h1m3 0h5M0 22.5h5m1 0h1m1 0h3m1 0h3m2 0h1m1 0h2m1 0h1m1 0h5m1 0h1m1 0h5m1 0h1m1 0h1m1 0h1m1 0h1M0 23.5h1m3 0h1m3 0h1m1 0h2m1 0h1m1 0h1m4 0h1m3 0h1m1 0h3m3 0h2m1 0h2m3 0h4M0 24.5h3m1 0h6m3 0h3m1 0h1m1 0h7m1 0h1m1 0h2m1 0h1m3 0h6m1 0h2M0 25.5h1m2 0h1m4 0h2m3 0h1m4 0h1m1 0h1m4 0h2m4 0h1m1 0h1m2 0h1m3 0h3m1 0h1M0 26.5h2m1 0h4m1 0h3m6 0h1m1 0h3m1 0h1m1 0h1m2 0h2m1 0h1m1 0h3m2 0h2m2 0h2M3 27.5h1m1 0h1m1 0h3m1 0h1m1 0h3m1 0h1m5 0h1m1 0h1m1 0h1m1 0h1m1 0h2m3 0h2m1 0h2m3 0h1M2 28.5h1m1 0h6m3 0h1m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m3 0h3m1 0h1m2 0h2m1 0h1m1 0h5M0 29.5h1m2 0h3m2 0h1m9 0h1m5 0h1m1 0h1m4 0h1m1 0h2m3 0h1m2 0h3M1 30.5h1m4 0h1m2 0h2m1 0h1m1 0h1m1 0h1m3 0h2m2 0h2m3 0h1m1 0h1m1 0h2m4 0h1m1 0h2m1 0h1M1 31.5h1m1 0h3m1 0h1m2 0h4m4 0h1m5 0h4m1 0h2m1 0h2m2 0h1m1 0h2m1 0h1M1 32.5h4m1 0h1m1 0h2m1 0h1m4 0h1m1 0h1m3 0h1m1 0h2m2 0h1m2 0h1m3 0h1m1 0h1m2 0h1m1 0h2M1 33.5h1m1 0h1m1 0h1m4 0h1m2 0h3m10 0h2m2 0h2m2 0h1m1 0h2m1 0h2m1 0h3M4 34.5h1m1 0h1m1 0h1m2 0h2m2 0h2m1 0h3m1 0h1m1 0h3m4 0h3m1 0h4m2 0h2m1 0h1M1 35.5h4m3 0h2m1 0h5m1 0h2m2 0h3m1 0h3m1 0h1m5 0h2m1 0h2m1 0h1m1 0h1M0 36.5h1m2 0h2m1 0h3m3 0h2m2 0h2m2 0h5m3 0h1m1 0h4m2 0h5m1 0h1m1 0h1M8 37.5h5m1 0h1m1 0h1m1 0h3m3 0h1m1 0h2m5 0h4m3 0h5M0 38.5h7m5 0h1m2 0h3m2 0h1m1 0h1m1 0h3m2 0h3m3 0h2m1 0h1m1 0h1m1 0h1m1 0h1M0 39.5h1m5 0h1m1 0h1m4 0h1m2 0h3m1 0h1m3 0h1m4 0h1m1 0h1m2 0h3m3 0h4M0 40.5h1m1 0h3m1 0h1m1 0h1m4 0h4m1 0h8m1 0h1m2 0h12M0 41.5h1m1 0h3m1 0h1m1 0h1m1 0h3m3 0h1m1 0h1m3 0h4m5 0h1m4 0h1m4 0h2M0 42.5h1m1 0h3m1 0h1m1 0h3m2 0h2m2 0h3m1 0h1m3 0h2m2 0h3m1 0h3m1 0h1m1 0h2m1 0h1M0 43.5h1m5 0h1m2 0h1m3 0h2m3 0h1m1 0h1m3 0h2m3 0h3m4 0h4m1 0h1M0 44.5h7m1 0h1m4 0h2m2 0h1m1 0h2m2 0h1m3 0h4m1 0h1m2 0h2m1 0h3m1 0h2"/></svg><!--/qr--><span>Escaneá<br>y escribime</span></div>
+        <div class="dibujo"><small>Dibujó</small><strong>Ezequiel Besser</strong></div>
+        <div><small>WhatsApp</small><strong><a href="https://wa.me/5491165877147">11 6587-7147</a></strong></div>
+        <div class="mail"><small>Mail</small><strong><a href="mailto:ezebes2007@gmail.com">ezebes2007@gmail.com</a></strong></div>
+        <div><small>Zona</small><strong>CABA y GBA</strong></div>
+        <div class="aprobo"><small>Aprobó</small><strong>Vos, antes de pagar</strong></div>
+      </div>
+    </footer>
+  </div>
+</main>
+<script>
+  // En pantallas angostas la lámina se achica entera, como una hoja.
+  (function(){
+    var h=document.querySelector('.hoja');
+    function ajustar(){var w=document.documentElement.clientWidth;h.style.zoom=w<794?(w/794):'';}
+    ajustar();window.addEventListener('resize',ajustar);
+    window.matchMedia('print').addEventListener('change',function(e){if(e.matches)h.style.zoom='';else ajustar();});
+  })();
+</script>
+</body>
+</html>
