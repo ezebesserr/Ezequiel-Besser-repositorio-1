@@ -4,112 +4,98 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ezequiel Besser · Páginas web para locales gastronómicos</title>
-<meta name="description" content="Armo páginas web para locales gastronómicos de CABA y GBA: con la carta, QR para las mesas, Google Maps y WhatsApp Business. La muestra va sin cargo.">
-<meta property="og:title" content="¿Qué va a ser? · Páginas web para locales gastronómicos">
-<meta property="og:description" content="Soy Ezequiel y armo páginas web para locales gastronómicos. La muestra va sin cargo.">
+<meta name="description" content="Página web con la carta, carta con QR para las mesas, ficha de Google Maps, WhatsApp Business y mantenimiento mensual para locales gastronómicos de CABA y GBA. La muestra es gratis.">
+<meta property="og:title" content="Páginas web para locales gastronómicos · Ezequiel Besser">
+<meta property="og:description" content="La carta, Google Maps y el WhatsApp de tu local, en orden. Primero te armo una muestra gratis.">
 <meta property="og:image" content="https://ezebesserr.github.io/Ezequiel-Besser-repositorio-1/flyer/og.jpg">
 <meta property="og:url" content="https://ezebesserr.github.io/Ezequiel-Besser-repositorio-1/flyer/">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wdth,wght@75..100,400..900&family=Nanum+Pen+Script&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;700;800&display=swap">
 <style>
-  /* Una comanda de talonario, impresa en rojo y escrita con birome por el mozo.
-     Azul de la birome (invento porteño) y rojo de imprenta. Encode Sans es de Impallari (Rosario).
-     Formato 1080×1350 (4:5) para que WhatsApp la muestre entera en el chat. */
+  /* Flyer común y claro: arriba quién soy, al medio qué incluye cada trabajo, abajo cómo escribirme.
+     1080×1440 (3:4, como una foto de celular) para que WhatsApp lo muestre entero en el chat. */
   :root{
-    --birome:#22358e; --tinta:#1d3497; --rojo:#c62f29; --rojo-2:#a9231e; --rojo-linea:rgba(198,47,41,.4);
-    --papel:#fdfcf8;
-    --f:"Encode Sans",system-ui,sans-serif; --mano:"Nanum Pen Script","Comic Sans MS",cursive;
+    --oscuro:#1b1e25; --texto:#22252c; --texto-2:#464a54; --linea:#e3e4e8; --rojo:#c8392b;
+    --f:"Libre Franklin",system-ui,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:#d9dbe0}
-  body{font-family:var(--f)}
+  html,body{background:#dcdde1}
+  body{font-family:var(--f);color:var(--texto)}
 
-  .hoja{width:1080px;height:1350px;margin:0 auto;position:relative;overflow:hidden;background:var(--birome);color:#fff}
-  @media screen and (min-width:1110px){.hoja{margin:24px auto;box-shadow:0 2px 14px rgba(0,0,0,.2)}}
+  .hoja{width:1080px;height:1440px;margin:0 auto;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+  @media screen and (min-width:1110px){.hoja{margin:24px auto;box-shadow:0 2px 14px rgba(0,0,0,.18)}}
 
-  .cabeza{position:absolute;left:72px;right:72px;top:58px}
-  h1{font-weight:900;font-stretch:75%;font-size:156px;line-height:.92;letter-spacing:-.012em}
-  .soy{font-weight:500;font-stretch:87.5%;font-size:36px;line-height:1.25;margin-top:20px;color:rgba(255,255,255,.92)}
+  .cabeza{background:var(--oscuro);color:#fff;display:flex;align-items:center;gap:42px;padding:46px 64px 42px}
+  .foto{flex:0 0 auto;width:196px;height:196px;border-radius:50%;overflow:hidden;border:6px solid #fff}
+  .foto img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.04)}
+  h1{font-weight:800;font-size:66px;line-height:1.03;letter-spacing:-.015em}
+  .quien{font-weight:500;font-size:26px;line-height:1.3;color:#c8cbd2;margin-top:16px}
 
-  /* La comanda */
-  .comanda{position:absolute;left:112px;top:346px;width:836px;height:774px;padding:50px 46px 0;
-    background:var(--papel);color:var(--rojo);transform:rotate(-2deg);
-    box-shadow:0 30px 60px -18px rgba(5,9,40,.6),0 3px 8px rgba(5,9,40,.25)}
-  .comanda::before{content:"";position:absolute;left:4px;right:4px;top:13px;height:12px;
-    background:radial-gradient(circle,var(--birome) 5px,transparent 5.6px) 0 0/22px 12px repeat-x}
+  .cuerpo{flex:1;padding:38px 64px 0;overflow:hidden}
+  .intro{font-weight:500;font-size:28px;line-height:1.38}
+  .servicios{list-style:none;margin-top:14px}
+  .servicios li{padding:15px 0;border-top:2px solid var(--linea)}
+  .servicios li:first-child{border-top:0}
+  .servicios h2{font-weight:800;font-size:31px;line-height:1.15;color:var(--rojo)}
+  .servicios p{font-size:25px;line-height:1.36;color:var(--texto-2);margin-top:4px}
+  .tambien{font-size:25px;line-height:1.36;color:var(--texto-2);padding-top:14px;border-top:2px solid var(--linea)}
+  .tambien b{font-weight:700;color:var(--texto)}
 
-  .enc{display:flex;align-items:baseline;gap:22px}
-  .enc .tit{font-weight:800;font-stretch:75%;font-size:62px;line-height:1;text-transform:uppercase;letter-spacing:.03em}
-  .enc .num{font-weight:600;font-stretch:75%;font-size:30px}
-  .enc .num b{font-weight:800;font-size:46px;letter-spacing:.08em;color:var(--rojo-2);margin-left:6px}
-
-  .campo{display:flex;align-items:flex-end;gap:14px;width:500px;margin-top:16px}
-  .lbl{font-weight:700;font-stretch:75%;font-size:25px;line-height:1;letter-spacing:.1em;text-transform:uppercase;padding-bottom:7px}
-  .renglon{flex:1;height:60px;border-bottom:2px solid var(--rojo-linea);position:relative}
-
-  .mano{font-family:var(--mano);color:var(--tinta);line-height:1;white-space:nowrap;display:inline-block}
-  .renglon .mano{position:absolute;left:18px;bottom:-6px;font-size:70px}
-
-  .tabla{margin-top:30px;border-top:2.5px solid var(--rojo);position:relative}
-  .tabla::before{content:"";position:absolute;left:92px;top:0;bottom:0;width:2px;background:var(--rojo-linea)}
-  .cab{display:grid;grid-template-columns:92px 1fr;border-bottom:2.5px solid var(--rojo);
-    font-weight:700;font-stretch:75%;font-size:22px;line-height:1;letter-spacing:.12em;text-transform:uppercase;padding:11px 0 10px}
-  .cab span{padding-left:16px}
-  .fila{display:grid;grid-template-columns:92px 1fr;height:66px;border-bottom:1.5px solid var(--rojo-linea);align-items:end}
-  .fila .mano{font-size:62px;padding-left:20px;margin-bottom:-5px}
-  .fila .c{padding-left:30px}
-  .subrayado{position:relative;display:inline-block}
-  .subr{position:absolute;left:-4px;right:-6px;bottom:-2px;width:calc(100% + 10px);height:16px;overflow:visible}
-
-  /* La foto carnet abrochada */
-  .carnet{position:absolute;top:-34px;right:38px;width:208px;height:278px;padding:8px;background:#fff;
-    transform:rotate(5deg);box-shadow:0 10px 22px -8px rgba(0,0,0,.45),0 1px 2px rgba(0,0,0,.2)}
-  .carnet img{width:100%;height:100%;object-fit:cover;display:block}
-  .grampa{position:absolute;top:1px;left:50%;width:66px;height:8px;margin-left:-33px;border-radius:3px;transform:rotate(-3deg);
-    background:linear-gradient(#f2f3f4,#a3a8ae 55%,#7d838a);box-shadow:0 1.5px 1.5px rgba(0,0,0,.35)}
-
-  /* Como en el imán de la heladera */
-  .pie{position:absolute;left:72px;right:72px;bottom:56px}
-  .pedidos{font-weight:800;font-stretch:75%;font-size:80px;line-height:1;letter-spacing:-.005em}
-  .pedidos b{font-weight:900}
-  .firma{font-weight:500;font-stretch:87.5%;font-size:28px;line-height:1.35;margin-top:14px;color:rgba(255,255,255,.85)}
-  .pie a{color:inherit;text-decoration:none}
+  .pie{background:var(--rojo);color:#fff;padding:30px 64px 36px}
+  .muestra{font-weight:700;font-size:31px;line-height:1.25}
+  .tel{font-weight:800;font-size:74px;line-height:1;letter-spacing:-.01em;margin-top:12px}
+  .tel span{font-weight:600;font-size:36px;letter-spacing:0;margin-right:16px}
+  .tel a{color:inherit;text-decoration:none}
+  .zona{font-size:25px;line-height:1.3;margin-top:10px;color:rgba(255,255,255,.9)}
 </style>
 </head>
 <body>
 <main class="hoja">
   <header class="cabeza">
-    <h1>¿Qué va a ser?</h1>
-    <p class="soy">Soy Ezequiel y armo páginas web para locales gastronómicos.</p>
+    <div class="foto"><img src="foto.jpg" alt="Ezequiel Besser" width="196" height="196"></div>
+    <div>
+      <h1>Páginas web para locales gastronómicos</h1>
+      <p class="quien">Ezequiel Besser, estudiante de Ingeniería en el ITBA</p>
+    </div>
   </header>
 
-  <section class="comanda" aria-label="Comanda con lo que hago">
-    <div class="enc"><span class="tit">Comanda</span><span class="num">Nº<b>0001</b></span></div>
-    <div class="campo"><span class="lbl">Mesa</span><span class="renglon"><span class="mano" style="transform:rotate(-2deg)">tu local</span></span></div>
-    <div class="campo"><span class="lbl">Mozo</span><span class="renglon"><span class="mano" style="transform:rotate(1.5deg)">Eze</span></span></div>
-
-    <div class="tabla">
-      <div class="cab"><span>Cant.</span><span>Detalle</span></div>
-      <div class="fila"><span class="mano c">1</span><span class="mano" style="transform:rotate(-1deg)">Página web c/ la carta</span></div>
-      <div class="fila"><span class="mano c">1</span><span class="mano" style="transform:rotate(.6deg) translateX(4px)">QR p/ las mesas</span></div>
-      <div class="fila"><span class="mano c">1</span><span class="mano" style="transform:rotate(-.8deg) translateX(-2px)">Google Maps al día</span></div>
-      <div class="fila"><span class="mano c">1</span><span class="mano" style="transform:rotate(.4deg) translateX(3px)">WhatsApp Business</span></div>
-      <div class="fila"><span></span><span class="mano" style="transform:rotate(-2.2deg) translateX(10px)">* <span class="subrayado">Muestra s/cargo<svg class="subr" viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true"><path d="M2 5 C 70 2, 180 1, 298 4 M14 13 C 100 9, 200 9, 286 11" fill="none" stroke="#1d3497" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></span></div>
-      <div class="fila"><span></span><span class="mano" style="transform:rotate(-1.4deg) translateX(10px)">si no te gusta, no se cobra</span></div>
-    </div>
-
-    <figure class="carnet"><img src="carnet.jpg" alt="Ezequiel Besser" width="192" height="262"><i class="grampa" aria-hidden="true"></i></figure>
+  <section class="cuerpo">
+    <p class="intro">Antes de ir, la gente busca tu local en Google, mira la carta y te escribe por WhatsApp. Te dejo todo eso en orden:</p>
+    <ul class="servicios">
+      <li>
+        <h2>Página web con tu carta</h2>
+        <p>Carta con fotos y precios fáciles de cambiar, horarios, cómo llegar y botón de WhatsApp para pedidos y reservas. En tu propio dominio, a tu nombre.</p>
+      </li>
+      <li>
+        <h2>Carta con QR para las mesas</h2>
+        <p>Escanean el código y ven la carta en el celular. Si cambiás un precio, se actualiza en todas las mesas sin reimprimir nada.</p>
+      </li>
+      <li>
+        <h2>Ficha de Google Maps completa</h2>
+        <p>Horarios (también los feriados), fotos, carta y datos correctos. Respondo las reseñas y te dejo una tarjeta con QR para pedir más.</p>
+      </li>
+      <li>
+        <h2>WhatsApp Business configurado</h2>
+        <p>Perfil completo, tus platos en el catálogo, respuestas rápidas para lo que más te preguntan y mensaje automático fuera de horario.</p>
+      </li>
+      <li>
+        <h2>Mantenimiento mensual</h2>
+        <p>Opcional. Cada mes: web y ficha al día, fotos y publicaciones nuevas, reseñas respondidas e informe de los clientes que llegaron por Google.</p>
+      </li>
+    </ul>
+    <p class="tambien">También doy <b>talleres de IA</b> para dueños y encargados de locales.</p>
   </section>
 
   <footer class="pie">
-    <p class="pedidos">Pedidos al <b><a href="https://wa.me/5491165877147">11 6587-7147</a></b></p>
-    <p class="firma">Escribime por WhatsApp. Ezequiel Besser, estudiante de Ingeniería en el ITBA.</p>
+    <p class="muestra">Primero te armo una muestra gratis de tu web.</p>
+    <p class="tel"><span>WhatsApp</span><a href="https://wa.me/5491165877147">11 6587-7147</a></p>
+    <p class="zona">Trabajo en CABA y GBA.</p>
   </footer>
 </main>
 <script>
-  // En pantallas angostas la imagen se achica entera.
+  // En pantallas angostas el flyer se achica entero.
   (function(){
     var h=document.querySelector('.hoja');
     function ajustar(){var w=document.documentElement.clientWidth;h.style.zoom=w<1080?(w/1080):'';}
