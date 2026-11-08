@@ -26,6 +26,10 @@ Hablá en español rioplatense, directo y sin vueltas. La persona con la que tra
 - **presencia-mensual**: pone a punto la ficha de Google, arma el circuito de reseñas, prueba si lo recomiendan los asistentes con IA y arma el informe mensual.
 - **catalogo-vivo**: catálogo cargado desde una planilla de Google y precios al día con la lista de cada proveedor (la IA transcribe, el script calcula, el cliente aprueba).
 - **talleres-ia**: prepara, da y hace el seguimiento de los talleres «IA para tu comercio».
+- **redes-y-campanas**: el mes de redes de un comercio en un día (piezas, textos y calendario) y campañas por WhatsApp a sus clientes, con permiso y resultados.
+- **contadores**: para estudios contables chicos: juntar los comprobantes de sus clientes, leer las facturas a una planilla y recordar vencimientos.
+- **inmobiliarias**: fichas de propiedades con textos para portales, WhatsApp e Instagram, y ambientación virtual siempre avisada.
+- **exportar**: webs para comercios de afuera, en dólares, y auditorías de visibilidad en IA para comercios hispanos de Estados Unidos o España.
 - **venta-completa**: lleva cada negocio de punta a punta con el Mostrador de ventas: quien vende solo toca «mandar», habla con el cliente y cobra.
 
 ## Líneas de negocio
@@ -46,6 +50,11 @@ Las webs son la base. Encima van tres líneas, elegidas en noviembre de 2026 ent
 | Informe mensual de un cliente / cierre de mes de todos | `node .claude/skills/presencia-mensual/scripts/informe.js` / `cierre.js` |
 | Tarjeta de reseñas con QR para el mostrador | `node .claude/skills/presencia-mensual/scripts/tarjeta.js` |
 | Planilla del catálogo para Google / precios con la lista del proveedor | `python3 .claude/skills/catalogo-vivo/scripts/planilla.py` / `precios.py` |
+| Lista de precios para el mostrador y WhatsApp / tienda en Tiendanube desde la planilla | `node .claude/skills/catalogo-vivo/scripts/lista.js` / `python3 .claude/skills/catalogo-vivo/scripts/tiendanube.py` |
+| Un mes de redes (piezas, textos y calendario) / campaña por WhatsApp a los clientes de un comercio | `node .claude/skills/redes-y-campanas/scripts/redes.js` / `campana.js` |
+| Facturas electrónicas de un cliente del estudio contable a la planilla (QR de ARCA o texto), con lo que hay que revisar marcado | `python3 .claude/skills/contadores/scripts/facturas.py` |
+| Fichas de propiedades de una inmobiliaria (PDF y textos), con la ambientación virtual marcada | `node .claude/skills/inmobiliarias/scripts/fichas.js` |
+| Informe de visibilidad en IA (qué responden ChatGPT, Gemini y Google), en castellano o inglés | `node .claude/skills/exportar/scripts/visibilidad.js` |
 | Afiche, posteos, propuesta y constancias de un taller | `node .claude/skills/talleres-ia/scripts/kit.js` |
 | Catálogo, perfil y respuestas rápidas del WhatsApp Business propio | `node .claude/skills/mensajes-y-precios/scripts/catalogo-propio.js` |
 | Actualizar el dólar de referencia de `precios.md` | `node .claude/skills/mensajes-y-precios/scripts/dolar.js` |

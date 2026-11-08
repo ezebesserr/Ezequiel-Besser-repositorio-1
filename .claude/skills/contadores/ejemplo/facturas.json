@@ -1,0 +1,4 @@
+[
+ {"archivo": "factura-c-proveedor-1.pdf", "letra": "C", "cod": "011", "pv": "00003", "nro": "00000187", "fecha": "04/11/2026", "cuit": "20-11111111-2", "razon": "Proveedor Inventado Uno", "receptor": "30-71234567-1", "neto": "", "iva": "", "total": "48.500,00", "cae": "76451234567890", "qr": {"ver":1,"fecha":"2026-11-04","cuit":20111111112,"ptoVta":3,"tipoCmp":11,"nroCmp":187,"importe":48500,"moneda":"PES","ctz":1,"tipoDocRec":80,"nroDocRec":30712345671,"tipoCodAut":"E","codAut":76451234567890}},
+ {"archivo": "factura-a-proveedor-2.pdf", "letra": "A", "cod": "001", "pv": "00012", "nro": "00004521", "fecha": "06/11/2026", "cuit": "30-22222222-7", "razon": "Distribuidora Inventada Dos SRL", "receptor": "30-71234567-1", "neto": "100.000,00", "iva": "21.000,00", "total": "121.000,00", "cae": "76459876543210", "qr": null}
+]

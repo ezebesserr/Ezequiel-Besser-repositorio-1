@@ -1,0 +1,7 @@
+nombre;telefono;segmento;acepta
+María Gómez;11 2345-0001;frecuentes;si
+Carlos Pérez;011 15 2345-0002;frecuentes;si
+Ana Ruiz;+54 9 11 2345-0003;nuevos;si
+Luis Díaz;11 2345-0004;nuevos;no
+Sofía Paz;;frecuentes;si
+María Gómez (repetida);11 2345-0001;frecuentes;si

@@ -72,6 +72,8 @@ async function auditar(b, objetivo, negocio, muestra, salida, P) {
     const links = [...document.querySelectorAll('a[href]')].map(a => a.getAttribute('href') || '');
     const wa = links.filter(h => /wa\.me\/|api\.whatsapp\.com|whatsapp:\/\//i.test(h));
     const waMal = wa.filter(h => { const n = (/(?:wa\.me\/|phone=)(\d+)/.exec(h) || [])[1]; return n && n.startsWith('54') && !n.startsWith('549'); });
+    // Uruguay: el 0 de la característica no va después del 598 (598 099… no existe para WhatsApp).
+    const waCero = wa.filter(h => { const n = (/(?:wa\.me\/|phone=)(\d+)/.exec(h) || [])[1]; return n && n.startsWith('5980'); });
     const escala = 390 / window.innerWidth;
     const tam = [...document.querySelectorAll('p, li, td, span, a, div, font')].filter(e => e.childElementCount === 0 && (e.textContent || '').trim().length > 20)
       .slice(0, 300).map(e => parseFloat(getComputedStyle(e).fontSize) * escala).sort((a, b) => a - b);
@@ -80,7 +82,7 @@ async function auditar(b, objetivo, negocio, muestra, salida, P) {
     const waNum = (wa.map(h => (/(?:wa\.me\/|phone=)(\d+)/.exec(h) || [])[1]).filter(Boolean)[0]) || '';
     const tel = (links.find(h => h.startsWith('tel:')) || '').replace(/^tel:/, '');
     return { titulo: document.title || '', viewport: !!vp, ancho: window.innerWidth, scroll: document.documentElement.scrollWidth, flash, frames, tablas, fonts,
-      anioCopy: anios.length ? Math.max(...anios) : null, wa: wa.length, waMal: waMal.length, waNum, tel, letra: mediana, peso };
+      anioCopy: anios.length ? Math.max(...anios) : null, wa: wa.length, waMal: waMal.length, waCero: waCero.length, waNum, tel, letra: mediana, peso };
   });
   await p.screenshot({ path: path.join(salida, 'celular.png'), clip: { x: 0, y: 0, width: 390, height: 844 } });
   await ctx.close();
@@ -91,6 +93,7 @@ async function auditar(b, objetivo, negocio, muestra, salida, P) {
   if (!d.viewport || d.ancho > 420) add(3, 'No está adaptada al celular', 'En el teléfono se ve la versión de computadora en miniatura y hay que hacer zoom para leer.', 'en el celular se ve en miniatura, porque no está adaptada');
   else if (d.scroll > 400) add(2, 'Se corre de costado en el celular', 'Hay partes más anchas que la pantalla: el cliente tiene que deslizar para los costados.', 'en el celular la página se corre de costado');
   if (d.waMal) add(3, 'El botón de WhatsApp no funciona bien', 'El número está cargado sin el 9 después del 54, y así WhatsApp no encuentra la cuenta.', 'el botón de WhatsApp tiene el número sin el 9, así que WhatsApp no lo encuentra');
+  if (d.waCero) add(3, 'El botón de WhatsApp no funciona bien', 'El número tiene un 0 de más después del código de país (598), y así WhatsApp no encuentra la cuenta.', 'el botón de WhatsApp tiene el número con un 0 de más después del 598, así que WhatsApp no lo encuentra');
   if (esUrl && finalUrl.startsWith('http://')) add(2, 'Sin conexión segura (HTTPS)', 'Chrome la marca como «No seguro» al lado de la dirección, y eso espanta clientes.', 'el navegador la marca como «No seguro» porque no tiene HTTPS');
   if (d.letra && d.letra < 11) add(2, 'Letra muy chica en el celular', `El texto se ve de unos ${Math.round(d.letra)} píxeles: ilegible sin hacer zoom.`, 'en el celular la letra queda tan chica que no se puede leer sin hacer zoom');
   if (!d.wa) add(2, 'No hay botón de WhatsApp', 'Desde el celular no hay forma de escribirles con un toque, que es como hoy consulta la mayoría.', 'no tiene un botón para escribirles por WhatsApp desde el celular');

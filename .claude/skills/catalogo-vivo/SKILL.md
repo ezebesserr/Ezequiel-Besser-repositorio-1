@@ -60,6 +60,40 @@ python3 .claude/skills/catalogo-vivo/scripts/precios.py --base .claude/skills/ca
   --reglas .claude/skills/catalogo-vivo/ejemplo/reglas.json --negocio "Bulonera Tres Hilos" --salida /tmp/prueba
 ```
 
+## 2b. Solo la lista, sin web (idea PRO-03, «Listas de precios sin dolor»)
+
+Para el comercio que no quiere web pero sufre las listas de los proveedores: el mismo paso 2, y en vez de publicar, la lista para el mostrador y para WhatsApp.
+
+```bash
+node .claude/skills/catalogo-vivo/scripts/lista.js <salida-de-precios>/base-nueva.csv --negocio "<negocio>" \
+  --anterior <base-anterior>.csv [--telefono "<su WhatsApp>"] [--color "<color de su marca>"] --salida <carpeta-privada>
+```
+
+- `lista.pdf`: A4 a dos columnas, por rubro, con ▲ en lo que aumentó. Para imprimir y pegar en el mostrador.
+- `lista-celular.pdf`: angosta, para mandar por WhatsApp a sus clientes.
+- `lista.txt`: el texto por rubro, para pegar en un mensaje o en el estado.
+
+Se cobra como Precios al día (o «Solo la lista», si no hay web). El cliente aprueba el informe de cambios **antes** de que su lista nueva salga a la calle.
+
+## 2c. Tienda en Tiendanube (idea EXT-04, «Socio de Tiendanube»)
+
+Para el que quiere cobrar online con carrito, tarjeta y envíos. La tienda vive en Tiendanube; la web institucional puede seguir siendo nuestra.
+
+1. **Una sola vez, nosotros**: registrarse en el programa de socios de Tiendanube y aprobar la certificación de su Partners Academy. Sin la certificación no se pasa a Silver, el nivel desde el que pagan la comisión del 20 % del plan de cada tienda.
+2. **Crear la tienda desde nuestro portal de socios** («Crear tienda»): si el cliente la crea solo, no queda vinculada y no cobramos comisión.
+3. Cargar un producto a mano y crear las categorías que pide el script.
+4. Pasar la planilla del catálogo:
+
+```bash
+python3 .claude/skills/catalogo-vivo/scripts/tiendanube.py <base.csv o base-nueva.csv> --salida <carpeta-privada>/tiendanube.csv [--con-costo] [--marca "<marca>"]
+```
+
+   Agrupa las medidas y materiales de cada producto como variantes, con precios en punto decimal y UTF-8, separado por comas. En Productos → Importar y exportar, subir el archivo y, en la revisión de columnas, confirmar que cada una coincida.
+5. Medios de pago, envíos, dominio y el diseño con la identidad del local (la misma regla de oro que en las webs).
+6. Cuando llega una lista nueva: paso 2 de esta skill y volver a subir `tiendanube.csv` marcando «Modificar productos ya existentes» (sin tocar el «Identificador de URL», o se duplican).
+
+Las condiciones del programa cambian: revisalas en el portal de socios antes de prometer nada.
+
 ## 3. Reglas que no se negocian
 
 - Los precios salen solo de las listas y las reglas del cliente. La IA transcribe; no calcula ni redondea.

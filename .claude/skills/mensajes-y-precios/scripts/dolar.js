@@ -14,8 +14,14 @@ const ARCHIVO = path.resolve(__dirname, '../../../../creador/negocio/precios.md'
   let fecha = opt('fecha');
   if (!valor) {
     try {
-      const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 8000);
-      const j = await (await fetch('https://dolarapi.com/v1/dolares/oficial', { signal: ctl.signal })).json(); clearTimeout(t);
+      let j;
+      try {
+        const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 8000);
+        j = await (await fetch('https://dolarapi.com/v1/dolares/oficial', { signal: ctl.signal })).json(); clearTimeout(t);
+      } catch (e) {
+        // El fetch de Node no usa el proxy de las sesiones en la nube; curl sí.
+        j = JSON.parse(require('child_process').execFileSync('curl', ['-sS', '-m', '10', 'https://dolarapi.com/v1/dolares/oficial']).toString());
+      }
       valor = Number(j.venta);
       fecha = fecha || new Date(j.fechaActualizacion || Date.now()).toLocaleDateString('es-AR', { timeZone: 'America/Argentina/Buenos_Aires' });
     } catch (e) {

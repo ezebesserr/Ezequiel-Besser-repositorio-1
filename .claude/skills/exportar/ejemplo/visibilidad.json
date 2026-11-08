@@ -1,0 +1,35 @@
+{
+  "negocio": "Panadería La Espiga (inventada)",
+  "rubro": "panadería cubana",
+  "ciudad": "Little Havana, Miami",
+  "idioma": "es",
+  "fecha": "noviembre de 2026",
+  "asistentes": ["ChatGPT", "Gemini", "Google con IA"],
+  "preguntas": [
+    { "texto": "best cuban bakery in Little Havana", "resultados": { "ChatGPT": "no", "Gemini": "no", "Google con IA": "no" }, "citados": ["Competidor A", "Competidor B"] },
+    { "texto": "panadería cubana cerca de la Calle 8 abierta temprano", "resultados": { "ChatGPT": "no", "Gemini": "3", "Google con IA": "no" }, "citados": ["Competidor A"] },
+    { "texto": "where to order a birthday cake in Little Havana", "resultados": { "ChatGPT": "no", "Gemini": "no", "Google con IA": "no" }, "citados": ["Competidor C", "Competidor A"] },
+    { "texto": "pastelitos de guayaba para un evento en Miami", "resultados": { "ChatGPT": "no", "Gemini": "no", "Google con IA": "sí" }, "citados": ["Competidor B"] },
+    { "texto": "cuban bakery with delivery in Miami", "resultados": { "ChatGPT": "no", "Gemini": "no", "Google con IA": "no" }, "citados": ["Competidor A", "Competidor C"] }
+  ],
+  "ficha": [
+    { "punto": "Ficha reclamada por el dueño", "estado": "bien" },
+    { "punto": "Horarios cargados", "estado": "mal", "nota": "Sin horario de domingo: los asistentes dicen «horario no disponible»." },
+    { "punto": "Reseñas respondidas", "estado": "revisar", "nota": "Ejemplo de dato a completar con la ficha real." }
+  ],
+  "web": [
+    { "punto": "Se ve bien en el celular", "estado": "mal", "nota": "Ejemplo: la web no está adaptada." },
+    { "punto": "Dice qué venden, dónde y en qué horario, en texto", "estado": "mal" },
+    { "punto": "Datos estructurados (LocalBusiness)", "estado": "mal" }
+  ],
+  "acciones": [
+    "Completar la ficha: horarios de todos los días, productos y fotos propias.",
+    "Una web que diga en texto qué venden, dónde y cuándo, en inglés y en castellano, con datos estructurados.",
+    "Pedir reseñas a los clientes habituales y responderlas todas.",
+    "Una página de pedidos de tortas con la información que los asistentes no encuentran hoy.",
+    "Repetir la prueba en un mes con las mismas preguntas."
+  ],
+  "metodo": "5 preguntas sin el nombre del negocio, en una sesión sin historial, el mismo día. Ejemplo con datos inventados.",
+  "firma": "Ezequiel Besser",
+  "contacto": "WhatsApp +54 9 11 6587-7147"
+}

@@ -76,9 +76,15 @@ function buscar(lista, q, que) {
 
 async function dolarDelDia() {
   try {
-    const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 6000);
-    const r = await fetch('https://dolarapi.com/v1/dolares/oficial', { signal: ctl.signal }); clearTimeout(t);
-    const j = await r.json();
+    let j;
+    try {
+      const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 6000);
+      const r = await fetch('https://dolarapi.com/v1/dolares/oficial', { signal: ctl.signal }); clearTimeout(t);
+      j = await r.json();
+    } catch (e) {
+      // El fetch de Node no usa el proxy de las sesiones en la nube; curl sí.
+      j = JSON.parse(require('child_process').execFileSync('curl', ['-sS', '-m', '8', 'https://dolarapi.com/v1/dolares/oficial'], { stdio: ['ignore', 'pipe', 'ignore'] }).toString());
+    }
     if (j && j.venta) return { valor: Number(j.venta), fuente: 'dólar oficial, venta, ' + new Date(j.fechaActualizacion || Date.now()).toLocaleDateString('es-AR') };
   } catch (e) { /* sin red: se usa la referencia */ }
   return null;

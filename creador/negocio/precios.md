@@ -28,8 +28,11 @@ Los precios se piensan en dólares y al cliente se le pasan en pesos, al dólar 
 |---|---|---|
 | Precios al día | Hasta 3 proveedores y 1.500 productos. Hasta dos actualizaciones por mes, cada una con su informe de cambios para aprobar. Por mes. | 45 |
 | Precios al día, grande | Hasta 8 proveedores y 5.000 productos. Una actualización por cada lista que llegue. Por mes. | 80 |
+| Solo la lista | Para quien no tiene web: hasta 3 proveedores, la lista nueva en PDF para el mostrador, para WhatsApp y en texto, con lo que subió marcado. Por mes. | 35 |
+| Tienda en Tiendanube | Tienda armada con la identidad del local, hasta 100 productos cargados desde la planilla, medios de pago, envíos y dominio. Pago único (el plan de Tiendanube lo paga el cliente). | 250 |
 
 - La carga inicial de hasta 500 productos va incluida en el paquete Catálogo; cada 500 más, USD 20.
+- Tienda en Tiendanube: la creamos desde nuestro portal de socios; Tiendanube nos paga además una comisión mensual sobre el plan del cliente (20 % desde el nivel Silver, con la certificación aprobada).
 
 ## Talleres de IA (skill `talleres-ia`)
 
@@ -41,6 +44,53 @@ Los precios se piensan en dólares y al cliente se le pasan en pesos, al dólar 
 
 - Quienes hicieron el taller pagan USD 25 la configuración de WhatsApp y tienen un 15 % menos en la puesta a punto de Google, durante 15 días.
 - Primer taller abierto a USD 15 por persona, para juntar opiniones.
+
+## Redes y campañas (skill `redes-y-campanas`)
+
+| Servicio | Qué incluye | USD |
+|---|---|---|
+| Redes del mes | 12 publicaciones y 8 historias con la identidad del local y sus fotos, textos, calendario para aprobar y todo programado en Meta Business Suite. Por mes. | 120 |
+| Campaña a sus clientes | Base ordenada con permiso, mensajes por segmento, página de envío con un toque por cliente e informe de resultados. Por campaña. | 60 |
+| Campaña de fiestas | Dos envíos en diciembre (antes de Navidad y antes de Reyes) con su informe. Pago único. | 100 |
+
+- Con web o Presencia nuestra, Redes del mes cuesta USD 100.
+- Un community manager freelance cobra de USD 325 a 750 por mes (iProfesional, 2025): Redes del mes va por debajo porque se arma en un día y con la identidad que ya hicimos.
+
+## Contadores (skill `contadores`)
+
+| Servicio | Qué incluye | USD |
+|---|---|---|
+| Puesta en marcha | Canal de recepción para sus clientes (WhatsApp, mail o carpetas), respuestas rápidas y la planilla modelo. Pago único. | 90 |
+| Papeles en orden | Lectura de hasta 300 comprobantes por mes a la planilla, con lo que hay que revisar marcado, copias renombradas por mes y recordatorios de vencimientos a sus clientes. Por mes. | 60 |
+
+- Cada 100 comprobantes más por mes, USD 15.
+
+## Inmobiliarias (skill `inmobiliarias`)
+
+| Servicio | Qué incluye | USD |
+|---|---|---|
+| Ficha de propiedad | Ficha en PDF y textos para el portal, WhatsApp e Instagram, con sus fotos. Por propiedad. | 10 |
+| Ambientación virtual | Un ambiente vacío amueblado con IA, con la leyenda «Ambientación virtual» y la foto original. Por foto. | 8 |
+| Fichas al día | Hasta 15 propiedades nuevas o cambiadas por mes, con sus fichas y textos, y 10 fotos ambientadas. Por mes. | 90 |
+
+- El catálogo de propiedades en su web es el paquete Catálogo (USD 650), con Precios al día como abono.
+- Las apps de ambientación virtual cobran de USD 0,4 a 1 por foto en planes por volumen; las agencias, de 30 a 80 € (guías de GenRoom e Imagen AI, 2026).
+
+## Exportar el taller (skill `exportar`)
+
+Para clientes de Uruguay, España, México o Estados Unidos, en dólares (en euros, el mismo número). A validar con las primeras ventas.
+
+| Servicio | Qué incluye | USD |
+|---|---|---|
+| Esencial (afuera) | Lo mismo que Esencial, a distancia, en el castellano del cliente. | 290 |
+| Completa (afuera) | Lo mismo que Completa, a distancia. | 550 |
+| Catálogo (afuera) | Lo mismo que Catálogo, a distancia. | 950 |
+| Mantenimiento (afuera) | Hosting, HTTPS, copias y hasta una hora de cambios. Por mes. | 30 |
+| Auditoría de visibilidad en IA | Prueba en ChatGPT, Gemini y Google con IA, revisión de ficha y web, e informe con cinco acciones. Pago único. | 150 |
+| Control de visibilidad en IA | La prueba de cada mes con las mismas preguntas y una mejora por mes. Por mes. | 60 |
+
+- Afuera, una auditoría así se cobra de USD 500 a 2.000 (datos de agencias que venden el servicio; ver «Segunda ronda» en el Fichero).
+- Antes del primer cobro: cómo cobrar desde afuera y la factura de exportación, con un contador.
 
 ## Condiciones
 
@@ -56,6 +106,6 @@ Los precios se piensan en dólares y al cliente se le pasan en pesos, al dólar 
 
 - Hay webs de plantilla desde unos USD 100: Neolo ofrece una de una página por USD 99 y hay avisos en Servidos desde $150.000.
 - Un freelancer junior cobra de USD 300 a 800 por una web institucional (guía de precios 2026 de Neolo).
-- Dólar oficial de referencia: $1.560 (venta en el Banco Nación, 30/10/2026). Actualizalo con `node .claude/skills/mensajes-y-precios/scripts/dolar.js` (o `--valor <cotización>` si no hay red).
+- Dólar oficial de referencia: $1.570 (venta en el Banco Nación, 5/11/2026). Actualizalo con `node .claude/skills/mensajes-y-precios/scripts/dolar.js` (o `--valor <cotización>` si no hay red).
 - Chatbots de WhatsApp con IA: las plataformas cobran desde unos USD 30 por mes los planes básicos y de USD 130 a 200 los que tienen IA, más los mensajes de Meta (guías de precios de Aurora Inbox y Duotach, 2026). Por eso Presencia y Precios al día van por debajo de un chatbot.
 - Poner a punto una ficha de Google cuesta de USD 100 a 200 en Fiverr, por única vez (búsqueda de noviembre de 2026). No encontramos tarifas de abonos ni de talleres en Argentina: los de arriba salen de nuestra escala y se ajustan con los primeros clientes.
