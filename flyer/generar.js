@@ -34,6 +34,7 @@ const W = 1080, H = 1440;
   const og = await b.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1200 / W });
   await og.goto(HTML, { waitUntil: 'networkidle' });
   await og.evaluate(() => document.fonts.ready);
+  await og.addStyleTag({ content: '.servicios li:nth-child(n+2),.tambien{visibility:hidden}' }); // que termine limpio después del primer trabajo
   await og.screenshot({ path: path.join(DIR, 'og.jpg'), type: 'jpeg', quality: 85, clip: { x: 0, y: 0, width: W, height: 567 } });
 
   await b.close();
