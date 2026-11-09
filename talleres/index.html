@@ -110,7 +110,6 @@
 </style>
 </head>
 <body>
-<div class="borrador" role="note">Borrador para revisar: la fecha, el lugar, el valor y el WhatsApp de inscripción están marcados en amarillo hasta confirmarlos.</div>
 
 <header class="w cab">
   <p><b>Talleres de IA para comercios</b><br><span>Ezequiel Besser · zona norte</span></p>
@@ -125,13 +124,13 @@
           <h1 id="t-portada">IA para tu comercio, <em>en una tarde</em></h1>
           <p class="bajada">Tres horas con tu propio celular. Te vas con el WhatsApp del negocio contestando mejor, las reseñas respondidas y las publicaciones del mes listas.</p>
           <ul class="datos">
-            <li><b>Cuándo</b><span><span class="pendiente">fecha y horario a confirmar</span></span></li>
-            <li><b>Dónde</b><span><span class="pendiente">lugar a confirmar</span>, zona norte</span></li>
+            <li><b>Cuándo</b><span>Fecha a confirmar: anotate y te avisamos</span></li>
+            <li><b>Dónde</b><span>Zona norte, en un salón con wifi (te avisamos la dirección)</span></li>
             <li><b>Cupo</b><span>15 personas, para que haya tiempo de ayudar a cada uno</span></li>
-            <li><b>Valor</b><span><span class="pendiente">a confirmar</span> · incluye la guía impresa</span></li>
+            <li><b>Valor</b><span>USD 15 por persona en el primer taller, en pesos al dólar oficial · incluye la guía impresa</span></li>
           </ul>
           <div class="cta">
-            <a class="btn btn-wa demo" href="#preguntas"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>Quiero anotarme</a>
+            <a class="btn btn-wa" href="https://wa.me/5491165877147?text=Hola%2C%20quiero%20anotarme%20al%20taller%20%C2%ABIA%20para%20tu%20comercio%C2%BB.%20%C2%BFMe%20avis%C3%A1s%20la%20fecha%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>Quiero anotarme</a>
             <a class="btn btn-tiza" href="guia/">Ver la guía del taller</a>
           </div>
         </div>
@@ -213,23 +212,11 @@
 <footer>
   <div class="w">
     <p><b>Talleres de IA para comercios</b> · Ezequiel Besser</p>
-    <p>Inscripción por WhatsApp: <span class="pendiente">número a completar</span></p>
+    <p>Inscripción por WhatsApp: <a href="https://wa.me/5491165877147?text=Hola%2C%20quiero%20anotarme%20al%20taller%20%C2%ABIA%20para%20tu%20comercio%C2%BB.%20%C2%BFMe%20avis%C3%A1s%20la%20fecha%3F">11 6587-7147</a></p>
   </div>
 </footer>
 
-<div class="barra"><a class="btn btn-wa demo" href="#preguntas">Quiero anotarme</a></div>
-<div class="aviso" id="aviso" role="status" hidden>Falta el WhatsApp de inscripción: completalo en creador/negocio/perfil.md y lo conectamos.</div>
+<div class="barra"><a class="btn btn-wa" href="https://wa.me/5491165877147?text=Hola%2C%20quiero%20anotarme%20al%20taller%20%C2%ABIA%20para%20tu%20comercio%C2%BB.%20%C2%BFMe%20avis%C3%A1s%20la%20fecha%3F" target="_blank" rel="noopener">Quiero anotarme</a></div>
 
-<script>
-(function(){
-  var aviso = document.getElementById('aviso'), t;
-  document.querySelectorAll('.demo').forEach(function(b){
-    b.addEventListener('click', function(ev){
-      ev.preventDefault(); aviso.hidden = false; clearTimeout(t);
-      t = setTimeout(function(){ aviso.hidden = true; }, 4200);
-    });
-  });
-})();
-</script>
 </body>
 </html>
