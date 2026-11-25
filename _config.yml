@@ -3,3 +3,4 @@ exclude:
   - CLAUDE.md
   - README.md
   - creador
+  - clientes/maico/servidor

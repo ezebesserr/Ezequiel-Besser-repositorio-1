@@ -1,0 +1,35 @@
+# Servidor del catálogo de MAICO: la API que lee la web y el panel del dueño (/panel).
+# Probar en la compu:  npx wrangler dev           (usa una base y fotos locales)
+# Publicar:            ver README.md
+name = "maico-catalogo"
+main = "src/index.js"
+compatibility_date = "2026-11-24"
+workers_dev = true
+
+[vars]
+# Dirección de la web pública, sin barra final. Las fotos que vienen con la web (img/...) se arman con esta base,
+# y es el único origen además del propio servidor desde el que se aceptan pedidos con datos del panel.
+SITIO_URL = "https://ezebesserr.github.io/Ezequiel-Besser-repositorio-1/clientes/maico"
+
+# La clave del panel NO va acá: es un secreto.
+#   npx wrangler secret put ADMIN_PASSWORD     (mínimo 12 caracteres)
+# Para probar en la compu, ponela en .dev.vars (ese archivo no se sube al repo).
+
+[[d1_databases]]
+binding = "DB"
+database_name = "maico-catalogo"
+# Id de la base en la cuenta de Cloudflare (lo devolvió `npx wrangler d1 create maico-catalogo`).
+database_id = "9e413e88-429e-41c6-a5a1-d4d37b966c4b"
+migrations_dir = "migrations"
+
+# Las fotos van en la misma base D1 (tabla fotos): R2 pide tarjeta para activarse.
+
+[[rules]]
+type = "Text"
+globs = ["**/*.html"]
+fallthrough = true
+
+[observability]
+enabled = true
+[observability.traces]
+enabled = true
