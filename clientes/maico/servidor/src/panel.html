@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel · MAICO</title>
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Cpath d='M14 46V18h4l14 17 14-17h4v28h-5V27L32 43 19 27v19z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@400&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  --negro: #000; --pared: #f6f6f4; --piso: #e6e1d9; --tinta: #1a1a1a; --gris: #5e5a55;
+  --oliva: #4f5536; --rojo: #9b2f1e; --blanco: #fff; --linea: rgba(26, 26, 26, .16);
+  --marca: "Lexend Exa", "Century Gothic", sans-serif;
+  --texto: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--pared); color: var(--tinta); font: 1rem/1.5 var(--texto); }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--tinta); outline-offset: 2px; }
+[hidden] { display: none !important; }
+.oculto-lector { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.boton {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 46px; padding: 10px 18px; border: 1.5px solid var(--negro); border-radius: 2px;
+  background: var(--negro); color: var(--blanco); font-weight: 600; cursor: pointer; text-decoration: none;
+}
+.boton--hueco { background: transparent; color: var(--negro); }
+.boton--peligro { background: transparent; color: var(--rojo); border-color: var(--rojo); }
+.boton--peligro.confirmar { background: var(--rojo); color: var(--blanco); }
+.boton:disabled { opacity: .5; cursor: default; }
+
+/* Entrada */
+.entrar { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; }
+.entrar form { width: min(100%, 360px); }
+.marca { font-family: var(--marca); letter-spacing: .38em; margin-right: -.38em; font-size: 1.6rem; display: block; text-align: center; }
+.entrar p { text-align: center; color: var(--gris); margin: 6px 0 28px; }
+.campo { display: block; margin-top: 16px; }
+.campo > span { display: block; font-size: .9rem; font-weight: 600; margin-bottom: 6px; }
+.campo small { display: block; color: var(--gris); font-size: .85rem; margin-top: 4px; }
+.campo input[type="text"], .campo input[type="password"], .campo input[type="url"], .campo input[inputmode] {
+  width: 100%; min-height: 48px; padding: 10px 12px; border: 1.5px solid var(--tinta); border-radius: 2px; background: var(--blanco);
+}
+.error { color: var(--rojo); font-weight: 600; min-height: 1.5em; margin: 10px 0 0; }
+.entrar .boton { width: 100%; margin-top: 18px; }
+
+/* Encabezado */
+.cabecera { position: sticky; top: 0; z-index: 10; background: var(--negro); color: var(--blanco); }
+.cabecera__in { max-width: 860px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 12px; }
+.cabecera .marca { font-size: 1rem; text-align: left; }
+.cabecera .marca small { font-family: var(--texto); letter-spacing: 0; margin-left: 10px; color: #bdb8b0; font-size: .85rem; }
+.cabecera nav { margin-left: auto; display: flex; gap: 14px; font-size: .9rem; }
+.cabecera a, .cabecera button { color: var(--blanco); background: none; border: 0; padding: 8px 0; cursor: pointer; text-underline-offset: 4px; }
+.pestanas { max-width: 860px; margin: 0 auto; padding: 0 16px; display: flex; gap: 6px; border-bottom: 1px solid var(--linea); }
+.pestanas button { border: 0; background: none; padding: 14px 6px; margin-right: 14px; cursor: pointer; font-weight: 600; color: var(--gris); border-bottom: 2px solid transparent; }
+.pestanas button[aria-selected="true"] { color: var(--tinta); border-bottom-color: var(--tinta); }
+
+main { max-width: 860px; margin: 0 auto; padding: 16px 16px 120px; }
+.barra-acciones { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+.barra-acciones p { margin: 0; color: var(--gris); font-size: .9rem; }
+
+/* Lista de prendas */
+.prendas { list-style: none; margin: 0; padding: 0; }
+.prenda { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--linea); }
+.prenda img, .prenda .sin-foto { width: 64px; height: 80px; object-fit: cover; background: var(--piso); display: block; }
+.prenda--oculta img { opacity: .4; }
+.prenda h3 { margin: 0; font-size: 1rem; font-weight: 600; line-height: 1.25; }
+.prenda .precio { margin: 2px 0 0; font-variant-numeric: tabular-nums; }
+.prenda .precio.falta { color: var(--rojo); font-weight: 600; font-size: .9rem; }
+.etiquetas { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.etq { font-size: .75rem; font-weight: 600; padding: 1px 6px; background: var(--piso); }
+.etq--mal { background: var(--rojo); color: var(--blanco); }
+.etq--negra { background: var(--negro); color: var(--blanco); }
+.prenda__acciones { display: grid; grid-template-columns: 40px 40px; gap: 4px; }
+.prenda__acciones button { width: 40px; height: 40px; border: 1px solid var(--linea); background: var(--blanco); cursor: pointer; font-size: 1rem; }
+.prenda__acciones .editar { grid-column: span 2; width: auto; font-weight: 600; font-size: .9rem; }
+.vacio { color: var(--gris); padding: 24px 0; }
+
+/* En la compu: más ancho, prendas en dos columnas con foto más grande */
+@media (min-width: 1000px) {
+  .cabecera__in, .pestanas, main { max-width: 1160px; }
+  .prendas { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; }
+  .prenda { grid-template-columns: 84px 1fr auto; }
+  .prenda img, .prenda .sin-foto { width: 84px; height: 105px; }
+  .prenda .vacio { grid-column: span 2; }
+  [data-form-ajustes] { max-width: 520px; }
+  .editor__cuerpo { padding: 4px 28px 28px; }
+  .foto-editor { grid-template-columns: 160px 1fr; }
+  .foto-editor img, .foto-editor .sin-foto { width: 160px; height: 200px; }
+}
+@media (hover: hover) {
+  .prenda__acciones button:hover:not(:disabled), .rapidos button:hover { background: var(--piso); }
+  .boton:hover:not(:disabled) { opacity: .88; }
+}
+
+/* Editor */
+dialog { border: 0; padding: 0; width: 100%; max-width: 100%; height: 100%; max-height: 100%; margin: 0; background: var(--pared); color: var(--tinta); }
+@media (min-width: 720px) { dialog { width: 640px; height: auto; max-height: 92vh; margin: auto; } }
+dialog::backdrop { background: rgba(0, 0, 0, .55); }
+.editor__cabecera { position: sticky; top: 0; z-index: 2; background: var(--pared); display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-bottom: 1px solid var(--linea); }
+.editor__cabecera h2 { margin: 0; font-size: 1.1rem; flex: 1; }
+.editor__cuerpo { padding: 4px 16px 24px; }
+.foto-editor { display: grid; grid-template-columns: 120px 1fr; gap: 14px; align-items: center; margin-top: 16px; }
+.foto-editor img, .foto-editor .sin-foto { width: 120px; height: 150px; object-fit: cover; background: var(--piso); display: block; }
+.foto-editor .sin-foto { display: grid; place-items: center; color: var(--gris); font-size: .85rem; text-align: center; padding: 8px; }
+.foto-editor label.boton { width: 100%; }
+.foto-editor p { margin: 8px 0 0; font-size: .85rem; color: var(--gris); }
+
+.talles { display: flex; flex-wrap: wrap; gap: 8px; }
+.talle { display: inline-flex; align-items: stretch; border: 1.5px solid var(--tinta); }
+.talle button { border: 0; background: var(--blanco); cursor: pointer; min-height: 40px; }
+.talle .t { padding: 6px 12px; font-weight: 600; min-width: 52px; }
+.talle .t small { display: block; font-size: .7rem; font-weight: 600; }
+.talle--sin .t { background: var(--piso); text-decoration: line-through; }
+.talle .x { padding: 0 10px; border-left: 1px solid var(--linea); color: var(--gris); }
+.agregar-talle { display: flex; gap: 8px; margin-top: 10px; }
+.agregar-talle input { width: 110px; min-height: 44px; padding: 8px 10px; border: 1.5px solid var(--tinta); background: var(--blanco); }
+.rapidos { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.rapidos button { border: 1px solid var(--linea); background: var(--blanco); padding: 6px 10px; cursor: pointer; font-size: .85rem; min-height: 36px; }
+
+.interruptor { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--linea); cursor: pointer; }
+.interruptor span small { display: block; color: var(--gris); font-size: .85rem; }
+.interruptor input { appearance: none; width: 48px; height: 28px; border-radius: 14px; background: #c8c3ba; position: relative; flex: none; cursor: pointer; transition: background .15s; }
+.interruptor input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: var(--blanco); transition: left .15s; }
+.interruptor input:checked { background: var(--oliva); }
+.interruptor input:checked::after { left: 23px; }
+.editor__pie { display: flex; gap: 10px; justify-content: space-between; margin-top: 24px; }
+.editor__pie .boton:last-child { flex: 1; }
+
+.toast { position: fixed; left: 50%; bottom: 24px; translate: -50% 10px; z-index: 50; background: var(--negro); color: var(--blanco); padding: 10px 16px; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity .2s, translate .2s; max-width: calc(100% - 32px); }
+.toast.visible { opacity: 1; translate: -50% 0; }
+.toast.mal { background: var(--rojo); }
+@media (prefers-reduced-motion: reduce) { .toast, .interruptor input, .interruptor input::after { transition: none; } }
+</style>
+</head>
+<body>
+
+<section class="entrar" data-vista="entrar" hidden>
+  <form data-form-entrar>
+    <span class="marca">MAICO</span>
+    <p>Panel del catálogo</p>
+    <label class="campo"><span>Clave</span><input type="password" name="clave" autocomplete="current-password" required></label>
+    <p class="error" data-error-entrar role="alert"></p>
+    <button class="boton" type="submit">Entrar</button>
+  </form>
+</section>
+
+<div data-vista="panel" hidden>
+  <header class="cabecera">
+    <div class="cabecera__in">
+      <span class="marca">MAICO<small>Panel</small></span>
+      <nav><a data-ver-web href="#" target="_blank" rel="noopener">Ver la web</a><button type="button" data-salir>Salir</button></nav>
+    </div>
+  </header>
+  <div class="pestanas" role="tablist">
+    <button type="button" role="tab" aria-selected="true" data-tab="prendas">Prendas</button>
+    <button type="button" role="tab" aria-selected="false" data-tab="ajustes">Ajustes</button>
+  </div>
+
+  <main>
+    <section data-panel="prendas">
+      <div class="barra-acciones">
+        <button class="boton" type="button" data-nueva>+ Nueva prenda</button>
+        <p data-resumen></p>
+      </div>
+      <ul class="prendas" data-lista></ul>
+    </section>
+
+    <section data-panel="ajustes" hidden>
+      <form data-form-ajustes>
+        <label class="campo"><span>WhatsApp para recibir los pedidos</span>
+          <input inputmode="numeric" name="whatsapp" placeholder="5491112345678" autocomplete="off">
+          <small>549 + código de área sin 0 + número sin 15. Ej: 11 15-1234-5678 → 5491112345678. Si queda vacío, los pedidos van al chat de Instagram.</small>
+        </label>
+        <label class="campo"><span>Descuento pagando por transferencia (%)</span><input inputmode="numeric" name="descuento_transferencia"></label>
+        <label class="campo"><span>Cuotas sin interés</span><input inputmode="numeric" name="cuotas"></label>
+        <p class="error" data-error-ajustes role="alert"></p>
+        <button class="boton" type="submit">Guardar ajustes</button>
+      </form>
+    </section>
+  </main>
+</div>
+
+<dialog data-editor aria-labelledby="editor-titulo">
+  <form data-form-prenda novalidate>
+    <div class="editor__cabecera">
+      <h2 id="editor-titulo" data-editor-titulo>Nueva prenda</h2>
+      <button class="boton boton--hueco" type="button" data-cerrar>Cancelar</button>
+    </div>
+    <div class="editor__cuerpo">
+      <div class="foto-editor">
+        <div data-foto-vista></div>
+        <div>
+          <label class="boton boton--hueco">Sacar o elegir foto<input class="oculto-lector" type="file" accept="image/*" data-foto-archivo></label>
+          <p data-foto-estado>Se achica sola antes de subirla.</p>
+        </div>
+      </div>
+
+      <label class="campo"><span>Nombre</span><input type="text" name="nombre" maxlength="80" required placeholder="Remera lisa topo"></label>
+      <label class="campo"><span>Categoría</span><input type="text" name="categoria" maxlength="30" list="categorias" required placeholder="Remeras"></label>
+      <datalist id="categorias"></datalist>
+      <label class="campo"><span>Precio</span><input inputmode="numeric" name="precio" placeholder="Vacío = &quot;Consultá precio&quot;">
+        <small>En pesos, sin el descuento. Ej: 24900.</small></label>
+
+      <div class="campo">
+        <span>Talles</span>
+        <small style="margin:0 0 8px">Tocá un talle para marcarlo con o sin stock.</small>
+        <div class="talles" data-talles></div>
+        <div class="agregar-talle">
+          <input type="text" maxlength="8" placeholder="Ej: M o 42" data-talle-nuevo aria-label="Talle nuevo">
+          <button class="boton boton--hueco" type="button" data-talle-agregar>Agregar</button>
+        </div>
+        <div class="rapidos">
+          <button type="button" data-rapido="S,M,L,XL">S M L XL</button>
+          <button type="button" data-rapido="S,M,L,XL,XXL">S a XXL</button>
+          <button type="button" data-rapido="38,40,42,44,46">38 a 46</button>
+          <button type="button" data-rapido="Único">Talle único</button>
+        </div>
+      </div>
+
+      <label class="interruptor"><span>Mostrar en la web<small>Apagado, la prenda queda guardada pero no se ve.</small></span><input type="checkbox" name="visible"></label>
+      <label class="interruptor"><span>Sin stock<small>Se ve en la web, pero no se puede agregar al carrito.</small></span><input type="checkbox" name="agotado"></label>
+      <label class="interruptor"><span>Destacada<small>Sale más grande, primera en el catálogo.</small></span><input type="checkbox" name="destacada"></label>
+
+      <label class="campo"><span>Link a la publicación de Instagram (opcional)</span><input type="url" name="ig" placeholder="https://www.instagram.com/p/..."></label>
+      <label class="campo"><span>Descripción de la foto (opcional)</span><input type="text" name="alt" maxlength="200" placeholder="Para quien no ve la foto"></label>
+
+      <p class="error" data-error-prenda role="alert"></p>
+      <div class="editor__pie">
+        <button class="boton boton--peligro" type="button" data-borrar>Borrar</button>
+        <button class="boton" type="submit" data-guardar>Guardar</button>
+      </div>
+    </div>
+  </form>
+</dialog>
+
+<p class="toast" role="status" aria-live="polite"></p>
+
+<script>
+(() => {
+  "use strict";
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const pesos = new Intl.NumberFormat("es-AR", { maximumFractionDigits: 0 });
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  let datos = { prendas: [], ajustes: {}, sitio: "" };
+  let editando = null; // { id|null, foto, talles: [] }
+
+  async function api(ruta, opciones = {}) {
+    const r = await fetch("/api/admin/" + ruta, {
+      credentials: "same-origin",
+      ...opciones,
+      headers: { "x-panel": "1", ...(opciones.body && !(opciones.body instanceof Blob) ? { "content-type": "application/json" } : {}), ...(opciones.headers || {}) },
+    });
+    let cuerpo = {};
+    try { cuerpo = await r.json(); } catch {}
+    if (r.status === 401 && ruta !== "entrar") { mostrar("entrar"); throw new Error(cuerpo.error || "Entrá de nuevo."); }
+    if (!r.ok) throw new Error(cuerpo.error || "No se pudo guardar. Revisá la conexión.");
+    return cuerpo;
+  }
+
+  let timer;
+  function avisar(t, mal = false) {
+    const el = $(".toast");
+    el.textContent = t;
+    el.classList.toggle("mal", mal);
+    el.classList.add("visible");
+    clearTimeout(timer);
+    timer = setTimeout(() => el.classList.remove("visible"), 2600);
+  }
+
+  function mostrar(vista) {
+    $$("[data-vista]").forEach((v) => (v.hidden = v.dataset.vista !== vista));
+    if (vista === "entrar") setTimeout(() => $("[name=clave]").focus(), 0);
+  }
+
+  /* ---------- Entrar / salir ---------- */
+  $("[data-form-entrar]").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector("button");
+    btn.disabled = true;
+    $("[data-error-entrar]").textContent = "";
+    try {
+      await api("entrar", { method: "POST", body: JSON.stringify({ clave: e.target.clave.value }) });
+      e.target.reset();
+      await cargar();
+      mostrar("panel");
+    } catch (err) {
+      $("[data-error-entrar]").textContent = err.message;
+    } finally { btn.disabled = false; }
+  });
+  $("[data-salir]").addEventListener("click", async () => { await api("salir", { method: "POST" }).catch(() => {}); mostrar("entrar"); });
+
+  /* ---------- Pestañas ---------- */
+  $$("[data-tab]").forEach((b) => b.addEventListener("click", () => {
+    $$("[data-tab]").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
+    $$("[data-panel]").forEach((p) => (p.hidden = p.dataset.panel !== b.dataset.tab));
+  }));
+
+  /* ---------- Lista ---------- */
+  async function cargar() {
+    datos = await api("prendas");
+    $("[data-ver-web]").href = datos.sitio + "/";
+    pintarLista();
+    const f = $("[data-form-ajustes]");
+    f.whatsapp.value = datos.ajustes.whatsapp || "";
+    f.descuento_transferencia.value = datos.ajustes.descuento_transferencia;
+    f.cuotas.value = datos.ajustes.cuotas;
+    $("#categorias").innerHTML = [...new Set(datos.prendas.map((p) => p.categoria))].map((c) => `<option value="${esc(c)}">`).join("");
+  }
+
+  function pintarLista() {
+    const ps = datos.prendas;
+    const sinPrecio = ps.filter((p) => p.visible && p.precio == null).length;
+    $("[data-resumen]").textContent = `${ps.length} prendas, ${ps.filter((p) => p.visible).length} en la web` + (sinPrecio ? `. ${sinPrecio} sin precio.` : ".");
+    $("[data-lista]").innerHTML = ps.length ? ps.map((p, i) => {
+      const sinTalle = p.talles.filter((t) => !t.stock).map((t) => t.t);
+      return `<li class="prenda${p.visible ? "" : " prenda--oculta"}" data-id="${esc(p.id)}">
+        ${p.fotoUrl ? `<img src="${esc(p.fotoUrl)}" alt="" loading="lazy">` : `<span class="sin-foto"></span>`}
+        <div>
+          <h3>${esc(p.nombre)}</h3>
+          <p class="precio${p.precio == null ? " falta" : ""}">${p.precio == null ? "Sin precio" : "$ " + pesos.format(p.precio)}</p>
+          <div class="etiquetas">
+            <span class="etq">${esc(p.categoria)}</span>
+            ${p.visible ? "" : `<span class="etq etq--negra">Oculta</span>`}
+            ${p.agotado ? `<span class="etq etq--mal">Sin stock</span>` : ""}
+            ${!p.agotado && sinTalle.length ? `<span class="etq etq--mal">Sin ${esc(sinTalle.join(", "))}</span>` : ""}
+            ${p.talles.length ? "" : `<span class="etq">Sin talles</span>`}
+            ${p.destacada ? `<span class="etq">Destacada</span>` : ""}
+          </div>
+        </div>
+        <div class="prenda__acciones">
+          <button type="button" data-subir ${i === 0 ? "disabled" : ""} aria-label="Subir ${esc(p.nombre)}">↑</button>
+          <button type="button" data-bajar ${i === ps.length - 1 ? "disabled" : ""} aria-label="Bajar ${esc(p.nombre)}">↓</button>
+          <button type="button" class="editar" data-editar>Editar</button>
+        </div>
+      </li>`;
+    }).join("") : `<li class="vacio">Todavía no hay prendas. Tocá «Nueva prenda».</li>`;
+  }
+
+  $("[data-lista]").addEventListener("click", async (e) => {
+    const li = e.target.closest("[data-id]");
+    if (!li) return;
+    const i = datos.prendas.findIndex((p) => p.id === li.dataset.id);
+    if (e.target.closest("[data-editar]")) return abrirEditor(datos.prendas[i]);
+    const d = e.target.closest("[data-subir]") ? -1 : e.target.closest("[data-bajar]") ? 1 : 0;
+    if (!d) return;
+    const ps = datos.prendas;
+    [ps[i], ps[i + d]] = [ps[i + d], ps[i]];
+    pintarLista();
+    try { await api("orden", { method: "POST", body: JSON.stringify({ ids: ps.map((p) => p.id) }) }); }
+    catch (err) { avisar(err.message, true); await cargar(); }
+  });
+
+  /* ---------- Editor ---------- */
+  const dlg = $("[data-editor]");
+  const form = $("[data-form-prenda]");
+  $("[data-nueva]").addEventListener("click", () => abrirEditor(null));
+  $("[data-cerrar]").addEventListener("click", () => dlg.close());
+
+  function abrirEditor(p) {
+    editando = { id: p ? p.id : null, foto: p ? p.foto : "", fotoUrl: p ? p.fotoUrl : "", talles: p ? p.talles.map((t) => ({ ...t })) : [] };
+    $("[data-editor-titulo]").textContent = p ? "Editar prenda" : "Nueva prenda";
+    form.nombre.value = p ? p.nombre : "";
+    form.categoria.value = p ? p.categoria : "";
+    form.precio.value = p && p.precio != null ? pesos.format(p.precio) : "";
+    form.visible.checked = p ? p.visible : true;
+    form.agotado.checked = p ? p.agotado : false;
+    form.destacada.checked = p ? p.destacada : false;
+    form.ig.value = p ? p.ig : "";
+    form.alt.value = p && p.alt !== p.nombre ? p.alt : "";
+    $("[data-borrar]").hidden = !p;
+    $("[data-borrar]").classList.remove("confirmar");
+    $("[data-borrar]").textContent = "Borrar";
+    $("[data-error-prenda]").textContent = "";
+    $("[data-foto-estado]").textContent = "Se achica sola antes de subirla.";
+    pintarFoto();
+    pintarTalles();
+    dlg.showModal();
+    if (!p) form.nombre.focus();
+  }
+
+  function pintarFoto() {
+    $("[data-foto-vista]").innerHTML = editando.fotoUrl
+      ? `<img src="${esc(editando.fotoUrl)}" alt="Foto actual">`
+      : `<span class="sin-foto">Sin foto</span>`;
+  }
+
+  function pintarTalles() {
+    $("[data-talles]").innerHTML = editando.talles.length ? editando.talles.map((t, i) => `
+      <span class="talle${t.stock ? "" : " talle--sin"}">
+        <button type="button" class="t" data-alternar="${i}" aria-pressed="${t.stock}" aria-label="Talle ${esc(t.t)}: ${t.stock ? "con stock" : "sin stock"}. Tocá para cambiar">${esc(t.t)}<small>${t.stock ? "hay" : "no hay"}</small></button>
+        <button type="button" class="x" data-quitar-talle="${i}" aria-label="Quitar talle ${esc(t.t)}">×</button>
+      </span>`).join("") : `<small>Sin talles: en la web el cliente escribe el talle que busca.</small>`;
+  }
+
+  function agregarTalles(lista) {
+    for (const t of lista) {
+      const v = t.trim().slice(0, 8);
+      if (v && !editando.talles.some((x) => x.t.toUpperCase() === v.toUpperCase())) editando.talles.push({ t: v, stock: true });
+    }
+    pintarTalles();
+  }
+  $("[data-talles]").addEventListener("click", (e) => {
+    const a = e.target.closest("[data-alternar]");
+    const q = e.target.closest("[data-quitar-talle]");
+    if (a) { const t = editando.talles[+a.dataset.alternar]; t.stock = !t.stock; }
+    if (q) editando.talles.splice(+q.dataset.quitarTalle, 1);
+    if (a || q) pintarTalles();
+  });
+  $("[data-talle-agregar]").addEventListener("click", () => { agregarTalles([$("[data-talle-nuevo]").value]); $("[data-talle-nuevo]").value = ""; });
+  $("[data-talle-nuevo]").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); $("[data-talle-agregar]").click(); } });
+  $$("[data-rapido]").forEach((b) => b.addEventListener("click", () => agregarTalles(b.dataset.rapido.split(","))));
+
+  // Foto: se achica en el celular (lado mayor 1400 px, JPEG) y se sube
+  $("[data-foto-archivo]").addEventListener("change", async (e) => {
+    const archivo = e.target.files[0];
+    e.target.value = "";
+    if (!archivo) return;
+    const estado = $("[data-foto-estado]");
+    const guardar = $("[data-guardar]");
+    guardar.disabled = true;
+    estado.textContent = "Subiendo foto…";
+    try {
+      const blob = await achicar(archivo, 1400, 0.82);
+      const r = await api("fotos", { method: "POST", body: blob, headers: { "content-type": "image/jpeg" } });
+      editando.foto = r.foto;
+      editando.fotoUrl = r.url;
+      pintarFoto();
+      estado.textContent = "Foto lista. Tocá Guardar.";
+    } catch (err) {
+      estado.textContent = err.message;
+    } finally { guardar.disabled = false; }
+  });
+
+  async function achicar(archivo, lado, calidad) {
+    const bmp = await createImageBitmap(archivo, { imageOrientation: "from-image" });
+    const k = Math.min(1, lado / Math.max(bmp.width, bmp.height));
+    const c = document.createElement("canvas");
+    c.width = Math.round(bmp.width * k);
+    c.height = Math.round(bmp.height * k);
+    c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+    const blob = await new Promise((r) => c.toBlob(r, "image/jpeg", calidad));
+    if (!blob) throw new Error("No se pudo leer la foto. Probá con otra.");
+    return blob;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const precio = form.precio.value.replace(/\D/g, "");
+    const cuerpo = {
+      nombre: form.nombre.value, categoria: form.categoria.value,
+      precio: precio === "" ? null : Number(precio),
+      foto: editando.foto, alt: form.alt.value, ig: form.ig.value.trim(),
+      talles: editando.talles, visible: form.visible.checked, agotado: form.agotado.checked, destacada: form.destacada.checked,
+    };
+    const btn = $("[data-guardar]");
+    btn.disabled = true;
+    $("[data-error-prenda]").textContent = "";
+    try {
+      if (editando.id) await api("prendas/" + encodeURIComponent(editando.id), { method: "PUT", body: JSON.stringify(cuerpo) });
+      else await api("prendas", { method: "POST", body: JSON.stringify(cuerpo) });
+      dlg.close();
+      await cargar();
+      avisar("Guardado. La web se actualiza en menos de un minuto.");
+    } catch (err) {
+      $("[data-error-prenda]").textContent = err.message;
+    } finally { btn.disabled = false; }
+  });
+
+  $("[data-borrar]").addEventListener("click", async (e) => {
+    const b = e.currentTarget;
+    if (!b.classList.contains("confirmar")) { b.classList.add("confirmar"); b.textContent = "¿Seguro? Tocá de nuevo"; return; }
+    b.disabled = true;
+    try {
+      await api("prendas/" + encodeURIComponent(editando.id), { method: "DELETE" });
+      dlg.close();
+      await cargar();
+      avisar("Prenda borrada");
+    } catch (err) { $("[data-error-prenda]").textContent = err.message; }
+    finally { b.disabled = false; }
+  });
+
+  /* ---------- Ajustes ---------- */
+  $("[data-form-ajustes]").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const f = e.target;
+    $("[data-error-ajustes]").textContent = "";
+    try {
+      const r = await api("ajustes", { method: "PUT", body: JSON.stringify({
+        whatsapp: f.whatsapp.value, descuento_transferencia: Number(f.descuento_transferencia.value), cuotas: Number(f.cuotas.value),
+      }) });
+      datos.ajustes = r.ajustes;
+      f.whatsapp.value = r.ajustes.whatsapp;
+      avisar("Ajustes guardados");
+    } catch (err) { $("[data-error-ajustes]").textContent = err.message; }
+  });
+
+  /* ---------- Inicio ---------- */
+  (async () => {
+    try {
+      const { sesion } = await api("sesion");
+      if (!sesion) return mostrar("entrar");
+      await cargar();
+      mostrar("panel");
+    } catch (err) {
+      mostrar("entrar");
+      $("[data-error-entrar]").textContent = err.message;
+    }
+  })();
+})();
+</script>
+</body>
+</html>
